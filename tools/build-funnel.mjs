@@ -755,7 +755,7 @@ a made-up example is enough for us to understand the question.</p>
 <h2>After a one-way transfer: did it arrive?</h2>
 <p>SP 1334 asks for logs. On a one-way route the sending side cannot be told that a file arrived, so two logs exist and somebody has to compare them. Kionel's records are signed on both sides, and the <a href="/verify.html#link">verifier</a> compares them: every file the sender signed, with the receiver's verified receipt or without one.</p>
 <p>Related: <a href="/iec-62443-file-transfer.html">IEC 62443 and file transfer</a>, <a href="/ot-air-gapped-file-transfer.html">file transfer for OT</a>, and <a href="/limits.html">what Kionel does not protect against</a>.</p>
-<div class="actions"><a class="button" href="/transfer.html">Try it free</a><a class="button secondary" href="/pilot.html">Open source and commercial licence</a></div>` },
+<div class="actions"><a class="button" href="/transfer.html">Try it free</a><a class="button secondary" href="/pilot.html">Integration and validation services</a></div>` },
   { slug: "iec-62443-file-transfer", lang: "en", guide: true, title: "IEC 62443 and moving files across the air gap", description: "Which IEC 62443-3-3 system requirements a file transfer into or out of an isolated OT zone touches — portable media, integrity, audit, confidentiality — and what evidence answers them.", body: `
 <p class="eyebrow">GUIDE · UPDATED 2026</p><h1>IEC 62443 and the file that crosses the air gap</h1>
 <p class="lead">An air gap is a conduit with no cable. IEC 62443 still expects it to be controlled: who may move data across, how its integrity is checked, and what is recorded. The weakest point is usually the moment a file changes zones.</p>
@@ -2469,21 +2469,35 @@ ${faqHtml(USB_FAQ.tr)}
 <div class="actions"><a class="button" href="/transfer.html">Start free</a><a class="button secondary" href="/file-transfer-audit-trail.html">Audit trail for transfers</a></div>` },
   { slug: "numune-karsilastirma", title: "Excel numune listesi karşılaştırma: eksik ve tekrar eden kayıtlar", description: "Beklenen ve teslim alınan numune listelerini tarayıcıda karşılaştırın. Eksik, fazla ve yinelenen kimlikleri bulun; veriler sunucuya yüklenmez.", body: `<p class="eyebrow">ÜCRETSİZ ARAÇ</p><h1>İki numune listesinin farkını bulun.</h1>${tool(false)}` },
   { slug: "sample-reconciliation", lang: "en", title: "Sample manifest reconciliation: compare expected and received IDs", description: "Compare sample ID lists locally in your browser. Find missing, unexpected and duplicate IDs without uploading laboratory data.", body: `<p class="eyebrow">FREE TOOL</p><h1>Reconcile expected and received sample IDs.</h1>${tool(true)}` },
-  { slug: "pilot", lang: "en", title: "Kionel is open source", description: "Kionel is free and open source under AGPL-3.0, with an Apache-2.0 verifier. A commercial licence is available for closed-source products that embed it.", body: `
-<p class="eyebrow">OPEN SOURCE</p><h1>Kionel is free and open source.</h1>
-<p class="lead">Every feature is included for personal and organisational use: signed dispatch and delivery records, reports, the local audit chain, the fast recording mode, printed pages, the one-way serial cable, receiver cards and site policies. Nothing to buy, no licence file to load.</p>
-<p><a class="button" href="https://github.com/Apeiron01/kionel">Source code on GitHub</a> <a class="button secondary" href="/transfer.html">Open Kionel</a></p>
+  { slug: "pilot", lang: "en", title: "Kionel services: integration, validation and support", description: "Kionel is free and open source. Lumina Digitale fits it to your instrument workflow, helps you validate it, rolls it out offline and supports it. Fixed-price quotes.", body: `
+<p class="eyebrow">OPEN SOURCE · SERVICES</p><h1>Free to use. We help you put it into service.</h1>
+<p class="lead">Kionel is free and open source: every feature, no licence file, no account. What a laboratory or plant usually needs on top is someone to fit it to a real instrument workflow, document it for an audit and keep it running. That is what we sell.</p>
+<p><a class="button" href="/contact.html">Describe your workflow</a> <a class="button secondary" href="https://github.com/Apeiron01/kionel">Source code on GitHub</a></p>
+<h2>Services</h2>
+<div class="table-scroll"><table><thead><tr><th>Service</th><th>What you get</th></tr></thead><tbody>
+<tr><td><strong>Workflow integration</strong></td><td>We map one instrument or station export (folder, CSV, Excel, PDF) to the right Kionel route: screen and camera, printed pages, USB with signed records, or a one-way serial cable. You get the site policy, receiver cards, a tested setup and a short operator guide.</td></tr>
+<tr><td><strong>Validation support</strong></td><td>We run the <a href="/validation-pack.html">IQ/OQ validation pack</a> with you on your hardware, fill the evidence, and write the risk assessment and the procedure your quality system asks for (ISO/IEC 17025, GLP/GMP, 21 CFR Part 11, ALCOA+). The validation decision stays yours.</td></tr>
+<tr><td><strong>Offline roll-out</strong></td><td>The <a href="/offline-package.html">offline package</a> checked by SHA-256, device enrolment and signing keys (Windows TPM, Android StrongBox), and a tested way to update isolated PCs.</td></tr>
+<tr><td><strong>Continuous serial link</strong></td><td>An unattended one-way folder link over a serial data diode, set up and monitored for a production line or an instrument that exports all day.</td></tr>
+<tr><td><strong>Support agreement</strong></td><td>Email support with agreed response times, help with updates, and a named contact. Annual.</td></tr>
+<tr><td><strong>Commercial licence</strong></td><td>For a closed-source product or hosted service that embeds Kionel and cannot meet the AGPL's obligations.</td></tr>
+</tbody></table></div>
+<h2>How it works</h2>
+<ol><li><strong>Write to us</strong> with the instrument or station, what leaves it, where it must arrive and which rules apply. No real data, please.</li>
+<li><strong>A 30-minute call</strong> to agree the scope.</li>
+<li><strong>A fixed-price quote</strong> for that scope, in writing. Work is remote by default.</li>
+<li><strong>Handover</strong>: the setup, the documents and the test evidence are yours. Everything runs without us.</li></ol>
 <h2>Licences</h2>
 <div class="table-scroll"><table><thead><tr><th>Part</th><th>Licence</th><th>What it means</th></tr></thead><tbody>
 <tr><td>Kionel application, protocol and site</td><td>AGPL-3.0</td><td>Use, study, change and share it. If you distribute a changed version, or run one as a network service, you publish its source under the same licence.</td></tr>
 <tr><td>Record verifiers (<code>@kionel/crypto</code> and the verify tools)</td><td>Apache-2.0</td><td>Permissive, so an auditor can check a record years later without us and without AGPL obligations.</td></tr>
-<tr><td>Commercial licence</td><td>By agreement</td><td>For a closed-source product or service that embeds Kionel and cannot meet the AGPL's obligations. Integration help and support can be part of it.</td></tr>
+<tr><td>Commercial licence</td><td>By agreement</td><td>For a closed-source product or service that embeds Kionel and cannot meet the AGPL's obligations.</td></tr>
 </tbody></table></div>
-<h2>Commercial licence and support</h2>
-<p>Kionel is developed by Taha Bayar at Lumina Digitale. If you want to build Kionel into a product without publishing your source, need help fitting it to an instrument workflow, or want a supported continuous serial link, <a href="/contact.html">write to us</a> with a short description of the workflow. We answer by email.</p>
+<h2>Who you work with</h2>
+<p>Kionel is built by Taha Bayar at Lumina Digitale (Ankara, Türkiye), who also wrote the <a href="/research.html">method preprint</a>. You deal with the person who wrote the code. That is also a continuity risk for an institution, which is why the source is open and the verifier is permanently Apache-2.0: if we disappear, your records stay verifiable and the software stays usable.</p>
 <h2>What stays true</h2>
 <ul><li>File content never reaches our server; the transfer happens between your two devices.</li>
-<li>Records you already have stay verifiable forever with the Apache-2.0 verifier, with or without us.</li>
+<li>Services never require you to send us your data.</li>
 <li>Kionel has not had an independent security audit yet. The <a href="/security.html">security page</a> lists the current status and the <a href="/limits.html">limits page</a> what it does not do.</li></ul>` },
 ];
 /**
@@ -2607,7 +2621,7 @@ ${german.map(item).join("\n")}
 const footerEn = (seller) => `<div class="footer-grid">
 <div><a class="brand" href="/index.html">${mark(26)}<span><b>Kionel</b></span></a>
 <p class="note">Verifiable file handover for isolated laboratory systems.</p></div>
-<div><h2>Product</h2><a href="/how-it-works.html">How it works</a><a href="/transfer.html">Open Kionel</a><a href="/sample-reconciliation.html">Sample reconciliation</a><a href="/excel-damage-check.html">Excel damage check</a><a href="/what-is-in-a-qr-code.html">What is in a QR code</a><a href="/verify.html">Verify a receipt</a><a href="/pilot.html">Open source</a></div>
+<div><h2>Product</h2><a href="/how-it-works.html">How it works</a><a href="/transfer.html">Open Kionel</a><a href="/sample-reconciliation.html">Sample reconciliation</a><a href="/excel-damage-check.html">Excel damage check</a><a href="/what-is-in-a-qr-code.html">What is in a QR code</a><a href="/verify.html">Verify a receipt</a><a href="/pilot.html">Services and open source</a></div>
 <div><h2>Technical</h2><a href="/offline-package.html">Offline package</a><a href="/validation-pack.html">Validation pack (IQ/OQ)</a><a href="/security.html">Security</a><a href="/limits.html">Limits</a><a href="/research.html">Research (preprint)</a><a href="/get-started.html">Getting started</a><a href="/changelog.html">Changelog</a></div><div><h2>Industries</h2><a href="/index.html">Laboratories</a><a href="/ot-air-gapped-file-transfer.html">OT and manufacturing</a><a href="/iec-62443-file-transfer.html">IEC 62443 and file transfer</a></div><div><h2>Guides</h2><a href="/air-gapped-instrument-data-transfer.html">Moving data off an instrument PC</a><a href="/file-transfer-audit-trail.html">Audit trail for transfers</a><a href="/second-person-review-offline.html">Second-person review offline</a><a href="/offline-pc-to-phone-file-transfer.html">Offline PC to phone</a><a href="/data-diode-vs-usb-lab.html">Data diode vs USB</a><a href="/21-cfr-part-11-file-transfer.html">Part 11 and file transfers</a><a href="/alcoa-plus-file-transfer.html">ALCOA+ in transfers</a><a href="/open-source-qr-file-transfer-vs-kionel.html">Free QR tools vs Kionel</a><a href="/sha256-file-checksum.html">Check a SHA-256</a><a href="/qr-code-capacity-file-transfer.html">QR code capacity</a><a href="/transfer-speed-calculator.html">Speed calculator</a><a href="/excel-csv-changes-lab-data.html">Excel and CSV results</a><a href="/instrument-results-to-lims-offline.html">Offline PC to LIMS</a><a href="/screen-recording-qr-codes-not-scanning.html">Recording will not scan</a><a href="/cdn-changed-download-sha256.html">When a host changes a download</a></div>
 <div><h2>Legal</h2><a href="/impressum.html">Impressum</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/.well-known/security.txt">Security disclosure</a><a href="/contact.html">Contact</a></div>
 </div><div class="footer-base"><p>© 2026 Kionel · ${esc(seller)}</p>${luminaLink}</div>`;
@@ -2634,20 +2648,20 @@ for (const p of pages) {
       `<a href="/messdaten-offline-pc-lims.html"${current("messdaten-offline-pc-lims")}>Labor</a>` +
       `<a href="/ot-dateitransfer-ohne-usb.html"${current("ot-dateitransfer-ohne-usb")}>Industrie</a>` +
       `<a href="/excel-csv-fehler-pruefen.html"${current("excel-csv-fehler-pruefen")}>Excel-Prüfung</a>` +
-      '<a href="/pilot.html">Open Source (EN)</a><a href="/contact.html">Kontakt</a>' +
+      '<a href="/pilot.html">Dienstleistungen (EN)</a><a href="/contact.html">Kontakt</a>' +
       '<a class="button" href="/transfer.html">Kostenlos testen</a>'
     : en
     ? `<a href="/how-it-works.html"${current("how-it-works")}>How it works</a>` +
       `<a href="/import-check.html"${current("import-check")}>Import Check</a>` +
       `<a href="/security.html"${current("security")}>Security</a>` +
       `<a href="/limits.html"${current("limits")}>Limits</a>` +
-      `<a href="/pilot.html"${current("pilot")}>Open source</a>` +
+      `<a href="/pilot.html"${current("pilot")}>Services</a>` +
       `<a href="/guides.html"${current("guides")}>Guides</a>` +
       `<a href="/contact.html"${current("contact")}>Contact</a>` +
       '<a class="button" href="/transfer.html">Start free</a>'
     : `<a href="/numune-karsilastirma.html"${current("numune-karsilastirma")}>Numune karşılaştırma</a>` +
       `<a href="/csv-aktarim-kontrolu.html"${current("csv-aktarim-kontrolu")}>CSV aktarım kontrolü</a>` +
-      `<a href="/pilot.html">Açık kaynak</a><a href="/iletisim.html"${current("iletisim")}>İletişim</a>`;
+      `<a href="/pilot.html">Hizmetler</a><a href="/iletisim.html"${current("iletisim")}>İletişim</a>`;
   const html = `<!doctype html><html lang="${lang}"><head><meta charset="UTF-8">` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">` +
     `<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">` +
