@@ -10,7 +10,7 @@
   "dependencies": {
     "@kionel/core": "workspace:*",
     "qrcode": "^1.5.4",
-    "zxing-wasm": "^2.1.0"
+    "zxing-wasm": "^3.1.5"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5"
