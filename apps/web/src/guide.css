@@ -1,0 +1,84 @@
+/**
+ * Rehber sayfaları. Uzun metin okunmak için var, o yüzden burada tek amaç
+ * okunabilirlik: dar ölçü, geniş satır aralığı, sakin başlık hiyerarşisi.
+ * Ürün sayfasının hareketleri devrede kalır ama hiçbiri metnin önüne geçmez.
+ */
+
+.guide { width: min(1240px, calc(100% - clamp(2.5rem, 12vw, 12rem))); margin: 0 auto; }
+.guide article { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+.guide-hero { padding: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem); border-bottom: 1px solid var(--k-line); }
+.guide-hero h1 { margin: 1rem 0 1.4rem; max-width: 20ch; font-size: clamp(2.3rem, 4.6vw, 4.2rem); line-height: 1.06; letter-spacing: -.026em; }
+
+/* Sorunun doğrudan cevabı. Sayfanın en önemli paragrafı olduğu için
+ * tipografiyle de öyle davranılıyor. */
+.guide-answer {
+  max-width: 68ch; margin: 0; padding-left: 1.2rem;
+  border-left: 2px solid var(--k-navy);
+  color: var(--k-ink); font-size: clamp(1.02rem, 1.2vw, 1.16rem); line-height: 1.72;
+}
+
+.guide-toc {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; align-items: baseline;
+  padding: 1.2rem 0; border-bottom: 1px solid var(--k-line-2);
+}
+.guide-toc > span { font-family: var(--k-mono); font-size: .58rem; letter-spacing: .2em; color: var(--k-mono-ink); }
+.guide-toc a { color: var(--k-ink-2); font-size: .82rem; }
+.guide-toc a:hover { color: var(--k-ink); }
+
+.guide-body { max-width: 74ch; padding: clamp(2rem, 4vw, 3.2rem) 0; }
+.guide-body h2 { margin: 2.8rem 0 1rem; font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: -.02em; }
+.guide-body h2:first-child { margin-top: 0; }
+.guide-body p { margin: 0 0 1.1rem; color: var(--k-ink-2); font-size: 1rem; line-height: 1.78; }
+.guide-body strong { color: var(--k-ink); font-weight: 600; }
+
+.guide-list { display: grid; gap: .8rem; margin: 0 0 1.4rem; padding: 0; list-style: none; }
+.guide-list li { position: relative; padding-left: 1.5rem; color: var(--k-ink-2); font-size: .96rem; line-height: 1.7; }
+.guide-list li::before { content: "—"; position: absolute; left: 0; color: var(--k-navy); }
+
+/* Sınır ve uyarı cümleleri. Metnin geri kalanından ayrılıyor çünkü işleri
+ * iddiayı daraltmak; okunmadan geçilirse yanlış anlaşılma üretirler. */
+.guide-note {
+  margin: 0 0 1.6rem; padding: .9rem 1.1rem;
+  border-left: 2px solid var(--k-line-3); background: var(--k-paper-2);
+  color: var(--k-ink-3); font-size: .88rem; line-height: 1.65;
+}
+
+.guide-body table { width: 100%; border-collapse: collapse; margin-bottom: 1.6rem; font-size: .88rem; }
+.guide-body caption { padding-bottom: .6rem; color: var(--k-ink-3); font-size: .8rem; text-align: left; }
+.guide-body th, .guide-body td { padding: .7rem .8rem; border-bottom: 1px solid var(--k-line-2); text-align: left; vertical-align: top; }
+.guide-body th { font-family: var(--k-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--k-ink); background: var(--k-paper-2); }
+.guide-body td { color: var(--k-ink-2); }
+
+.guide-faq, .guide-sources, .guide-related { max-width: 74ch; padding-top: 2.4rem; }
+.guide-faq h2, .guide-sources h2, .guide-related h2 { margin: 0 0 1.2rem; font-size: clamp(1.4rem, 2.2vw, 1.9rem); }
+
+.source-list { display: grid; margin: 0 0 1.2rem; padding: 0; list-style: none; border-top: 1px solid var(--k-line); }
+.source-list li { border-bottom: 1px solid var(--k-line-2); }
+.source-list a { display: flex; justify-content: space-between; gap: 1rem; padding: .9rem .1rem; font-size: .9rem; }
+
+.guide-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: .8rem; }
+.guide-card {
+  display: grid; align-content: start; gap: .5rem; padding: 1.3rem;
+  border: 1px solid var(--k-line); background: var(--k-card); color: var(--k-ink);
+  transition: transform var(--k-hover) var(--k-ease), box-shadow var(--k-hover) var(--k-ease), border-color var(--k-hover) var(--k-ease);
+}
+.guide-card:hover { transform: translate(-2px, -2px); border-color: var(--k-ink); box-shadow: 6px 6px 0 var(--k-line); color: var(--k-ink); }
+.guide-card > span { font-family: var(--k-mono); font-size: .58rem; letter-spacing: .14em; color: var(--k-mono-ink); }
+.guide-card strong { font-family: var(--k-serif); font-size: 1.15rem; font-weight: 400; line-height: 1.25; letter-spacing: -.014em; }
+.guide-card p { margin: 0; color: var(--k-ink-2); font-size: .84rem; line-height: 1.6; }
+.guide-card em { margin-top: auto; color: var(--k-navy); font-style: normal; font-size: .76rem; font-weight: 500; }
+
+/* Tek satış cümlesi, en sonda ve sesi kısık. Rehberi reklama çeviren şey
+ * araya serpiştirilmiş çağrılardır; sayfanın güveni oradan kaybolur. */
+.guide-cta {
+  display: grid; gap: 1rem; justify-items: start; max-width: 74ch;
+  margin: 3rem 0 4rem; padding: 1.6rem;
+  border: 1px solid var(--k-line); background: var(--k-paper-2);
+}
+.guide-cta p { margin: 0; max-width: 62ch; color: var(--k-ink-2); font-size: .92rem; line-height: 1.7; }
+
+@media (max-width: 620px) {
+  .guide { width: calc(100% - 2rem); }
+  .guide-answer { padding-left: .9rem; }
+}

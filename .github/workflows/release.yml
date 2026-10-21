@@ -1,0 +1,56 @@
+name: Kionel signed release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+        with:
+          version: 10.0.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22.12.0
+          cache: pnpm
+      - name: Verify tag matches product version
+        run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm release:check
+      - run: pnpm fuzz -- --seconds=60
+      - run: pnpm sbom -- --out=artifacts/kionel.cdx.json
+      - run: pnpm qualify -- --trials=100 --out=artifacts/qualification.json
+      - run: pnpm release:manifest -- --out=artifacts/release-manifest.json
+      - name: Create deterministic web archive and checksums
+        run: |
+          tar --sort=name --mtime='UTC 1970-01-01' --owner=0 --group=0 --numeric-owner -C apps/web/dist -cf - . | gzip -n > "artifacts/kionel-web-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum artifacts/kionel-web-*.tar.gz artifacts/kionel.cdx.json artifacts/qualification.json artifacts/release-manifest.json > artifacts/SHA256SUMS
+      - name: Attest release provenance
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4
+        with:
+          subject-path: |
+            artifacts/kionel-web-*.tar.gz
+            artifacts/kionel.cdx.json
+            artifacts/qualification.json
+            artifacts/release-manifest.json
+            artifacts/SHA256SUMS
+      - name: Publish immutable GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          artifacts/kionel-web-*.tar.gz artifacts/kionel.cdx.json artifacts/qualification.json
+          artifacts/release-manifest.json artifacts/SHA256SUMS
+          --verify-tag --generate-notes --title "Kionel $GITHUB_REF_NAME"

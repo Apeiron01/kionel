@@ -1,0 +1,13 @@
+{
+  "name": "@kionel/issue",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kionel/crypto": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  },
+  "license": "AGPL-3.0-only"
+}

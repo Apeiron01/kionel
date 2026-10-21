@@ -1,0 +1,48 @@
+/* Hikâye şeridi: vurgu JavaScript'le adım adım ilerler (storyboard.ts). */
+.story {
+  --accent-story: #6de3c2;
+  display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: .5rem;
+  margin: .8rem 0; padding: .7rem; border-radius: 10px; background: rgba(109, 227, 194, .04);
+}
+.story .st {
+  position: relative; display: grid; justify-items: center; gap: .3rem; padding: .5rem .3rem;
+  border: 1px solid rgba(169, 190, 192, .22); border-radius: 8px; text-align: center;
+  color: #8ea5a8; opacity: .55;
+  transition: opacity .35s ease, color .35s ease, border-color .35s ease, background-color .35s ease, transform .35s ease;
+}
+.story .st.on {
+  opacity: 1; color: #f1f7f6; border-color: var(--accent-story); background: rgba(109, 227, 194, .12);
+  transform: translateY(-3px);
+}
+.story .st::after {
+  /* sonraki aşamaya geçen nokta; yalnız yanık kartta */
+  content: ""; position: absolute; top: 50%; right: -.45rem; width: 7px; height: 7px; margin-top: -3.5px;
+  border-radius: 50%; background: var(--accent-story); opacity: 0;
+}
+.story .st.on::after { animation: st-dot 1.6s ease-out infinite; }
+.story .st:last-of-type::after { content: none; }
+@keyframes st-dot { 0%, 45% { opacity: 0; transform: translateX(-10px); } 60% { opacity: 1; } 100% { opacity: 0; transform: translateX(8px); } }
+.story .st svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.story .st svg .f { fill: currentColor; stroke: none; }
+.story .st svg .t { fill: currentColor; stroke: none; font: 600 6px/1 ui-monospace, monospace; text-anchor: middle; }
+.story .st svg .ok { stroke: var(--accent-story); stroke-width: 3; }
+.story .st svg .rec { fill: #ff5a5a; stroke: none; }
+.story .st svg .c1 { fill: #e0413d; stroke: none; } .story .st svg .c2 { fill: #2e8bd6; stroke: none; }
+.story .st svg .c3 { fill: #f2c66d; stroke: none; } .story .st svg .c4 { fill: #3fb96b; stroke: none; }
+.story .st-who { font: 600 .62rem/1 ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+.story .st-title { font-size: .74rem; line-height: 1.25; }
+.story .story-toggle {
+  grid-column: 1 / -1; justify-self: end; width: auto; margin: 0; padding: .2rem .7rem;
+  border: 1px solid rgba(169, 190, 192, .3); border-radius: 999px; background: none; color: #a9bec0;
+  font-size: .75rem; cursor: pointer;
+}
+.story .story-toggle:hover { color: #f1f7f6; border-color: var(--accent-story); }
+@media (max-width: 640px) {
+  .story { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .story .st::after { content: none; }
+}
+/* Hareket azaltma: kayma ve nokta yok; vurgu (renk) yine sırayla ilerler. */
+@media (prefers-reduced-motion: reduce) {
+  .story .st, .story .st.on { transform: none; transition: opacity .2s linear, color .2s linear, border-color .2s linear, background-color .2s linear; }
+  .story .st.on::after { animation: none; }
+}

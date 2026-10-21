@@ -1,0 +1,8 @@
+# Kionel guvenlik acigi bildirim kanali
+# RFC 9116 — https://www.rfc-editor.org/rfc/rfc9116
+
+Contact: mailto:security@kionel.com
+Expires: 2027-04-16T10:36:12.000Z
+Preferred-Languages: tr, en
+Canonical: https://kionel.com/.well-known/security.txt
+Policy: https://kionel.com/policies.html

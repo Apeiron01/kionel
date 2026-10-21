@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #F4F2ED; color: #111318;
+      font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1B3A63; text-decoration: none; } a:hover { color: #0E2440; }
+
+    .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 13.5px; font-weight: 500; padding: 12px 24px; border: 1px solid #111318; cursor: pointer;
+      transition: transform .16s cubic-bezier(.22,.68,.28,1), box-shadow .16s cubic-bezier(.22,.68,.28,1); }
+    .btn::before { content: ""; position: absolute; inset: 0; left: -100%;
+      background: linear-gradient(115deg, transparent, rgba(255,255,255,.18), transparent); transition: left .6s ease; }
+    .btn:hover::before { left: 100%; }
+    .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #111318; }
+    .btn:active { transform: translate(2px,2px); box-shadow: none; }
+    .btn--solid { background: #111318; color: #FBFAF7; }
+    .btn--ghost { background: #FBFAF7; color: #111318; }
+    .btn--ghost:hover { box-shadow: 4px 4px 0 #C9C3B6; }
+    .btn--ghost::before { background: linear-gradient(115deg, transparent, rgba(17,19,24,.06), transparent); }
+    .btn[disabled] { border-color: #D5D0C4; background: #EDEAE3; color: #A19C90; cursor: not-allowed; }
+    .btn[disabled]:hover { transform: none; box-shadow: none; }
+
+    .field { width: 100%; padding: 11px 13px; font: inherit; font-size: 13.5px; color: #111318;
+      background: #FFFFFF; border: 1px solid #D5D0C4; outline: none;
+      transition: border-color .22s cubic-bezier(.22,.68,.28,1), box-shadow .22s cubic-bezier(.22,.68,.28,1); }
+    .field:focus { border-color: #111318; box-shadow: 3px 3px 0 #C9C3B6; }
+
+    .mag { position: relative; display: inline-flex; align-items: center; justify-content: center;
+      font-size: 13.5px; font-weight: 500; padding: 12px 24px; border: 1px solid #111318; cursor: pointer;
+      background: #111318; color: #FBFAF7; will-change: transform;
+      transition: transform .22s cubic-bezier(.22,.68,.28,1), box-shadow .22s cubic-bezier(.22,.68,.28,1); }
+    .magfield { display: flex; align-items: center; justify-content: center; height: 128px;
+      border: 1px dashed #D5D0C4; background: #FBFAF7; }
+    .parfield { position: relative; height: 128px; overflow: hidden; background: #111318; }
+    .parlayer { position: absolute; inset: -12px; display: grid; gap: 4px;
+      grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(6, 1fr);
+      will-change: transform; transition: transform .28s cubic-bezier(.22,.68,.28,1); }
+
+    @keyframes build { 0%, 100% { opacity: .12 } 50% { opacity: 1 } }
+    .mod { background: #111318; animation: build 1.6s cubic-bezier(.4,0,.6,1) infinite both; }
+    @media (prefers-reduced-motion: reduce) {
+      .mod { animation: none; opacity: 1 }
+      .btn:hover, .btn:active { transform: none }
+      .btn::before { display: none }
+      .mag, .parlayer { transition: none !important; transform: none !important }
+    }
+  </style>
+</helmet>
+
+<div style="padding: 64px 56px 56px; background: #F4F2ED;">
+
+  <div style="margin-bottom: 40px;">
+    <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .22em; color: #6E6A5E; margin-bottom: 18px;">COMPONENT SET</div>
+    <h2 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 14px; font-size: 38px; line-height: 1.1; font-weight: 400; letter-spacing: -.016em;">Hard edges, no glow.</h2>
+    <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #43474F; max-width: 72ch;">Square corners, one-pixel rules and a hard offset shadow that collapses when pressed. The tactility comes from geometry, never from colour or blur.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start;">
+
+    <!-- buttons -->
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">ACTIONS</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px;">
+        <span class="btn btn--solid">Request a pilot</span>
+        <span class="btn btn--ghost">Read the protocol</span>
+        <span class="btn btn--ghost" disabled="disabled">Unavailable</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 20px; border-top: 1px solid #EDEAE3; font-size: 12.5px; line-height: 1.55; color: #5B6069;">
+        <div>Rest &rarr; hover lifts 1&thinsp;px and casts a 4&thinsp;px hard shadow.</div>
+        <div>Press sinks 2&thinsp;px and drops the shadow entirely.</div>
+        <div>A single light sweep crosses on hover, 600&thinsp;ms, once.</div>
+      </div>
+    </div>
+
+    <!-- alert -->
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">HALT NOTICE</div>
+      <div style="border: 2px solid #111318; background: #FBFAF7; box-shadow: 6px 6px 0 #111318;">
+        <div style="display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-bottom: 2px solid #111318;">
+          <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: #111318;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 8v5M12 16.5h.01" stroke="#FBFAF7" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M10.3 3.9 2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" stroke="#FBFAF7" stroke-width="1.6" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500; letter-spacing: .1em;">CODES DIFFER</div>
+        </div>
+        <div style="padding: 16px 18px; font-size: 13.5px; line-height: 1.6; border-bottom: 2px solid #111318;">A third key is between the two devices. Nothing has been accepted. Stop and begin a new handshake &mdash; do not retry this one.</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 18px;">
+          <span class="btn btn--solid" style="width: 100%;">Discard and start over</span>
+          <span class="btn btn--ghost" style="width: 100%;">Show the transcript</span>
+        </div>
+      </div>
+      <p style="margin: 18px 0 0; font-size: 12.5px; line-height: 1.55; color: #5B6069;">The heaviest treatment in the system, reserved for a security halt. Nothing else gets a 2&thinsp;px border or a 6&thinsp;px shadow.</p>
+    </div>
+
+    <!-- status + input -->
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">STATUS &amp; INPUT</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px;">
+        <span style="display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid #BFD6C6; background: #F1F7F3;">
+          <span style="width: 5px; height: 5px; background: #2E7D5B;"></span>
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #235F45;">VERIFIED</span>
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid #E0CFA8; background: #FAF5EA;">
+          <span style="width: 5px; height: 5px; background: #C08A2E;"></span>
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #8A6A22;">GATE OPEN</span>
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid #D5D0C4; background: #F4F2ED;">
+          <span style="width: 5px; height: 5px; background: #6E6A5E;"></span>
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #6E6A5E;">NOT RUN</span>
+        </span>
+        <span style="display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid #E3BDB4; background: #FBF1EE;">
+          <span style="width: 5px; height: 5px; background: #B3402E;"></span>
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #8E3324;">REJECTED</span>
+        </span>
+      </div>
+      <label style="display: block; font-size: 12.5px; color: #5B6069; margin-bottom: 7px;">Work order reference</label>
+      <input class="field" type="text" value="LIMS-2026-0042" />
+      <p style="margin: 14px 0 0; font-size: 12.5px; line-height: 1.55; color: #5B6069;">Focus darkens the rule to ink and casts the same hard shadow as a pressed control &mdash; one language for &ldquo;this is active&rdquo;.</p>
+    </div>
+
+    <!-- loader -->
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">WORKING STATE</div>
+      <div style="display: flex; align-items: center; gap: 22px;">
+        <div style="display: grid; grid-template-columns: repeat(5, 9px); grid-template-rows: repeat(5, 9px); gap: 3px; flex-shrink: 0;">
+          <div class="mod" style="animation-delay: 0s"></div><div class="mod" style="animation-delay:.08s"></div><div class="mod" style="animation-delay:.16s"></div><div class="mod" style="animation-delay:.24s"></div><div class="mod" style="animation-delay:.32s"></div>
+          <div class="mod" style="animation-delay:.08s"></div><div class="mod" style="animation-delay:.16s"></div><div class="mod" style="animation-delay:.24s"></div><div class="mod" style="animation-delay:.32s"></div><div class="mod" style="animation-delay:.40s"></div>
+          <div class="mod" style="animation-delay:.16s"></div><div class="mod" style="animation-delay:.24s"></div><div class="mod" style="animation-delay:.32s"></div><div class="mod" style="animation-delay:.40s"></div><div class="mod" style="animation-delay:.48s"></div>
+          <div class="mod" style="animation-delay:.24s"></div><div class="mod" style="animation-delay:.32s"></div><div class="mod" style="animation-delay:.40s"></div><div class="mod" style="animation-delay:.48s"></div><div class="mod" style="animation-delay:.56s"></div>
+          <div class="mod" style="animation-delay:.32s"></div><div class="mod" style="animation-delay:.40s"></div><div class="mod" style="animation-delay:.48s"></div><div class="mod" style="animation-delay:.56s"></div><div class="mod" style="animation-delay:.64s"></div>
+        </div>
+        <div>
+          <div style="font-size: 13.5px; font-weight: 600; margin-bottom: 5px;">Assembling blocks</div>
+          <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #5B6069; font-variant-numeric: tabular-nums;">612 / 812 &middot; 0 corrupt</div>
+        </div>
+      </div>
+      <p style="margin: 20px 0 0; font-size: 12.5px; line-height: 1.55; color: #5B6069;">A diagonal wave across a module grid &mdash; the product&rsquo;s own vocabulary. No spinner: a spinner says &ldquo;wait&rdquo;, this says what is being assembled and how much is left.</p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px;">
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">POINTER &middot; MAGNETIC ACTION</div>
+      <div class="magfield" onMouseMove="{{onMagMove}}" onMouseLeave="{{onMagLeave}}">
+        <span class="mag" style="transform: translate({{magX}}px, {{magY}}px)">Request a pilot</span>
+      </div>
+      <p style="margin: 18px 0 0; font-size: 12.5px; line-height: 1.55; color: #5B6069;">The primary action leans toward the cursor inside its own hit area, up to 10&thinsp;px, and returns when the pointer leaves. It makes the target feel weighted &mdash; and it widens the effective hit area before the click.</p>
+    </div>
+
+    <div style="padding: 28px 28px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 20px;">POINTER &middot; FIELD DEPTH</div>
+      <div class="parfield" onMouseMove="{{onParMove}}" onMouseLeave="{{onParLeave}}">
+        <div class="parlayer" style="transform: translate({{parX}}px, {{parY}}px)">
+          <sc-for list="{{back}}" as="m" hint-placeholder-count="12">
+            <div style="background: #1E2732"></div>
+          </sc-for>
+        </div>
+        <div class="parlayer" style="transform: translate({{parX2}}px, {{parY2}}px)">
+          <sc-for list="{{front}}" as="m" hint-placeholder-count="12">
+            <div style="background: {{m.bg}}"></div>
+          </sc-for>
+        </div>
+      </div>
+      <p style="margin: 18px 0 0; font-size: 12.5px; line-height: 1.55; color: #5B6069;">Two module layers track the pointer at different rates, 8 and 16&thinsp;px. This is the only depth effect in the system and it appears once, in the hero. Parallax anywhere else reads as decoration.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 22px; padding: 18px 22px; border: 1px solid #E3DFD6; background: #FBFAF7;">
+    <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #6E6A5E;">Interaction patterns adapted from Uiverse.io components by 0xnihilism and Nawsome, MIT licensed. The MIT permission notice is retained in <code style="font-family: 'IBM Plex Mono', ui-monospace, monospace;">THIRD-PARTY-NOTICES.md</code>. Geometry, palette and typography are original to Kionel.</p>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mx: 0, my: 0, px: 0, py: 0 };
+  }
+
+  // Pointer offsets are normalised to -0.5..0.5 of the box, so the pull is the
+  // same distance whatever the element's size.
+  track(keys) {
+    return (event) => {
+      const box = event.currentTarget.getBoundingClientRect();
+      if (!box.width || !box.height) return;
+      this.setState({
+        [keys[0]]: (event.clientX - box.left) / box.width - 0.5,
+        [keys[1]]: (event.clientY - box.top) / box.height - 0.5,
+      });
+    };
+  }
+
+  rest(keys) {
+    return () => this.setState({ [keys[0]]: 0, [keys[1]]: 0 });
+  }
+
+  renderVals() {
+    const { mx, my, px, py } = this.state;
+    const grid = (count, on) => Array.from({ length: count }, (unused, index) => ({
+      bg: on && index % 3 !== 1 ? '#2E7D5B' : '#24303C',
+    }));
+    return {
+      onMagMove: this.track(['mx', 'my']),
+      onMagLeave: this.rest(['mx', 'my']),
+      onParMove: this.track(['px', 'py']),
+      onParLeave: this.rest(['px', 'py']),
+      magX: (mx * 20).toFixed(1),
+      magY: (my * 20).toFixed(1),
+      parX: (px * -16).toFixed(1),
+      parY: (py * -16).toFixed(1),
+      parX2: (px * -32).toFixed(1),
+      parY2: (py * -32).toFixed(1),
+      back: grid(72, false),
+      front: grid(72, true),
+    };
+  }
+}
+</script>
+</body>
+</html>

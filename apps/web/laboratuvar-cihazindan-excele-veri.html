@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Manuel veri girişinden üretici entegrasyonuna ve çevrimdışı dosya teslimine: cihaz çıktısını taşırken hangi yöntemin uygun olduğunu değerlendirin." />
+    <meta name="theme-color" content="#FBFAF7" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Kionel" />
+    <meta property="og:title" content="Laboratuvar cihazından Excel ve LIMS'e veri aktarımı seçenekleri" />
+    <meta property="og:description" content="Manuel veri girişinden üretici entegrasyonuna ve çevrimdışı dosya teslimine: cihaz çıktısını taşırken hangi yöntemin uygun olduğunu değerlendirin." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Laboratuvar cihazından Excel ve LIMS'e veri aktarımı seçenekleri</title>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ibm-plex-sans-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/source-serif-4-400-latin.woff2" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/products.css" />
+    <link rel="stylesheet" href="/src/guide.css" />
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Laboratuvar cihazından Excel veya LIMS'e veri nasıl aktarılır?","description":"Manuel veri girişinden üretici entegrasyonuna ve çevrimdışı dosya teslimine: cihaz çıktısını taşırken hangi yöntemin uygun olduğunu değerlendirin.","inLanguage":"tr","dateModified":"2026-09-09","articleSection":["Veri yakalama ile dosya taşıma farklı adımlardır","Seçenekleri mevcut cihazınıza göre daraltın","Alternatifler ve Kionel'in sınırı"],"url":"https://kionel.com/laboratuvar-cihazindan-excele-veri.html","citation":["https://www.mt.com/no/no/home/library/on-demand-webinars/laboratory-weighing/weighing-data-management.html"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Kionel her laboratuvar cihazına bağlanır mı?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Genel cihaz sürücüsü sunulmaz. Mevcut çıktı dosyasını taşıma ve onay adımları değerlendirilebilir."}},{"@type":"Question","name":"Excel'e aktarılan sayı neden değişir?","acceptedAnswer":{"@type":"Answer","text":"Metin/sayı dönüştürmesi, ondalık ayraç veya tarih yorumu gibi nedenler olabilir. Kaynak çıktıyı koruyup alanları açık bir şemayla doğrulamak gerekir."}}]}]</script>
+  </head>
+  <body class="sales-page k-field">
+    <a class="skip-link" href="#main-content">İçeriğe geç</a>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+<header class="site-header" data-site-header>
+      <a class="brand" href="/products.html">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span>
+      </a>
+      <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-menu"><span>Menü</span><i aria-hidden="true"></i></button>
+      <nav id="site-menu" class="site-menu" data-site-menu data-open="false" aria-label="Ana menü">
+        <a href="/products.html#products">Ürünler</a><a href="/products.html#technology">Nasıl çalışır?</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#guides">Rehberler</a><a href="/products.html#deployment">Dağıtım</a><a href="/products.html#pilot-scope">Pilot</a><a href="/phases.html">Kanıt &amp; API</a><a href="/policies.html">Politikalar</a>
+      </nav>
+      <a class="header-cta" href="/transfer.html?product=lab">Uygulamayı aç <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main-content" class="guide">
+      <article>
+        <header class="guide-hero">
+          <span class="section-index">REHBER · 2026-09-09</span>
+          <h1 data-mask>Laboratuvar cihazından Excel veya LIMS'e veri nasıl aktarılır?</h1>
+          <p class="guide-answer" data-reveal>Önce cihazın desteklediği dışa aktarım biçimini ve üreticinin entegrasyonunu kontrol edin. Desteklenen bir LIMS bağlantısı varsa doğrudan veri yakalama genellikle en az elle giriş gerektirir. Çıktı yalnız izole bir bilgisayarda dosya olarak bulunuyorsa izinli taşıma yöntemini ve teslim doğrulamasını ayrı değerlendirin.</p>
+        </header>
+
+        <nav class="guide-toc" aria-label="Bu sayfada">
+          <span>BU SAYFADA</span>
+          <a href="#b1">Veri yakalama ile dosya taşıma farklı adımlardır</a><a href="#b2">Seçenekleri mevcut cihazınıza göre daraltın</a><a href="#b3">Alternatifler ve Kionel'in sınırı</a>
+        </nav>
+
+        <div class="guide-body"><h2 id="b1" data-mask>Veri yakalama ile dosya taşıma farklı adımlardır</h2><p data-reveal>Cihazdan değeri okumak, birimi ve numune kimliğini doğru eşlemek veri yakalamadır. Hazır CSV veya PDF'yi başka bilgisayara götürmek dosya taşımadır. Bir aktarım protokolü hatalı veri girişini veya yanlış birimi kendiliğinden düzeltmez.</p><h2 id="b2" data-mask>Seçenekleri mevcut cihazınıza göre daraltın</h2><div class="table-scroll" data-reveal><table><thead><tr><th>Durum</th><th>İlk incelenecek yol</th><th>Kontrol</th></tr></thead><tbody><tr><td>Desteklenen cihaz ve LIMS</td><td>Üretici entegrasyonu</td><td>Model, sürüm, alan/birim eşlemesi</td></tr><tr><td>CSV dışa aktarımı var</td><td>Doğrulanan içe aktarım şablonu</td><td>Ayraç, ondalık işareti, kimlik ve tarih</td></tr><tr><td>İzole bilgisayarda dosya</td><td>Kurumun izin verdiği ortam veya optik aktarım</td><td>Dosya boyutu, kamera izni, teslim kaydı</td></tr><tr><td>Yalnız ekranda değer</td><td>Üreticinin veri arayüzü</td><td>Kionel ekrandaki sayıyı ölçüm sonucuna çevirmez</td></tr></tbody></table></div><h2 id="b3" data-mask>Alternatifler ve Kionel'in sınırı</h2><p data-reveal>METTLER TOLEDO'nun veri yönetimi materyali manuel aktarım hatalarını ve doğrudan veri akışını ele alır. Kionel üretici sürücüsünün yerine geçmez. Aday kullanım, zaten oluşmuş küçük dosyanın çevrimdışı teslimi ve bu teslimin imzalı kaydıdır. Kamera yasaksa optik aktarım uygun değildir.</p></div>
+
+        <section class="guide-faq" aria-labelledby="faq-title">
+          <h2 id="faq-title" data-mask>Sık sorulanlar</h2>
+          <div class="faq-list" data-stagger><details><summary>Kionel her laboratuvar cihazına bağlanır mı?<span aria-hidden="true">+</span></summary><p>Hayır. Genel cihaz sürücüsü sunulmaz. Mevcut çıktı dosyasını taşıma ve onay adımları değerlendirilebilir.</p></details><details><summary>Excel'e aktarılan sayı neden değişir?<span aria-hidden="true">+</span></summary><p>Metin/sayı dönüştürmesi, ondalık ayraç veya tarih yorumu gibi nedenler olabilir. Kaynak çıktıyı koruyup alanları açık bir şemayla doğrulamak gerekir.</p></details></div>
+        </section>
+
+        <section class="guide-sources" aria-labelledby="sources-title">
+          <h2 id="sources-title" data-mask>Kaynaklar</h2>
+          <ul class="source-list"><li><a href="https://www.mt.com/no/no/home/library/on-demand-webinars/laboratory-weighing/weighing-data-management.html" rel="noopener noreferrer" target="_blank">METTLER TOLEDO — laboratuvarda veri yönetimi <span>↗</span></a></li></ul>
+          <p class="guide-note">Bu sayfa bilgi amaçlıdır ve hukuki ya da mevzuat uyum danışmanlığı yerine geçmez. Standart maddeleri yön göstermek için verilmiştir; bir denetimde neyin yeterli sayılacağına kurumun kendi sistemi, prosedürleri ve denetçisi karar verir.</p>
+        </section>
+
+        <section class="guide-related" aria-labelledby="related-title">
+          <h2 id="related-title" data-mask>İlgili rehberler</h2>
+          <div class="guide-cards" data-stagger><a class="guide-card" href="/air-gap-dosya-aktarimi.html"><strong>Air-gap bilgisayardan dosya nasıl çıkarılır?</strong><span>Rehberi aç →</span></a><a class="guide-card" href="/excel-numune-listesi-kontrolu.html"><strong>Excel numune listesinde eksik ve mükerrer kayıt nasıl bulunur?</strong><span>Rehberi aç →</span></a></div>
+        </section>
+
+        <aside class="guide-cta" data-reveal>
+          <p>Bu sayfa Kionel tarafından yazıldı. Aktarım adımını kayda alan bir araç
+             geliştiriyoruz; mevcut sisteminiz bu işi zaten çözüyorsa bunu da bilmek
+             bizim için değerli.</p>
+          <a class="site-button" href="/index.html">Laboratuvar iş akışını seç</a>
+          <a class="site-button" href="/numune-karsilastirma.html">Numune karşılaştırma demosunu dene</a>
+        </aside>
+      </article>
+    </main>
+<footer class="site-footer">
+      <div class="footer-brand"><a class="brand" href="/products.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span></a><p>Ekran ile kamera arasında yerel, şifreli ve doğrulanabilir veri aktarımı.</p></div>
+      <div><strong>Ürün</strong><a href="/products.html#products">Teklifler</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#technology">Teknoloji</a><a href="/products.html#deployment">Dağıtım</a><a href="/transfer.html?product=lab">Uygulama</a></div><div><strong>Güven</strong><a href="/phases.html">Fazlar &amp; API</a><a href="/policies.html#privacy">Gizlilik</a><a href="/policies.html#storage">Çerez &amp; depolama</a><a href="/policies.html#security">Güvenlik bildirimi</a></div><div><strong>Şirket</strong><a href="/policies.html#terms">Kullanım şartları</a><a href="/policies.html#acceptable-use">Kabul edilebilir kullanım</a><a href="/policies.html#accessibility">Erişilebilirlik</a><a href="/policies.html">Politika merkezi</a></div>
+      <div class="footer-bottom"><span>© 2026 Kionel · Pilot öncesi ürün</span><span>Reklam yok · içerik telemetrisi yok · varsayılan izleme yok</span></div>
+    </footer>
+    <script type="module" src="/src/segment-page.ts"></script>
+  </body>
+</html>

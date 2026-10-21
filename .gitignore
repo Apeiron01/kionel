@@ -1,0 +1,38 @@
+node_modules/
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+.wrangler/
+config/launch.local.json
+config/commerce.local.json
+*-authority.json
+.claude/
+dist/
+dist-cli/
+artifacts/
+coverage/
+packages/conformance/fuzz-dist/
+packages/conformance/fuzz-corpus/
+crash-*
+timeout-*
+oom-*
+*.log
+native/**/bin/
+native/**/obj/
+native/android/.gradle/
+native/android/local.properties
+native/android/build/
+native/android/app/build/
+/qualification*.json
+/pilot-report*.json
+/kionel-device-matrix*.json
+
+# İmzalı lisans dosyaları. Gizli değiller ama depoya girerlerse depoyu gören
+# herkes geçerli bir lisans almış olur; ürünün tek zorlama noktası buradan sızar.
+kionel-license*.json
+license.json
+dist-offline/
+
+# Built offline packages are release artifacts, rebuilt with vite.offline.config.ts
+apps/web/public/download/

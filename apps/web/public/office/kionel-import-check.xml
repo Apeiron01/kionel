@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
+  <Id>68d8db7b-9db1-4ae6-99c4-8ee87427310b</Id><Version>0.1.0.0</Version><ProviderName>Kionel</ProviderName><DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Kionel Import Check"/><Description DefaultValue="Check selected result data and prepare a mapped CSV before importing it into another system."/>
+  <SupportUrl DefaultValue="https://kionel.com/contact.html"/>
+  <Hosts><Host Name="Workbook"/></Hosts>
+  <Requirements><Sets DefaultMinVersion="1.1"><Set Name="MatrixCoercion"/></Sets></Requirements>
+  <DefaultSettings><SourceLocation DefaultValue="https://kionel.com/excel-import-check.html"/></DefaultSettings>
+  <Permissions>ReadDocument</Permissions>
+</OfficeApp>

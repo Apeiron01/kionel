@@ -1,0 +1,1 @@
+S{"providerId":"windows-cng-platform","algorithms":["ecdsa-p256-sha256"],"securityLevels":["tpm"],"supportsAttestation":false,"attestationStatus":"not-implemented"}

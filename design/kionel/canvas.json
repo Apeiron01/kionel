@@ -1,0 +1,100 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1420,
+      "title": "01 · Hero"
+    },
+    {
+      "file": "Products.dc.html",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 1020,
+      "title": "02 · Products"
+    },
+    {
+      "file": "Pricing.dc.html",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 1560,
+      "title": "03 · Commercial"
+    },
+    {
+      "file": "Evidence.dc.html",
+      "x": 0,
+      "y": 1580,
+      "w": 1440,
+      "h": 1040,
+      "title": "04 · Evidence"
+    },
+    {
+      "file": "Motion.dc.html",
+      "x": 1560,
+      "y": 1180,
+      "w": 1440,
+      "h": 1080,
+      "title": "Motion system"
+    },
+    {
+      "file": "Components.dc.html",
+      "x": 1560,
+      "y": 2420,
+      "w": 1440,
+      "h": 1420,
+      "title": "Component set"
+    },
+    {
+      "file": "App.dc.html",
+      "x": 0,
+      "y": 2780,
+      "w": 390,
+      "h": 844,
+      "title": "Transfer app"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "identity",
+      "x": 0,
+      "y": -230,
+      "w": 560,
+      "text": "KIONEL — institutional light.\n\nGround #FBFAF7 · ink #111318 · one accent #1B3A63.\nGreen #2E7D5B only ever means verified.\n\nNo rounded corners anywhere. Depth comes from a hard offset shadow that collapses on press — never from blur or glow.\n\nType: Source Serif 4 (display) · IBM Plex Sans (body) · IBM Plex Mono (every number)."
+    },
+    {
+      "id": "motion-note",
+      "x": 1560,
+      "y": -230,
+      "w": 560,
+      "text": "Motion is a table, not a mood: one easing curve, four durations, 18px travel, 80ms stagger.\n\nScroll choreography runs in a fixed order — smooth scroll, text reveal, stagger, one pinned section, hover, shallow depth.\n\nHeavy WebGL is deliberately out: a scene that stalls on a factory tablet costs more trust than it buys."
+    },
+    {
+      "id": "emoji-note",
+      "x": 0,
+      "y": 2560,
+      "w": 560,
+      "text": "The SAS second factor no longer uses emoji.\n\nEmoji render differently on Apple, Google and Samsung — a comparison factor that looks different on the two devices being compared is a real defect, not a style issue.\n\nReplaced with 32 drawn marks: same 5 bits per symbol, identical on every platform."
+    },
+    {
+      "id": "pointer-note",
+      "x": 3120,
+      "y": 2420,
+      "w": 480,
+      "text": "Pointer response is limited to two places: the primary action leans toward the cursor, and the hero module field has a two-layer parallax.\n\nNo custom cursor, no cursor trail, no tilt on cards. In an institutional context a cursor that behaves unexpectedly reads as a toy."
+    },
+    {
+      "id": "commercial-note",
+      "x": 3120,
+      "y": -230,
+      "w": 560,
+      "text": "You cannot sell access to software that runs entirely on the buyer's device — a licence check there is theatre, and gating a security feature would make the free tier dangerous.\n\nSo the model sells the three things that cannot be copied: the legal right to embed, the evidence that it works, and someone answering when it does not.\n\nOnly the pilot is sellable today. The other two tiers stay marked as not-yet by design."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

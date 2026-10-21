@@ -1,0 +1,12 @@
+{
+  "name": "@kionel/qualification",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/core": "workspace:*",
+    "@kionel/crypto": "workspace:*",
+    "@kionel/issue": "workspace:*",
+    "@kionel/platform-keys": "workspace:*",
+    "@kionel/qualification": "workspace:*"
+  }
+}

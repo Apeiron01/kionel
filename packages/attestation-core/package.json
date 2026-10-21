@@ -1,0 +1,13 @@
+{
+  "name": "@kionel/attestation-core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./asn1": "./src/asn1.ts"
+  },
+  "dependencies": {
+    "@kionel/platform-keys": "workspace:*"
+  },
+  "license": "Apache-2.0"
+}

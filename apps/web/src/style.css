@@ -1,0 +1,506 @@
+/**
+ * Kionel transfer app. Same design system as the sales surface — a user who
+ * arrives from the site must not feel they changed products.
+ *
+ * One deliberate exception: the optical stage stays black-on-white regardless
+ * of anything else here. That is not a style choice, it is what the camera
+ * needs to decode.
+ */
+
+@import "./kionel.css";
+
+body {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+[hidden] { display: none !important; }
+
+header h1 { margin: 0; font-size: 1.7rem; letter-spacing: .04em; }
+header h1 span { color: var(--k-navy); font-size: .68em; letter-spacing: .01em; }
+header p { margin: .3rem 0 1.25rem; color: var(--k-ink-2); }
+.header-line { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.header-link { color: var(--k-ink); font-size: .78rem; border-bottom: 1px solid var(--k-navy); padding-bottom: .15rem; }
+.header-nav { display: flex; flex: initial; gap: 1rem; margin: 0; }
+
+.eyebrow { font-family: var(--k-mono); font-size: .64rem; letter-spacing: .22em; color: var(--k-mono-ink); margin-bottom: .3rem; text-transform: uppercase; }
+
+/* -- product picker -------------------------------------------------------- */
+
+.product-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-bottom: .7rem; }
+.product {
+  text-align: left; min-height: 74px;
+  transition: transform var(--k-hover) var(--k-ease), box-shadow var(--k-hover) var(--k-ease), border-color var(--k-hover) var(--k-ease);
+}
+.product:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--k-line-3); }
+.product strong, .product span { display: block; }
+.product span { color: var(--k-ink-3); font-size: .75rem; margin-top: .2rem; }
+.product.active { border-color: var(--k-ink); background: var(--k-card); box-shadow: 3px 3px 0 var(--k-ink); }
+
+/* -- trust and qualification ----------------------------------------------- */
+
+.trust-strip { padding: .6rem .85rem; margin-bottom: 1.2rem; border: 1px solid var(--k-line); background: var(--k-card); color: var(--k-ink-2); font-size: .78rem; }
+.workflow-hint { margin: -.7rem 0 1.1rem; color: var(--k-ink-3); font-size: .78rem; }
+.identity-trust { padding: .6rem .85rem; margin: -.65rem 0 1.2rem; border-left: 2px solid var(--k-verified); background: var(--k-paper-2); color: var(--k-ink-2); font-size: .76rem; }
+.identity-trust.bad { border-left-color: #A8321F; }
+
+.qualification { margin: 0 0 1.2rem; padding: .9rem; border: 1px solid var(--k-line); background: var(--k-card); }
+.qualification summary { cursor: pointer; font-weight: 600; color: var(--k-navy); }
+.qualification p { margin: .45rem 0; color: var(--k-ink-2); font-size: .8rem; }
+.qualification-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .75rem; }
+.qualification-actions .primary { grid-column: 1 / -1; margin: 0; }
+
+/* -- controls -------------------------------------------------------------- */
+
+nav { display: flex; gap: .5rem; margin-bottom: 1.25rem; }
+
+button {
+  padding: .75rem; border: 1px solid var(--k-line-3); background: var(--k-card);
+  color: var(--k-ink); font: inherit; font-weight: 500; cursor: pointer;
+  transition: transform var(--k-hover) var(--k-ease), box-shadow var(--k-hover) var(--k-ease), border-color var(--k-hover) var(--k-ease);
+}
+button:hover { border-color: var(--k-ink); }
+button:active { transform: translate(1px, 1px); box-shadow: none; transition-duration: var(--k-press); }
+
+nav button { flex: 1; color: var(--k-ink-3); }
+nav button.active, button.primary { color: var(--k-paper); background: var(--k-ink); border-color: var(--k-ink); font-weight: 600; }
+nav button.active:hover, button.primary:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--k-navy); }
+button.primary { display: block; width: 100%; margin: .85rem 0; }
+
+.steps { margin: 0 0 1rem; padding-left: 1.4rem; color: var(--k-ink-2); font-size: .88rem; }
+
+.file { display: block; }
+.file input { display: none; }
+.file span {
+  display: block; padding: 1.3rem; text-align: center; cursor: pointer;
+  border: 1px dashed var(--k-line-3); background: var(--k-card); color: var(--k-ink-3);
+  transition: border-color var(--k-hover) var(--k-ease), color var(--k-hover) var(--k-ease);
+}
+.file span:hover { border-color: var(--k-ink); color: var(--k-ink); }
+
+.context-card { margin: .85rem 0; padding: .9rem; border: 1px solid var(--k-line); background: var(--k-card); }
+.context-heading { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .7rem; }
+.context-heading span { color: var(--k-ink-3); font-size: .74rem; }
+.context-card label { display: block; color: var(--k-ink-2); font-size: .78rem; }
+.context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin-top: .6rem; }
+
+input:not([type="file"]), select {
+  width: 100%; margin-top: .3rem; padding: .6rem;
+  background: var(--k-paper); color: var(--k-ink); border: 1px solid var(--k-line-3); font: inherit;
+  transition: border-color var(--k-hover) var(--k-ease);
+}
+input:not([type="file"]):focus, select:focus { border-color: var(--k-ink); }
+
+.controls { display: flex; gap: .75rem; margin: 1rem 0; }
+.controls label { flex: 1; font-size: .82rem; color: var(--k-ink-2); }
+
+/* -- optical stage --------------------------------------------------------- */
+/* White ground, hard edges. The camera decodes contrast, not taste. */
+
+.stage {
+  width: 100%; aspect-ratio: 1; object-fit: contain; display: block; margin-top: .8rem;
+  background: #FFFFFF; border: 1px solid var(--k-line);
+}
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.split .stage { margin-top: 0; }
+.split .stage:only-child { grid-column: 1 / -1; }
+
+/* -- session state --------------------------------------------------------- */
+
+.sas {
+  margin: .85rem 0; padding: 1.1rem; text-align: center;
+  border: 1px solid var(--k-ink); background: var(--k-card);
+  font-family: var(--k-mono); font-size: 1.35rem; font-weight: 500; line-height: 1.8; letter-spacing: .1em;
+}
+.sas-digits { display: block; font-size: 1.6rem; letter-spacing: .34em; text-indent: .34em; }
+
+/* Çizilen işaretler. Emoji değil: aynı kod noktası her platformda farklı çizilir
+ * ve karşılaştırılması gereken iki ekranda farklı görünen bir kod işe yaramaz. */
+.sas-marks { display: flex; justify-content: center; gap: .5rem; margin: .85rem 0 .6rem; }
+.sas-mark {
+  display: grid; place-items: center; width: 46px; height: 46px;
+  border: 1px solid var(--k-line-3); background: var(--k-paper); color: var(--k-ink);
+}
+
+.sas small { display: block; font-family: var(--k-sans); font-size: .78rem; font-weight: 400; letter-spacing: 0; line-height: 1.4; color: var(--k-ink-3); }
+
+.progress { height: 4px; background: var(--k-line); margin: .95rem 0; overflow: hidden; }
+#bar { height: 100%; width: 0; background: var(--k-ink); transition: width .1s linear; }
+
+.stats { white-space: pre-line; font-family: var(--k-mono); font-size: .78rem; color: var(--k-ink-2); margin-top: .9rem; }
+
+.dl {
+  display: block; padding: .9rem; margin-top: .6rem; text-align: center;
+  background: var(--k-ink); color: var(--k-paper); font-weight: 600;
+  transition: transform var(--k-hover) var(--k-ease), box-shadow var(--k-hover) var(--k-ease);
+}
+.dl:hover { color: var(--k-paper); transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--k-navy); }
+.dl.secondary { color: var(--k-ink); background: var(--k-card); border: 1px solid var(--k-line-3); }
+.dl.secondary:hover { color: var(--k-ink); box-shadow: 3px 3px 0 var(--k-line-3); }
+
+.signed-context { display: grid; gap: .2rem; padding: .85rem; margin-top: .85rem; border: 1px solid var(--k-verified); background: var(--k-paper-2); }
+.signed-context span { color: var(--k-ink-3); font-size: .78rem; }
+
+.ok { color: var(--k-verified); }
+.bad { color: #A8321F; }
+
+@media (max-width: 620px) {
+  .product-picker { grid-template-columns: 1fr; }
+  .product { min-height: auto; }
+  .context-grid, .split { grid-template-columns: 1fr; }
+  .split .stage { max-height: 42vh; }
+}
+
+/* Kamera seçici. Yalnız birden fazla kamera varsa görünür — tek seçenekli bir
+ * seçici, kullanıcıya olmayan bir karar verdiriyormuş gibi durur. */
+.camera-pick { display: grid; gap: .3rem; margin: .8rem 0; }
+.camera-pick > span { color: var(--k-ink-2); font-size: .78rem; }
+.camera-pick select[hidden] { display: none; }
+
+/* ---------------------------------------------------------------------------
+ * Koyu tema: satış yüzeyiyle aynı palet.
+ *
+ * Değişkenler burada yeniden tanımlanıyor, kionel.css'te DEĞİL: aynı dosyayı
+ * kullanan Türkçe ürün/faz/politika sayfaları kendi açık temasında kalsın.
+ * Siteden gelen ziyaretçi ürün değiştirdiğini hissetmemeli.
+ *
+ * Tek istisna aşağıda: optik sahne beyaz kalır. Bu bir stil tercihi değil,
+ * kameranın kodu çözebilmesi için gereken şey.
+ * ------------------------------------------------------------------------- */
+:root {
+  --k-paper: #071316;
+  --k-paper-2: #0f2025;
+  --k-card: #0f2025;
+  --k-ink: #f1f7f6;
+  --k-ink-2: #a9bec0;
+  --k-ink-3: #7d979b;
+  --k-mono-ink: #7d979b;
+  --k-line: #243b42;
+  --k-line-2: #1b2f35;
+  --k-line-3: #3d626b;
+  --k-navy: #6de3c2;
+  --k-navy-deep: #39c6a3;
+  --k-verified: #6de3c2;
+  --k-amber: #f2c66d;
+  --k-dark: #0f2025;
+  --k-dark-ink: #f1f7f6;
+  --k-dark-ink-2: #a9bec0;
+  --k-dark-ink-3: #7d979b;
+  --k-dark-line: #243b42;
+  --k-accent-ink: #05231b;
+}
+
+body { background: var(--k-paper); color: var(--k-ink); }
+
+/* Birincil eylem satış yüzeyindekiyle aynı: nane zemin, koyu yazı. */
+nav button.active, button.primary { background: var(--k-navy); border-color: var(--k-navy); color: var(--k-accent-ink); }
+nav button.active:hover, button.primary:hover { background: var(--k-navy-deep); border-color: var(--k-navy-deep); box-shadow: none; transform: none; }
+button:hover { border-color: var(--k-navy); }
+.product.active { border-color: var(--k-navy); background: var(--k-paper-2); box-shadow: none; }
+.k-lift:hover, .k-lift:active { box-shadow: none; }
+
+/* Odak halkası: klavye kullanıcısı nerede olduğunu görmeli. */
+:focus-visible { outline: 2px solid var(--k-navy); outline-offset: 3px; }
+
+/* Optik sahne beyaz kalır; QR kontrastı buna bağlı. */
+.stage, canvas.stage { background: #fff; }
+
+/* ---------------------------------------------------------------------------
+ * Yerleşim ve nefes payı.
+ *
+ * Uygulama satış yüzeyinden çok daha sıkışıktı: her şey 920 piksele
+ * sıkıştırılmış, bölümler arasında boşluk yoktu ve göz nereye bakacağını
+ * bilemiyordu. Aynı tasarım sistemine geçtikten sonra ritim de aynı olmalı.
+ * ------------------------------------------------------------------------- */
+body { max-width: 1080px; padding: 2rem 2rem 4rem; }
+
+header { margin-bottom: 2rem; }
+header h1 { font-size: 2rem; letter-spacing: -.02em; }
+header p { margin: .5rem 0 0; font-size: 1.02rem; max-width: 60ch; }
+.header-line { padding-bottom: 1.25rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--k-line); }
+.header-nav { gap: 1.5rem; }
+.header-link { border-bottom: 0; color: var(--k-ink-2); font-size: .85rem; }
+.header-link:hover { color: var(--k-navy); }
+
+/* Ürün seçimi ve durum satırları: üst üste binen negatif boşluklar kaldırıldı. */
+.product-picker { gap: .75rem; margin-bottom: 1.25rem; }
+.product { padding: 1rem 1.1rem; min-height: 0; }
+.trust-strip { padding: .8rem 1rem; margin-bottom: .75rem; border-radius: 8px; }
+.workflow-hint { margin: 0 0 1rem; font-size: .82rem; }
+.identity-trust { margin: 0 0 .75rem; padding: .75rem 1rem; border-radius: 0 8px 8px 0; font-size: .8rem; }
+
+/* Lisans yükleme alanı kendi kutusunda dursun: bu, ürünün açılıp kapandığı yer. */
+#license-status { margin-bottom: .5rem; }
+body > label.file { display: block; margin: 0 0 2rem; }
+
+.qualification { margin-bottom: 2rem; padding: 1.1rem 1.2rem; border-radius: 10px; }
+
+/* Sekmeler ve bölümler */
+nav { gap: .6rem; margin: 0 0 1.75rem; }
+nav button { padding: .85rem; }
+section { margin-bottom: 1rem; }
+.steps { margin: 0 0 1.5rem; }
+.split { gap: 1rem; margin: 1.5rem 0; }
+
+/* Bağlam kartı ve denetimler: ayrı yüzeyler, aralarında nefes payı. */
+.context-card { padding: 1.25rem; margin: 1.25rem 0; border-radius: 10px; }
+.context-grid { gap: 1rem; }
+.controls { gap: 1rem; margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--k-line); border-radius: 10px; background: var(--k-card); }
+.controls label { margin: 0; }
+.stats { padding: 1rem 1.15rem; margin: 1.25rem 0; border-radius: 8px; line-height: 1.65; }
+#dispatch-result, #result, #qualification-result { margin-top: 1.25rem; }
+
+/* Dosya seçimi: tıklanabilir alan büyüsün, düğmeler yan yana sıkışmasın. */
+label.file { padding: 1.1rem 1.25rem; border-radius: 10px; }
+#demo-file { margin: .75rem 0 0; }
+
+@media (max-width: 760px) {
+  body { padding: 1.25rem 1.25rem 3rem; }
+  .product-picker { grid-template-columns: 1fr; }
+  .controls { grid-template-columns: 1fr; }
+}
+
+/* Lisans durumu: okunacak metin değil, görülecek renk.
+   ok = sakin, warn = yenileme zamanı yaklaştı ya da ek süredeyiz, stopped = demo. */
+#license-status { border-left: 2px solid var(--k-line-3); }
+#license-status[data-state="ok"] { border-left-color: var(--k-verified); }
+#license-status[data-state="warn"] { border-left-color: var(--k-amber); color: var(--k-amber); }
+#license-status[data-state="stopped"] { border-left-color: #ff8585; color: #ffb3b3; }
+
+/* Yönerge kutusu: dosya seçildikten sonra boş beyaz bir kare yerine ne
+   yapılacağını söyleyen alan. "Ekran dondu" şikâyetinin kaynağı o kareydi. */
+.stage-hint { margin: 1.25rem 0; padding: 1.25rem; border: 1px solid var(--k-line);
+  border-left: 2px solid var(--k-navy); border-radius: 0 10px 10px 0; background: var(--k-card); }
+.stage-hint > strong, .oneway > strong, .stage-hint summary strong { display: block; margin-bottom: .4rem; }
+.stage-hint p { margin: 0 0 .9rem; color: var(--k-ink-2); font-size: .92rem; max-width: 60ch; }
+.stage-hint button { width: auto; }
+.pair-code { width: 190px; height: 190px; display: block; margin-top: 1rem; background: #fff;
+  border: 1px solid var(--k-line); }
+.hint-note { margin-top: .6rem !important; font-size: .82rem; color: var(--k-ink-3); }
+
+/* Kamerasız gönderim: ikincil yol, ana yönergenin altında sakin durur. */
+.oneway { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid var(--k-line); }
+#card-panel summary { cursor: pointer; list-style: none; }
+#card-panel summary::-webkit-details-marker { display: none; }
+#card-panel[open] summary { margin-bottom: .6rem; }
+#card-panel label { display: block; margin: .6rem 0; }
+
+/* Yüklenen dosya düğmesi yüklendiğini söyler. */
+.file.loaded span { border-style: solid; border-color: var(--k-verified); color: var(--k-verified); }
+/* İmzaya girecek zorunlu alan boşsa, hata alanın kendisinde görünür. */
+input[aria-invalid="true"] { border-color: #ff8585; outline: 1px solid #ff8585; }
+.code-entry { display: block; margin: .8rem 0; }
+.code-entry input { font-family: var(--k-mono, monospace); letter-spacing: .12em; text-transform: uppercase; }
+.card-setup { margin-top: 1rem; }
+.card-setup summary { cursor: pointer; color: var(--k-ink-2); font-size: .9rem; }
+/* Alıcının gösterdiği kod: uzaktan okunacak, elle yazılacak. */
+.typed-code { margin: .8rem 0 0; font: 600 2rem/1.2 var(--k-mono, monospace); letter-spacing: .12em; color: var(--k-verified); }
+
+/* Bildirim bandı: hata ve başarı ekranın üstünde görünür. Önceden mesaj
+   sayfanın en altındaki istatistik satırına yazılıyordu ve kimse görmüyordu. */
+.notice { position: fixed; top: .75rem; left: 50%; transform: translateX(-50%); z-index: 50;
+  display: flex; gap: .75rem; align-items: flex-start; width: min(40rem, calc(100vw - 2rem));
+  padding: .85rem 1rem; border: 1px solid; border-radius: 10px; background: var(--k-paper-2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
+.notice[hidden] { display: none; }
+.notice p { margin: 0; flex: 1; white-space: pre-line; font-size: .95rem; }
+.notice button { width: auto; padding: 0 .4rem; border: 0; background: none; color: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.notice[data-kind="ok"] { border-color: var(--k-verified); color: var(--k-verified); }
+.notice[data-kind="warn"] { border-color: var(--k-amber); color: var(--k-amber); }
+.notice[data-kind="bad"] { border-color: #ff8585; color: #ffb3b3; }
+.report-button { margin-top: .6rem; }
+
+/* Okuma biçimi: iki hazır ayar, seçili olan vurgulu. */
+.speed-presets { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 .5rem; }
+.speed-presets button { width: auto; }
+.speed-presets button[aria-pressed="true"] { border-color: var(--k-verified); color: var(--k-verified); }
+
+/* Alıcı modları: iki soru, her biri iki düğme. Seçili olan vurgulu. */
+.mode-picker { margin: 0 0 1rem; padding: 1rem 1.1rem; border: 1px solid var(--k-line); border-radius: 10px; background: var(--k-card); }
+.mode-q { margin: .2rem 0 .5rem; font-weight: 600; font-size: .95rem; }
+.mode-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .9rem; }
+.mode-row .mode { width: auto; flex: 1 1 12rem; }
+.mode[aria-pressed="true"] { border-color: var(--k-role, var(--k-verified)); color: var(--k-role, var(--k-verified)); background: color-mix(in srgb, var(--k-role, var(--k-verified)) 8%, transparent); }
+.mode-summary { margin: 0; padding-top: .7rem; border-top: 1px solid var(--k-line); color: var(--k-ink-2); font-size: .9rem; }
+#rec-video { margin-top: .8rem; max-height: 40vh; }
+.whats-new { margin: .8rem 0; padding: .9rem 1.1rem; border: 1px solid var(--k-verified); border-radius: 10px; }
+.whats-new ul { margin: .5rem 0 .8rem; padding-left: 1.2rem; font-size: .92rem; }
+.whats-new button { width: auto; }
+
+
+/* İşletme lisansı isteyen seçeneklerin küçük etiketi. */
+.biz { display: inline-block; margin-left: .4rem; padding: 0 .4rem; border: 1px solid var(--k-amber); border-radius: 999px;
+  color: var(--k-amber); font-size: .68rem; font-weight: 600; letter-spacing: .04em; vertical-align: middle; }
+/* Seçilen yöntemin içeriği, seçim satırının hemen altında ve aynı kutuda. */
+.mode-body { margin: -.3rem 0 1rem; padding: .8rem .9rem; border-left: 2px solid var(--k-verified); background: rgba(109, 227, 194, .04); }
+.mode-body p { margin: 0 0 .6rem; color: var(--k-ink-2); font-size: .92rem; }
+.mode-body label { display: block; margin: .5rem 0; }
+.mode-body button { width: auto; }
+.speed-choice { margin: 1rem 0; padding: 1rem 1.1rem; border: 1px solid var(--k-line); border-radius: 10px; background: var(--k-card); }
+.speed-choice .mode { flex: 1 1 14rem; }
+.advanced { margin-top: .8rem; }
+.advanced summary { cursor: pointer; color: var(--k-ink-2); font-size: .9rem; }
+.advanced .controls { margin-top: .8rem; }
+/* Kayıt süresi: uzaktan okunacak kadar büyük. */
+.record-plan { margin: .6rem 0 0; font-size: 1.05rem; font-weight: 600; color: var(--k-verified); }
+.editions-link { margin: .2rem 0; }
+
+/* Kişisel sürüm bir hata değil: satır sakin kalır. */
+#license-status[data-state="free"] { border-left-color: var(--k-line-3); color: var(--k-ink-2); }
+.business-note { margin-top: .6rem; padding-left: .7rem; border-left: 2px solid var(--k-amber); }
+
+/* Işığa duyarlılık: uyarı penceresi ve kalıcı not. */
+.flash-note { margin: .8rem 0; padding: .6rem .8rem; border-left: 2px solid var(--k-amber); color: var(--k-amber); font-size: .88rem; }
+.flash-warning { max-width: 34rem; padding: 1.4rem; border: 1px solid var(--k-amber); border-radius: 12px;
+  background: var(--k-paper-2); color: var(--k-ink); }
+.flash-warning::backdrop { background: rgba(0, 0, 0, .7); }
+.flash-warning h2 { margin-top: 0; color: var(--k-amber); }
+.flash-warning li { margin: .35rem 0; }
+.flash-actions { display: flex; gap: .6rem; justify-content: flex-end; margin-top: 1rem; }
+.flash-actions button { width: auto; }
+.send-controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+.send-controls button { width: auto; margin: .6rem 0; }
+/* Tam ekranda kod ekranın kısa kenarını doldurur, arka plan beyaz: kamera kenarı rahat bulur. */
+#send-stage:fullscreen { display: flex; align-items: center; justify-content: center; background: #fff; }
+#send-stage:fullscreen .stage { width: auto; height: 100vh; max-width: 100vw; border: 0; margin: 0; }
+#send-stage:fullscreen video { display: none; }
+
+/* Yalnız mühürleme: aktarım seçeneklerinden önce, ayrı bir kutu. */
+.seal-choice { margin: 1rem 0; padding: 1rem 1.1rem; border: 1px solid var(--k-line); border-radius: 10px; background: var(--k-card); }
+.seal-choice button { width: auto; }
+.seal-qr { max-width: 360px; margin-top: .8rem; }
+
+/* Lisansı başka cihaza taşıma: katlanır, lisans satırının hemen altında. */
+.licence-move { margin: .5rem 0; }
+.licence-move summary { cursor: pointer; color: var(--k-ink-2); font-size: .9rem; }
+.licence-move p { font-size: .9rem; color: var(--k-ink-2); }
+.licence-move button { width: auto; margin: .4rem 0; }
+.licence-move textarea { width: 100%; font-family: var(--k-mono, monospace); font-size: .8rem; }
+.licence-move .licence-way { margin: 1.1rem 0 .3rem; font-size: .95rem; color: var(--k-ink); }
+.licence-move .licence-paste-label { display: block; margin: .6rem 0 .25rem; font-size: .82rem; color: var(--k-ink-2); }
+
+/* Kaydedene geri sayım: kodun üstünde, uzaktan okunacak büyüklükte. */
+.film-countdown { grid-column: 1 / -1; margin: 0 0 .4rem; text-align: center; font: 700 1.5rem/1.3 var(--k-sans, sans-serif); color: var(--k-amber); }
+.film-countdown.done { color: var(--k-verified); }
+#send-stage:fullscreen .film-countdown { position: absolute; top: 1rem; left: 0; right: 0; color: #8a5a00; }
+#send-stage:fullscreen .film-countdown.done { color: #0b6b50; }
+
+.method-hints { margin-top: .8rem; }
+.method-hints summary { cursor: pointer; color: var(--k-ink-2); font-size: .9rem; }
+.method-hints table { font-size: .85rem; }
+
+/* ---- nasıl alınır: küçük animasyon ve uyum listesi -------------------------- */
+.flow-guide { margin: .8rem 0; padding: .8rem .9rem; border: 1px dashed var(--k-line-3); border-radius: 10px; }
+.fg-diagram { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .6rem; }
+.fg-screen, .fg-phone { display: grid; justify-items: center; gap: .25rem; }
+.fg-screen small, .fg-phone small { font-size: .72rem; color: var(--k-ink-3); }
+.fg-code { width: 44px; height: 44px; border: 3px solid #f1f7f6; background:
+  conic-gradient(#f1f7f6 25%, #071316 0 50%, #f1f7f6 0 75%, #071316 0) 0 0 / 11px 11px; }
+.flow-guide[data-send="record"] .fg-code { background-size: 7px 7px; }
+.flow-guide[data-send="colour"] .fg-code { background:
+  conic-gradient(#e0413d 25%, #2e8bd6 0 50%, #f2c66d 0 75%, #3fb96b 0) 0 0 / 11px 11px; }
+.fg-code { animation: fg-flip .5s steps(2) infinite; }
+.flow-guide[data-send="record"] .fg-code, .flow-guide[data-send="colour"] .fg-code { animation-duration: .25s; }
+@keyframes fg-flip { to { background-position: 11px 0; } }
+.fg-phone .fg-lens { width: 26px; height: 44px; border: 2px solid var(--k-ink-2); border-radius: 6px; position: relative; }
+.fg-phone .fg-lens::after { content: ""; position: absolute; top: 5px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--k-verified); }
+.flow-guide[data-read="record"] .fg-lens::after, .flow-guide[data-read="file"] .fg-lens::after { background: #ff5a5a; animation: fg-rec 1s infinite; }
+@keyframes fg-rec { 50% { opacity: .2; } }
+.fg-path { display: flex; justify-content: space-around; height: 10px; overflow: hidden; }
+.fg-path i { width: 8px; height: 8px; background: var(--k-verified); animation: fg-move 1.2s linear infinite; }
+.fg-path i:nth-child(2) { animation-delay: .4s; } .fg-path i:nth-child(3) { animation-delay: .8s; }
+.flow-guide[data-send="colour"] .fg-path i:nth-child(1) { background: #e0413d; }
+.flow-guide[data-send="colour"] .fg-path i:nth-child(2) { background: #2e8bd6; }
+.flow-guide[data-send="colour"] .fg-path i:nth-child(3) { background: #f2c66d; }
+@keyframes fg-move { from { transform: translateX(-40px); opacity: 0; } 30% { opacity: 1; } to { transform: translateX(40px); opacity: 0; } }
+.fg-compat { list-style: none; margin: .7rem 0 0; padding: 0; font-size: .86rem; }
+.fg-compat li { margin: .25rem 0; }
+.fg-compat .fit-best { color: var(--k-verified); font-weight: 600; }
+.fg-compat .fit-ok { color: var(--k-ink-2); }
+.fg-compat .fit-slow { color: var(--k-amber); }
+.fg-compat .fit-no { color: #ff8585; }
+@media (prefers-reduced-motion: reduce) { .fg-code, .fg-path i, .fg-lens::after { animation: none !important; } }
+
+/* "Which one should I choose?": tablo yerine üç kart — dar ekranda da okunur. */
+.method-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin: .7rem 0; }
+.method-card { padding: .75rem .85rem; border: 1px solid var(--k-line); border-radius: 8px; background: rgba(255, 255, 255, .02); }
+.method-card strong { display: block; margin-bottom: .45rem; font-size: .95rem; }
+.method-card strong span { font-weight: 400; color: var(--k-ink-3); }
+.method-card p { margin: .25rem 0; font-size: .86rem; line-height: 1.45; color: var(--k-ink-2); }
+.method-card b { display: block; font: 600 .68rem/1.4 var(--k-mono, monospace); letter-spacing: .06em; text-transform: uppercase; color: var(--k-ink-3); }
+@media (max-width: 720px) { .method-cards { grid-template-columns: 1fr; } }
+
+/* Seçenek düğmeleri: kabarık — düğme olduğu ilk bakışta anlaşılsın.
+   Seçili olan içe basılmış görünür; hareket azaltmada yalnız gölge değişir. */
+.mode, .licence-move button {
+  position: relative; border: 1px solid var(--k-line-3); border-bottom-width: 3px; border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .01)), var(--k-card);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .35), 0 8px 16px rgba(0, 0, 0, .25);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.mode:hover, .licence-move button:hover { transform: translateY(-1px); border-color: var(--k-verified); box-shadow: 0 5px 0 rgba(0, 0, 0, .35), 0 10px 20px rgba(0, 0, 0, .3); }
+.mode:active, .licence-move button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, .35); }
+.mode[aria-pressed="true"] {
+  transform: translateY(2px); border-bottom-width: 1px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, .45), 0 0 0 1px var(--k-verified);
+}
+.mode:focus-visible, .licence-move button:focus-visible { outline: 2px solid var(--k-verified); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .mode, .mode:hover, .mode:active, .mode[aria-pressed="true"], .licence-move button, .licence-move button:hover, .licence-move button:active { transform: none; } }
+
+/* Süre sayacı: ölçüm için, rakamlar kaymadan. */
+.op-timer { margin: .4rem 0 0; font: 600 .95rem/1.2 var(--k-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; color: var(--k-verified); }
+
+/* Klasöre kayıt: alıcı ayarlarının altında, sade. */
+.save-folder { margin: 0 0 1rem; }
+.save-folder button { width: auto; margin: 0 .4rem .4rem 0; }
+.save-folder .hint-note { margin: .2rem 0 0; }
+.save-folder .check-line { display: flex; gap: .5rem; align-items: center; margin: .8rem 0 0; font-size: .92rem; }
+.save-folder .check-line input { width: auto; margin: 0; }
+
+/* Derleme kimliği: validasyon kaydı için, göze batmadan. */
+.build-id { margin: 2rem 0 1rem; text-align: center; font: .75rem/1.4 var(--k-mono, ui-monospace, monospace); color: var(--k-ink-2); opacity: .7; }
+
+/* Aktarım günlüğü paneli */
+.transfer-log { margin: 1.5rem 0 0; }
+.transfer-log summary { cursor: pointer; color: var(--k-ink-2); }
+.transfer-log .log-range { display: flex; gap: 1rem; flex-wrap: wrap; margin: .6rem 0; }
+.transfer-log .log-range label { display: flex; gap: .4rem; align-items: center; font-size: .9rem; }
+.transfer-log button { width: auto; margin: .3rem .4rem .3rem 0; }
+
+/* Site politikası */
+.site-policy { margin: .6rem 0; }
+.site-policy button { width: auto; margin: .3rem 0; }
+
+/* Onay kutusu satırı: kutu metnin başında, metinle aynı satırda. */
+.check-line { display: flex; gap: .6rem; align-items: flex-start; margin: .8rem 0; font-size: .92rem; line-height: 1.45; cursor: pointer; }
+.check-line input[type="checkbox"] { width: 1.15rem; height: 1.15rem; margin: .15rem 0 0; flex: none; accent-color: var(--k-verified); }
+
+/* Adım akışı: biten soluk ve işaretli, sıradaki vurgulu, gelecek sade. */
+.flow-steps { margin: 0 0 1rem; padding: 1rem 1.1rem; border: 1px solid var(--k-line); border-radius: 10px; background: var(--k-card); }
+.flow-list { list-style: none; counter-reset: step; margin: .4rem 0 0; padding: 0; }
+.flow-step { counter-increment: step; position: relative; padding: .45rem 0 .45rem 2.2rem; color: var(--k-ink-2); font-size: .92rem; }
+.flow-step::before { content: counter(step); position: absolute; left: 0; top: .4rem; width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  border: 1px solid var(--k-line); display: grid; place-items: center; font-size: .8rem; }
+.flow-step.is-done { opacity: .7; }
+.flow-step.is-done::before { content: "✓"; border-color: var(--k-role); color: var(--k-role); }
+.flow-step.is-now { color: var(--k-ink); }
+.flow-step.is-now::before { border-color: var(--k-role); background: var(--k-role); color: #04110d; font-weight: 700; }
+.flow-step.is-now strong { color: var(--k-role); }
+.flow-step span { display: block; margin-top: .2rem; color: var(--k-ink-2); }
+.flow-step .step-go { width: auto; margin: .4rem 0 0; padding: .3rem .8rem; font-size: .85rem; }
+
+/* Kâğıt kodu: yazılıp saklanacak, büyük ve okunaklı olmalı. */
+#paper-box #paper-code { font: 600 1.9rem/1.2 var(--k-mono, monospace); letter-spacing: .12em; color: var(--k-verified); margin: .9rem 0 .2rem; }
+
+/* Rol rengi: bu cihaz gönderiyor mu, alıyor mu, bir bakışta. Gönderen turkuaz, alıcı gök
+   mavisi; ikisi de koyu zeminde yüksek kontrastlı. "Doğrulandı" yeşili iki rolde de aynı kalır. */
+:root { --k-role: #6de3c2; --k-role-deep: #39c6a3; --k-role-ink: #05231b; }
+#recv { --k-role: #8cc8ff; --k-role-deep: #5aa9f0; --k-role-ink: #06192b; }
+#send, #recv { border-top: 3px solid var(--k-role); padding-top: .8rem; }
+.role-banner { position: sticky; top: 0; z-index: 5; margin: 0 0 .9rem; padding: .45rem .85rem; border-radius: 8px;
+  background: var(--k-role); color: var(--k-role-ink); font-weight: 700; font-size: .9rem; letter-spacing: .03em; }
+nav #tab-recv.active { background: #8cc8ff; border-color: #8cc8ff; color: #06192b; }
+nav #tab-recv.active:hover { background: #5aa9f0; border-color: #5aa9f0; }
+#recv button.primary { background: var(--k-role); border-color: var(--k-role); color: var(--k-role-ink); }
+#recv button.primary:hover { background: var(--k-role-deep); border-color: var(--k-role-deep); }

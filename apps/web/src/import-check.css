@@ -1,0 +1,53 @@
+.import-check-page header { max-width: 1120px; }
+.import-check-page header nav { display: flex; gap: 20px; }
+.import-check-page main { max-width: 1120px; padding-block: 44px 64px; }
+.import-check-page h1 { font-size: clamp(30px, 4vw, 52px); line-height: 1.12; max-width: 19ch; margin: 16px 0 22px; }
+.import-check-page h2 { font-size: 23px; line-height: 1.3; margin: 0 0 16px; }
+.ic-intro { max-width: 760px; margin-bottom: 38px; }
+.ic-intro .lead { font-size: 21px; color: var(--text-primary); }
+.ic-free { color: var(--accent); font-size: 14px; }
+.ic-panel { position: relative; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 28px; margin: 22px 0; }
+.ic-step { font: 500 13px var(--font-mono); color: var(--accent); margin-bottom: 12px; }
+.ic-panel p { max-width: 88ch; }
+.ic-source-options, .ic-settings { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.ic-settings { grid-template-columns: 2fr .7fr 1fr 1fr; margin: 22px 0; }
+.import-check-page label { display: block; font-size: 14px; color: var(--text-secondary); margin: 12px 0; }
+.import-check-page input, .import-check-page select, .import-check-page textarea { display: block; width: 100%; border: 1px solid var(--border-strong); border-radius: 5px; background: var(--bg-base); color: var(--text-primary); min-height: 42px; padding: 10px; font: inherit; margin-top: 7px; }
+.import-check-page textarea { resize: vertical; font: 13px/1.6 var(--font-mono); }
+.import-check-page input[type="checkbox"] { width: 22px; min-height: 22px; accent-color: var(--accent); }
+.import-check-page input[type="file"] { font-size: 13px; padding: 8px; }
+.import-check-page input:focus-visible, .import-check-page select:focus-visible, .import-check-page textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.import-check-page button { min-height: 44px; border: 1px solid var(--accent); border-radius: 6px; padding: 11px 18px; font: 600 14px var(--font-sans); background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.import-check-page button.secondary { background: transparent; color: var(--text-primary); border-color: var(--border-strong); }
+.import-check-page button:hover { filter: brightness(1.1); }
+.import-check-page button:disabled { cursor: default; opacity: .45; }
+.ic-actions, .ic-run { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
+.ic-run > span, .ic-note { color: var(--text-faint); font-size: 13px; line-height: 1.65; }
+.ic-status { border-left: 3px solid var(--accent); padding: 14px 18px; background: var(--bg-raised); overflow-wrap: anywhere; }
+.ic-status.is-error { border-color: var(--danger); }
+.ic-table-wrap { max-width: 100%; overflow-x: auto; margin: 20px 0; }
+.ic-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ic-table-wrap th, .ic-table-wrap td { padding: 10px 12px; border-bottom: 1px solid var(--border-subtle); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.ic-table-wrap th { color: var(--text-faint); font-weight: 500; }
+.ic-mapping { min-width: 660px; }
+.ic-mapping td:first-child { font-family: var(--font-mono); max-width: 180px; }
+.ic-mapping input, .ic-mapping select { margin: 0; min-width: 110px; }
+.ic-mapping input[type="checkbox"] { min-width: 22px; }
+.ic-next { border-top: 1px solid var(--border-subtle); padding-top: 30px; margin: 40px 0; }
+.ic-excel { border-left: 3px solid var(--accent); padding: 4px 16px; margin: 12px 0 22px; }
+.ic-result-pass { color: var(--accent); }
+.ic-result-block { color: var(--danger); }
+.import-check-page details { padding-block: 18px; }
+.import-check-page summary { cursor: pointer; color: var(--text-secondary); }
+.import-check-page [hidden] { display: none !important; }
+.import-check-page footer { padding-block: 20px; }
+@media (max-width: 700px) {
+  .import-check-page main, .import-check-page header, .import-check-page footer { padding-inline: 18px; }
+  .import-check-page header { gap: 16px; }
+  .import-check-page header { flex-wrap: nowrap; }
+  .import-check-page header nav { gap: 14px; width: auto; flex-direction: row; align-items: center; padding: 0; }
+  .import-check-page header nav a { padding: 0; border: 0; font-size: 13px; }
+  .ic-panel { padding: 18px; }
+  .ic-source-options, .ic-settings { grid-template-columns: 1fr; gap: 0; }
+  .ic-actions > button, .ic-run > button { flex: 1 1 190px; }
+}

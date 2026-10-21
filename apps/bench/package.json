@@ -1,0 +1,8 @@
+{
+  "name": "@kionel/bench",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/core": "workspace:*"
+  }
+}

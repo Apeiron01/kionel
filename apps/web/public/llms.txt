@@ -1,0 +1,105 @@
+# Kionel Lab Bridge
+
+> Kionel Lab Bridge puts a signed record around a file that leaves an isolated (air-gapped) laboratory instrument PC: the sending device signs what left (SHA-256, size, time, work order) and the receiving device signs what arrived. The file can cross by encrypted QR frames on screen read by a camera, by a one-way serial cable, as printed pages, or on a USB stick the laboratory already uses. Both records can be verified offline by anyone, without Kionel, years later.
+
+Facts a summary should keep:
+
+- Free personal edition: own files up to 5 MB, encrypted, read live, typed code for a PC without a camera; no signed records. Business edition for organisations: a one-month pilot and an annual subscription. Prices are shown at checkout; Polar is the merchant of record.
+- Runs in a browser tab; file content never reaches Kionel's servers. The server only signs licences and records orders.
+- The transfer protocols are modelled and machine-checked in ProVerif (secrecy, authentication, receipt soundness; sanity variants find the attacks when assumptions are removed). This is not an implementation audit; an independent audit has not been done.
+- Kionel does not sanitise file content, does not prove a person's identity, and has not had an independent security audit yet.
+- A PC without a camera can send: the receiving phone shows a one-time 12-character code that is typed on the PC.
+- Speed: in our phone test a 117 KB file took 10–24 s read live and about 7 s from a screen recording; a calculator at https://kionel.com/transfer-speed-calculator.html estimates any size; text and CSV are compressed 4–10× first. It suits files up to about 1 MB. Free open-source QR tools exist and some are faster; Kionel adds encryption, device-bound delivery, signed records and an audit chain.
+- Records can be verified in any browser at https://kionel.com/verify.html (nothing uploaded) and printed as a one-page report.
+- The licence file is stored in the browser where it is loaded; customers keep the file and load it again after clearing browser data or changing computers.
+- Also used in OT/manufacturing to move logs, reports and recipes out of isolated plant zones; inbound transfer needs a camera on the target. A file can be sealed (hash, time, ticket signed) so only the proof leaves.
+- The two devices need not work at the same time: film the sending screen now, read the encrypted video later on any licensed phone by typing the code.
+- Requirements: Chrome or Edge 137 or later, Firefox 130 or later, or Safari 17 or later on both devices; not Windows 7 or 8.1.
+- Optional trusted timestamps: each receipt can carry an RFC 3161 token from DigiCert (only the receipt fingerprint is sent), verified in the browser and by the offline verifier.
+- Receiving computers (Chrome/Edge) can save each received file and its signed receipt straight into a chosen folder, e.g. one a LIMS imports from.
+- Transfer methods: live QR, QR from a screen recording, and libcimbar colour codes (made for a clean screen recording; a phone camera filming a monitor often cannot read them); the receiver recognises the method itself. With a business licence also a one-way serial cable (RS-232/USB serial, TX and ground only, up to ~80 KB/s) as a low-cost data diode: https://kionel.com/serial-data-diode.html
+- A sending PC with a microphone but no camera can pair by sound: the receiving device plays its pairing offer (about 6 seconds, 1.5-5.5 kHz tones), the PC hears it and shows a reply code, and both screens show a comparison code. Only the public offer travels by sound, never a secret. With a business licence on the receiving device the signed delivery receipt comes back by sound as well (77 bytes: transfer number, time, signature; about 4 seconds), and the PC verifies it against the file it sent: https://kionel.com/pair-devices-by-sound.html
+- A PC with only a printer can send: the file is printed as pages of encrypted QR codes (about 4 KB per standard page, 11 KB dense, up to 60 pages) and any phone reads them back in any order; about 30% of the codes are spares chosen so any smudged code can be replaced. Also works as a paper backup: https://kionel.com/print-file-as-qr-codes.html
+- Unattended one-way link (business, OT): the sending PC watches a folder and sends each new or changed file over a one-way serial cable, encrypted to the receiver's card and signed; the receiver keeps listening and saves each file with its receipt. Priced per link; contact for pricing.
+- Business edition extras: a site policy file (allowed file types, size, work-order format, classifications, required operator), the operator's declared name signed into each dispatch record, a per-device transfer log with CSV export and a printable periodic review report, and file names in a watched folder built from the signed record (e.g. {workorder}_{name}).
+- The app warns 30 days before a licence expires. After a 14-day grace period new transfers stop; existing records stay verifiable forever.
+
+## Product
+
+- [Home](https://kionel.com/index.html): what Lab Bridge does and who it is for
+- [How it works](https://kionel.com/how-it-works.html): the transfer and signing protocol
+- [Security model](https://kionel.com/security.html): data boundary, cryptography, threat model
+- [Limits](https://kionel.com/limits.html): what Kionel does not do
+- [Plans](https://kionel.com/pilot.html): pilot and annual subscription
+- [Verify a receipt](https://kionel.com/verify.html): check a receipt or dispatch record in the browser, offline, nothing uploaded
+
+## Guides
+
+- [Air-gapped instrument data transfer](https://kionel.com/air-gapped-instrument-data-transfer.html)
+- [File transfer audit trail](https://kionel.com/file-transfer-audit-trail.html)
+- [Second-person review offline](https://kionel.com/second-person-review-offline.html)
+- [Validation pack: printable IQ/OQ protocol with requirements traceability](https://kionel.com/validation-pack.html)
+- [Offline package: one HTML file for PCs that never go online, fixed version, SHA-256 published](https://kionel.com/offline-package.html)
+- [How fast is file transfer by QR code: a repeatable test, our own phone measurements, and other projects' self-reported figures](https://kionel.com/qr-file-transfer-benchmark.html)
+- [SHA-256 file checksum (free tool, nothing uploaded)](https://kionel.com/sha256-file-checksum.html)
+- [What is inside a QR code: shows a Wi-Fi password, login-code secret, token or scrambled data in a picture of a code (free tool, nothing uploaded)](https://kionel.com/what-is-in-a-qr-code.html)
+- [Excel damage check for CSV files: genes turned into dates, lost leading zeros, cut barcodes, garbled characters (free tool, nothing uploaded)](https://kionel.com/excel-damage-check.html)
+- [Site policy: allowed file types, size and work-order format for business transfers](https://kionel.com/site-policy.html)
+- [Send a file from a PC to a phone without internet, cable or Bluetooth (free)](https://kionel.com/send-file-pc-to-phone-without-internet.html)
+- [Print a file as QR codes and scan it back with a phone (paper transfer and paper backup)](https://kionel.com/print-file-as-qr-codes.html)
+- Files that travel outside Kionel (USB stick, share, by hand) can be sealed on the sending PC and checked and signed for on the receiving device (business): same dispatch record and delivery receipt as an optical transfer; the file is not encrypted in transit on that route: https://kionel.com/usb-file-transfer-signed-record.html
+- The receiving device can pin sender keys (business): after a delivery it accepts files only from pinned keys and refuses others by name; key pinning as in SSH, no certificates or revocation. On a serial link a byte-for-byte replay is recognised from the transfer log and not delivered twice.
+- [Keep the USB stick, add the proof: a signed record and delivery receipt for files that travel by USB](https://kionel.com/usb-file-transfer-signed-record.html)
+- [Audit trail for USB transfers from instrument PCs: logbook, device control, media kiosk, compliance wrapper and signed record compared](https://kionel.com/usb-transfer-audit-trail-options.html)
+- [A one-way serial cable as a low-cost data diode (wiring, speeds, limits)](https://kionel.com/serial-data-diode.html)
+- [Pair two devices by sound when the sending PC has no camera](https://kionel.com/pair-devices-by-sound.html)
+- [Encrypted paper backup of a password vault, 2FA recovery codes or keys (free up to 5 pages)](https://kionel.com/encrypted-paper-backup.html)
+- [Healthcare: data off an isolated clinical workstation without USB or the network](https://kionel.com/medical-device-data-offline.html)
+- [PKI: moving CSRs, certificates and CRLs to and from an offline root CA without USB](https://kionel.com/offline-root-ca-ceremony-file-transfer.html)
+- [Digital legacy: leaving your passwords to your family on encrypted paper](https://kionel.com/leave-passwords-to-family.html)
+- [Evidence: chain of custody for a file handed over offline (signed records, RFC 3161 timestamps, limits)](https://kionel.com/digital-evidence-chain-of-custody-offline.html)
+- [Research preprint: verifiable one-way file transfer across air gaps (DOI 10.5281/zenodo.23064776)](https://kionel.com/research.html)
+- [All guides](https://kionel.com/guides.html)
+- [Speed calculator: how long a screen-to-camera transfer takes, with the app's formulas](https://kionel.com/transfer-speed-calculator.html)
+- [Why a screen recording of QR codes will not scan (messaging-app compression, HEVC, frame rate, background tabs)](https://kionel.com/screen-recording-qr-codes-not-scanning.html)
+- [Our host changed our downloads: detecting CDN injection with SHA-256](https://kionel.com/cdn-changed-download-sha256.html)
+- [Getting results from an offline instrument PC into a LIMS (watched folder, signed receipts)](https://kionel.com/instrument-results-to-lims-offline.html)
+- [How Excel changes CSV result files, and how to keep the raw file](https://kionel.com/excel-csv-changes-lab-data.html)
+- [QR code capacity and how many codes a file needs](https://kionel.com/qr-code-capacity-file-transfer.html)
+- [Sample reconciliation (free tool)](https://kionel.com/sample-reconciliation.html)
+- [Offline PC to phone without USB or network](https://kionel.com/offline-pc-to-phone-file-transfer.html)
+- [Data diode vs controlled USB vs optical transfer](https://kionel.com/data-diode-vs-usb-lab.html)
+- [21 CFR Part 11 and file transfers](https://kionel.com/21-cfr-part-11-file-transfer.html)
+- [ALCOA+ when a file moves](https://kionel.com/alcoa-plus-file-transfer.html)
+- [OT and manufacturing: files out of an isolated plant network](https://kionel.com/ot-air-gapped-file-transfer.html)
+- [IEC 62443 and file transfer across the air gap](https://kionel.com/iec-62443-file-transfer.html)
+- [NIST SP 1334 (portable storage media in OT), control by control: what a transfer without a medium covers and what it does not](https://kionel.com/nist-sp-1334-usb-ot.html)
+- [Free QR file transfer tools compared with Kionel](https://kionel.com/open-source-qr-file-transfer-vs-kionel.html)
+- [Getting started](https://kionel.com/get-started.html): licence, first transfer, PC without a camera, troubleshooting
+- [Changelog](https://kionel.com/changelog.html)
+
+## Deutsch
+
+- [Dateien von Offline-PCs übertragen – ohne USB-Stick, mit signiertem Nachweis](https://kionel.com/sichere-datenuebertragung-offline.html)
+- [Messdaten vom Offline-PC ins LIMS](https://kionel.com/messdaten-offline-pc-lims.html)
+- [EU-GMP Annex 11 und Dateitransfer](https://kionel.com/annex-11-dateitransfer.html)
+- [OT: Protokolle und Berichte aus der Anlage ohne USB-Stick](https://kionel.com/ot-dateitransfer-ohne-usb.html)
+- [Serielles Einwegkabel als günstige Datendiode](https://kionel.com/serielle-datendiode.html)
+- [CSV auf Excel-Schäden prüfen (kostenlos, kein Upload)](https://kionel.com/excel-csv-fehler-pruefen.html)
+- [Datei als QR-Codes drucken und zurücklesen](https://kionel.com/datei-als-qr-code-drucken.html)
+- [Verschlüsseltes Papier-Backup](https://kionel.com/verschluesseltes-papier-backup.html)
+- [SHA-256 prüfen (kostenlos)](https://kionel.com/sha256-pruefen.html)
+
+## Türkçe
+
+- [Air-gap dosya aktarımı](https://kionel.com/air-gap-dosya-aktarimi.html)
+- [USB yasağı olan laboratuvarda alternatifler](https://kionel.com/usb-yasak-alternatifler.html)
+- [Laboratuvar veri bütünlüğü](https://kionel.com/laboratuvar-veri-butunlugu.html)
+- [Numune karşılaştırma](https://kionel.com/numune-karsilastirma.html)
+- [Excel hasarı kontrolü (ücretsiz araç)](https://kionel.com/excel-bozulma-kontrolu.html)
+- [Dosyayı QR kod olarak yazdırmak ve telefonla geri okumak](https://kionel.com/dosyayi-qr-kod-olarak-yazdir.html)
+- [Tek yönlü seri kablo: düşük maliyetli veri diyotu](https://kionel.com/seri-kablo-veri-diyotu.html)
+- [SHA-256 nasıl kontrol edilir (ücretsiz araç)](https://kionel.com/sha256-dogrulama.html)
+- [QR kodun içinde ne var (ücretsiz araç)](https://kionel.com/qr-kodun-icinde-ne-var.html)
+- [USB ile taşınan dosyalar için imzalı kayıt](https://kionel.com/usb-ile-dosya-aktarimi-imzali-kayit.html)
+- [Parola kasası ve 2FA kodları için şifreli kâğıt yedek](https://kionel.com/sifreli-kagit-yedek.html)

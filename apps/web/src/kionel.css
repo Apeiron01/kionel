@@ -1,0 +1,222 @@
+/**
+ * Kionel design system — tokens and motion primitives.
+ *
+ * Canonical source is design/kionel/. Nothing here is page-specific; a page
+ * stylesheet may use these tokens but must not redefine them.
+ *
+ * Motion rule from the canvas: one easing curve, four durations, one travel
+ * distance. Movement that cannot name its token does not ship.
+ */
+
+@import "./fonts.css";
+
+:root {
+  /* Paper and ink */
+  --k-paper: #FBFAF7;
+  --k-paper-2: #F4F2ED;
+  --k-card: #FFFFFF;
+  --k-ink: #111318;
+  --k-ink-2: #43474F;
+  --k-ink-3: #5B6069;
+  --k-mono-ink: #6E6A5E;
+  --k-line: #E3DFD6;
+  --k-line-2: #EDEAE3;
+  --k-line-3: #DEDAD1;
+
+  /* Institutional accents */
+  --k-navy: #1B3A63;
+  --k-navy-deep: #0E2440;
+  --k-verified: #2E7D5B;
+  --k-amber: #8A6D1F;
+
+  /* Dark inversions (footer, quote panels) */
+  --k-dark: #111318;
+  --k-dark-ink: #FBFAF7;
+  --k-dark-ink-2: #B9BCC4;
+  --k-dark-ink-3: #7E8794;
+  --k-dark-line: #2A2D35;
+
+  /* Type */
+  --k-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --k-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --k-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* Motion — the whole table. Nothing else. */
+  --k-ease: cubic-bezier(.22, .68, .28, 1);
+  --k-press: 160ms;
+  --k-hover: 220ms;
+  --k-reveal: 620ms;
+  --k-mask: 780ms;
+  --k-stagger: 80ms;
+  --k-travel: 18px;
+  --k-lift: 2px;
+
+  /* Damped pointer, written by site-shell. Defaults keep CSS valid before JS. */
+  --pointer-x: 70vw;
+  --pointer-y: 22vh;
+  --pointer-active: 0;
+  --scroll-progress: 0;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--k-ink);
+  background: var(--k-paper);
+  font-family: var(--k-sans);
+  font-size: 15.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--k-serif);
+  font-weight: 400;
+  letter-spacing: -.016em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+a { color: var(--k-navy); text-decoration: none; }
+a:hover { color: var(--k-navy-deep); }
+
+:focus-visible { outline: 2px solid var(--k-navy); outline-offset: 3px; }
+
+/* Monospace eyebrow label. 5.18:1 on paper — passes AA at this size. */
+.k-label {
+  font-family: var(--k-mono);
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  color: var(--k-mono-ink);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * 01 — Smooth scroll
+ * Damping lives in JS (site-shell); this only removes the browser's snap.
+ * ------------------------------------------------------------------------- */
+
+.site-js [data-scroll-damp] {
+  transform: translate3d(0, calc(var(--damp-y, 0) * 1px), 0);
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------------------------
+ * 02 — Text reveal: line-by-line mask, never letter-by-letter.
+ * ------------------------------------------------------------------------- */
+
+.site-js [data-mask] { display: block; overflow: hidden; }
+.site-js [data-mask] > * {
+  display: block;
+  transform: translateY(105%);
+  transition: transform var(--k-mask) var(--k-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.site-js [data-mask][data-visible="true"] > * { transform: none; }
+
+/* ---------------------------------------------------------------------------
+ * 03 — Reveal and staggered content: 18px travel, 80ms apart, capped at five.
+ * ------------------------------------------------------------------------- */
+
+.site-js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--k-travel), 0);
+  transition: opacity var(--k-reveal) var(--k-ease), transform var(--k-reveal) var(--k-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.site-js [data-reveal][data-visible="true"] { opacity: 1; transform: none; }
+
+/* An element animates in once — scrolling back up does not replay it. */
+.site-js [data-reveal][data-visible="true"] { will-change: auto; }
+
+/* ---------------------------------------------------------------------------
+ * 04 — Pinned scrollytelling.
+ * The frame sticks; --pin-progress (0..1) is written by site-shell and drives
+ * whatever the section wants. No scroll hijacking: the page still ends where
+ * the user let go.
+ * ------------------------------------------------------------------------- */
+
+[data-pin] { position: relative; }
+[data-pin-frame] { position: sticky; top: var(--pin-top, 96px); }
+
+/* ---------------------------------------------------------------------------
+ * 05 — Interactive hover.
+ * Depth comes from a hard offset shadow that collapses on press, not from blur.
+ * ------------------------------------------------------------------------- */
+
+.k-lift {
+  transition: transform var(--k-hover) var(--k-ease), box-shadow var(--k-hover) var(--k-ease),
+              border-color var(--k-hover) var(--k-ease), background var(--k-hover) var(--k-ease);
+}
+.k-lift:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--k-ink); }
+.k-lift:active { transform: translate(1px, 1px); box-shadow: 0 0 0 var(--k-ink); transition-duration: var(--k-press); }
+
+/* Magnetic pull. --mag-x/--mag-y are written by site-shell while the pointer is
+ * inside the element's field; the transition smooths the release. */
+.site-js [data-magnetic] {
+  transform: translate3d(calc(var(--mag-x, 0) * 1px), calc(var(--mag-y, 0) * 1px), 0);
+  transition: transform var(--k-hover) var(--k-ease);
+}
+.site-js [data-magnetic][data-magnet-active="true"] { transition-duration: 60ms; }
+
+/* Light sweep — the one flourish, borrowed from the button pattern. */
+.k-sweep { position: relative; overflow: hidden; }
+.k-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, #FFFFFF66 45%, transparent);
+  transform: skewX(-18deg) translateX(0);
+  transition: transform var(--k-mask) var(--k-ease);
+}
+.k-sweep:hover::after { transform: skewX(-18deg) translateX(360%); }
+
+/* ---------------------------------------------------------------------------
+ * 06 — Subtle depth: a pointer-reactive field, not WebGL.
+ * The gradient centre is the *damped* pointer, so it trails the cursor rather
+ * than snapping to it. That trailing is the whole effect.
+ * ------------------------------------------------------------------------- */
+
+.k-field::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(620px circle at var(--pointer-x) var(--pointer-y),
+      color-mix(in srgb, var(--k-navy) 6%, transparent), transparent 62%),
+    linear-gradient(var(--k-line-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--k-line-2) 1px, transparent 1px);
+  background-size: auto, 72px 72px, 72px 72px;
+  opacity: calc(.35 + var(--pointer-active) * .45);
+  mask-image: linear-gradient(to bottom, #000 0 40%, transparent 92%);
+  transition: opacity var(--k-mask) var(--k-ease);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion removes every animation, not just the large ones.
+ * ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-js [data-reveal],
+  .site-js [data-mask] > *,
+  .site-js [data-magnetic],
+  .site-js [data-scroll-damp] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .k-lift, .k-sweep::after { transition: none !important; }
+  .k-lift:hover, .k-lift:active { transform: none; }
+  .k-sweep:hover::after { transform: skewX(-18deg); }
+  .k-field::before { transition: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@kionel/crypto",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kionel/platform-keys": "workspace:*"
+  },
+  "license": "Apache-2.0"
+}

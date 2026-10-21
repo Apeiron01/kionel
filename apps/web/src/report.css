@@ -1,0 +1,69 @@
+/* Kanıt görünümü: doğrulama sayfası ve aktarım sonucu aynı bileşeni kullanır.
+   Renkler iki sayfanın ortak tonları; değişkene bağlanmadı çünkü iki sayfa
+   farklı değişken adları kullanıyor. */
+.evidence-status { margin: 1rem 0; padding: .9rem 1rem; border-radius: 8px; font-weight: 600; border: 1px solid; }
+.evidence-status.is-ok { color: #6de3c2; border-color: #6de3c2; background: rgba(109, 227, 194, .08); }
+.evidence-status.is-bad { color: #ffb3b3; border-color: #ff8585; background: rgba(255, 133, 133, .08); }
+.evidence-table { width: 100%; border-collapse: collapse; margin: .5rem 0 1rem; font-size: .92rem; }
+.evidence-table th, .evidence-table td { text-align: left; vertical-align: top; padding: .55rem .6rem; border-bottom: 1px solid #243b42; }
+.evidence-table th { font-weight: 600; width: 34%; }
+.evidence-table .state-ok { color: #6de3c2; white-space: nowrap; }
+.evidence-table .state-fail { color: #ff8585; white-space: nowrap; }
+.evidence-table .state-skip { color: #a9bec0; white-space: nowrap; }
+.evidence-facts { display: grid; grid-template-columns: minmax(9rem, auto) 1fr; gap: .35rem 1rem; margin: 0; font-size: .88rem; }
+.evidence-facts dt { color: #a9bec0; }
+.evidence-facts dd { margin: 0; font-family: "PlexMono", ui-monospace, monospace; overflow-wrap: anywhere; }
+
+/* Doğrulama sayfasının bırakma alanları. */
+.drop { display: block; margin: .8rem 0; padding: 1.4rem; text-align: center; cursor: pointer;
+  border: 1px dashed #3d626b; border-radius: 10px; color: #a9bec0; }
+.drop:hover, .drop.is-over { border-color: #6de3c2; color: #f1f7f6; }
+.drop.loaded { border-style: solid; border-color: #6de3c2; color: #6de3c2; }
+/* Sitenin genel input kuralı (funnel.css) daha özgül; bu seçici onu yener. */
+label.drop > input[type="file"] { display: none; }
+
+#print-report { display: none; }
+@media print {
+  /* Yalnız rapor yazdırılırken: sayfayı Ctrl+P ile basan boş kâğıt almasın. */
+  body.printing-report > *:not(#print-report) { display: none !important; }
+  body.printing-report #print-report { display: block; color: #000; background: #fff; font: 11pt/1.45 "Plex", Arial, sans-serif; }
+  body.printing-report { background: #fff !important; }
+  #print-report h1 { font-size: 18pt; margin: .2rem 0 .6rem; }
+  #print-report .report-eyebrow { font-size: 8pt; letter-spacing: .15em; margin: 0; }
+  #print-report .report-note { font-size: 9pt; color: #333; }
+  #print-report .evidence-status { color: #000; background: none; border: 2px solid #000; }
+  #print-report .evidence-table th, #print-report .evidence-table td { border-bottom: 1px solid #999; color: #000; }
+  #print-report .evidence-facts dt { color: #333; }
+  @page { margin: 16mm; }
+}
+
+.verify-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 600px) { .verify-steps { grid-template-columns: 1fr; } }
+
+/* Kâğıttaki kayıt kodu: sonradan kamerayla okunur; kenar boşluğu okumayı kolaylaştırır. */
+#print-report .report-code { margin: 1rem 0; text-align: center; page-break-inside: avoid; }
+#print-report .report-code img { width: 70mm; height: 70mm; image-rendering: pixelated; }
+#print-report .report-code figcaption { font-size: 9pt; color: #333; }
+
+/* Yüklenen dosyayı kaldırma: bırakma alanının hemen altında, küçük. */
+.drop-clear { margin: -.4rem 0 .8rem; padding: .35rem .8rem; font-size: .85rem; }
+
+/* Aktarım günlüğü raporu: küçük yazı, tam özet, imza alanları. */
+@media print {
+  #print-report .log-table { width: 100%; border-collapse: collapse; margin: .6rem 0 1rem; font-size: 7.5pt; }
+  #print-report .log-table th, #print-report .log-table td { border: 1px solid #999; padding: 2px 4px; vertical-align: top; text-align: left; color: #000; }
+  #print-report .log-table td.hash { font-family: ui-monospace, monospace; word-break: break-all; }
+  #print-report .log-table.sign th { width: 30%; }
+  #print-report .log-table.sign td { height: 1.8rem; }
+}
+
+/* Kâğıda basılan aktarım: her sayfa ayrı kâğıt, kodlar arasında boşluk. */
+#print-report.paper .paper-page { page-break-after: always; break-after: page; break-inside: avoid; page-break-inside: avoid; }
+#print-report.paper .paper-page:last-child { page-break-after: auto; break-after: auto; }
+/* A4 ve Letter'ın ikisine de sığar (Letter'da kenar boşluklarıyla ~247 mm): başlık + 3×64 mm ya da 4×48 mm + boşluklar + alt yazı. */
+#print-report.paper .paper-head { font-size: 9pt; margin: 0 0 3mm; }
+#print-report.paper .paper-grid { display: grid; gap: 5mm; justify-items: center; }
+#print-report.paper .paper-grid.cols-2 { grid-template-columns: repeat(2, 64mm); }
+#print-report.paper .paper-grid.cols-3 { grid-template-columns: repeat(3, 48mm); gap: 4mm; }
+#print-report.paper .paper-grid img { width: 100%; image-rendering: pixelated; }
+#print-report.paper .paper-foot { font-size: 7.5pt; line-height: 1.3; color: #333; margin: 3mm 0 0; }

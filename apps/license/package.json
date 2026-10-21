@@ -1,0 +1,9 @@
+{
+  "name": "@kionel/license-cli",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/licensing": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  }
+}

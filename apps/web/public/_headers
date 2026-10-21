@@ -1,0 +1,31 @@
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Permissions-Policy: camera=(self), microphone=(self), geolocation=(), usb=(), serial=(self), bluetooth=(), payment=()
+  Referrer-Policy: no-referrer
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  # no-transform: Cloudflare yanıtı değiştirmesin (ücretsiz planda HTML'e kendiliğinden
+  # analitik betiği ekliyor; indirilen paketin SHA-256'sını bozuyordu).
+  Cache-Control: no-store, no-transform
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: same-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/download/*
+  Content-Disposition: attachment
+  X-Content-Type-Options: nosniff
+
+# Only the Excel task pane may be embedded by an Office host and load Office.js.
+# Detach inherited headers before setting the task pane's narrower exception.
+/excel-import-check.html
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  ! Cross-Origin-Opener-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://appsforoffice.microsoft.com; style-src 'self'; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'self' https://*.office.com https://*.officeapps.live.com https://*.microsoft365.com https://*.cloud.microsoft https://*.sharepoint.com; form-action 'none'

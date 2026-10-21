@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Kionel ürün fazları, kanıt kapıları ve Enterprise Control Plane API sözleşmesi." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kionel" />
+    <meta property="og:title" content="Kionel — kanıt ve fazlar" />
+    <meta property="og:description" content="Hangi kapının kapandığı ve hangisinin açık olduğu, ölçümle birlikte." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kionel — the air gap stays closed." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Kionel — Fazlar ve Enterprise API</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/ibm-plex-sans-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/source-serif-4-400-latin.woff2" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/phases.css" />
+  <!-- launch-meta --><meta name="robots" content="noindex,nofollow"><!-- /launch-meta --></head>
+  <body class="roadmap-page">
+    <header class="roadmap-header">
+      <div class="header-line">
+        <div class="eyebrow">PRODUCT CONTROL ROOM</div>
+        <nav class="header-nav" aria-label="Üst menü">
+          <a class="header-link" href="/products.html">Ürünler</a>
+          <a class="header-link" href="/">Aktarım uygulaması</a>
+          <a class="header-link" href="/policies.html">Politikalar</a>
+        </nav>
+      </div>
+      <h1>Kionel <span>Fazlar &amp; API</span></h1>
+      <p>Ürünün hangi kısmının kodlandığını, hangi kanıtın beklendiğini ve sıradaki çıkış kapısını tek yerde izleyin.</p>
+    </header>
+
+    <main>
+      <section class="status-hero" aria-labelledby="current-phase-title">
+        <div>
+          <span class="status-pill active">AKTİF FAZ</span>
+          <h2 id="current-phase-title" data-mask>Control Plane API &amp; console</h2>
+          <p>Enrollment çekirdeğini tenant izolasyonlu, iki kişilik onaylı ve hassas içerikten tamamen ayrılmış yönetim ürününe dönüştürüyoruz.</p>
+        </div>
+        <dl id="roadmap-summary" class="summary-grid" aria-label="Faz özeti"></dl>
+      </section>
+
+      <section class="boundary" aria-labelledby="boundary-title">
+        <div>
+          <span class="section-kicker">GÜVEN SINIRI</span>
+          <h2 id="boundary-title" data-mask>İçerik cihazda kalır. API yalnız güveni yönetir.</h2>
+        </div>
+        <div class="boundary-flow" aria-label="Mimari veri akışı">
+          <div><strong>Data plane</strong><span>Dosya · kamera · oturum anahtarı</span><em>Yalnız ekran ↔ kamera</em></div>
+          <div class="boundary-divider" aria-hidden="true">≠</div>
+          <div><strong>Control plane</strong><span>Tenant · cihaz · politika · iptal</span><em>Bölgesel yönetim API’si</em></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="phases-title">
+        <div class="section-heading">
+          <div><span class="section-kicker">ÜRÜN YOLU</span><h2 id="phases-title" data-mask>Kanıta dayalı fazlar</h2></div>
+          <div class="phase-filters" role="group" aria-label="Faz filtresi">
+            <button class="filter active" data-filter="all">Tümü</button>
+            <button class="filter" data-filter="open">Açık işler</button>
+            <button class="filter" data-filter="external-evidence">Dış kanıt</button>
+          </div>
+        </div>
+        <div id="phase-list" class="phase-list" aria-live="polite"></div>
+      </section>
+
+      <section id="api" class="api-section" aria-labelledby="api-title">
+        <div class="section-heading api-heading">
+          <div>
+            <span class="section-kicker">ENTERPRISE CONTROL PLANE</span>
+            <h2 id="api-title" data-mask>Yönetim API sözleşmesi</h2>
+            <p>Her kaynak tenant’a bağlıdır. Mutasyonlarda MFA, kritik yayınlarda ikinci kişi gerekir.</p>
+          </div>
+          <a id="openapi-download" class="dl api-download" download="kionel-control-plane-openapi.json">OpenAPI 3.1 JSON indir</a>
+        </div>
+        <div class="api-legend">
+          <span><i class="legend-dot mfa"></i> MFA zorunlu</span>
+          <span><i class="legend-dot idempotency"></i> Tekrara dayanıklı</span>
+          <span><i class="legend-dot approval"></i> İki kişi onayı</span>
+          <span><i class="legend-dot safe"></i> İçerik kabul etmez</span>
+        </div>
+        <div id="api-list" class="api-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Kionel · Optical Trust Platform</span>
+      <span id="contract-version"></span>
+    </footer>
+    <script type="module" src="/src/phases.ts"></script>
+  </body>
+</html>

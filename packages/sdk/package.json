@@ -1,0 +1,14 @@
+{
+  "name": "@kionel/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kionel/core": "workspace:*",
+    "@kionel/crypto": "workspace:*",
+    "@kionel/issue": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  }
+}

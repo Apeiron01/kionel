@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #FBFAF7; color: #111318;
+      font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1B3A63; text-decoration: none; } a:hover { color: #0E2440; }
+    td, th { font-variant-numeric: tabular-nums; }
+    .tier { display: flex; flex-direction: column; padding: 30px 26px 28px; background: #FFFFFF;
+      border: 1px solid #E3DFD6;
+      transition: border-color .22s cubic-bezier(.22,.68,.28,1), transform .22s cubic-bezier(.22,.68,.28,1), box-shadow .22s cubic-bezier(.22,.68,.28,1); }
+    .tier:hover { border-color: #111318; transform: translate(-1px,-1px); box-shadow: 5px 5px 0 #E3DFD6; }
+    .tier--now { border-color: #111318; box-shadow: 5px 5px 0 #111318; }
+    .tier--now:hover { box-shadow: 7px 7px 0 #111318; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%;
+      font-size: 13.5px; font-weight: 500; padding: 12px 20px; border: 1px solid #111318; cursor: pointer;
+      transition: transform .16s cubic-bezier(.22,.68,.28,1), box-shadow .16s cubic-bezier(.22,.68,.28,1); }
+    .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #111318; }
+    .btn:active { transform: translate(2px,2px); box-shadow: none; }
+    .btn--solid { background: #111318; color: #FBFAF7; }
+    .btn--ghost { background: #FBFAF7; color: #111318; }
+    .btn--ghost:hover { box-shadow: 4px 4px 0 #C9C3B6; }
+    .btn--muted { background: #F4F2ED; color: #6E6A5E; border-color: #D5D0C4; cursor: default; }
+    .btn--muted:hover { transform: none; box-shadow: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .tier:hover, .btn:hover, .btn:active { transform: none; }
+    }
+  </style>
+</helmet>
+
+<div style="padding: 72px 64px 64px; background: #FBFAF7;">
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 30px;">
+    <div>
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .22em; color: #6E6A5E; margin-bottom: 20px;">COMMERCIAL MODEL</div>
+      <h2 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0; font-size: 44px; line-height: 1.08; font-weight: 400; letter-spacing: -.018em;">You are not paying<br>for the software to run.</h2>
+    </div>
+    <p style="margin: 0 0 6px; font-size: 15.5px; line-height: 1.65; color: #43474F; text-wrap: pretty;">The application runs entirely on your devices with no server of ours in the path. There is nothing for us to switch off, and a licence check on your own machine would be theatre. What you buy is the right to use it commercially, the evidence that it works, and someone answering when it does not.</p>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 16px; padding: 18px 24px; margin-bottom: 34px; border: 1px solid #111318; background: #111318;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink: 0;">
+      <path d="M12 3 4 6.5v5.2c0 4.7 3.4 8.4 8 9.3 4.6-.9 8-4.6 8-9.3V6.5z" stroke="#9FC7A8" stroke-width="1.5" stroke-linejoin="round"></path>
+      <path d="m9 12 2 2 4-4" stroke="#9FC7A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: #FBFAF7;"><strong style="font-weight: 600;">Security is never a paid feature.</strong> <span style="color: #B9BCC4;">End-to-end encryption, the two-factor confirmation code, the dual-signed receipt and the audit chain are identical in every tier, including the free one. A weakened free tier would be a dangerous free tier.</span></p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-bottom: 44px;">
+
+    <div class="tier">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 14px;">DEMO</div>
+      <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 6px;">Demo</div>
+      <div style="font-size: 12.5px; color: #6E6A5E; margin-bottom: 22px;">Sample data only</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #EDEAE3; font-size: 13px; line-height: 1.5; color: #43474F; flex-grow: 1;">
+        <div>Full protocol and full cryptography</div>
+        <div>Try the full flow with sample files</div>
+        <div>No use with your own data</div>
+        <div style="color: #6E6A5E;">No support, no evidence package, no commercial embedding right</div>
+      </div>
+      <div style="margin-top: 24px;"><span class="btn btn--ghost">Open the app</span></div>
+    </div>
+
+    <div class="tier tier--now">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px;">
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E;">PILOT</span>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; letter-spacing: .12em; color: #FBFAF7; background: #111318; padding: 3px 7px;">AVAILABLE NOW</span>
+      </div>
+      <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 6px;">Fixed fee</div>
+      <div style="font-size: 12.5px; color: #6E6A5E; margin-bottom: 22px;">Scoped, time-boxed, quoted in writing</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #EDEAE3; font-size: 13px; line-height: 1.5; color: #43474F; flex-grow: 1;">
+        <div>Deployment in your own environment</div>
+        <div>Device qualification run, done with you</div>
+        <div>Signed qualification report you keep</div>
+        <div>A named engineer, not a ticket queue</div>
+        <div style="color: #8A6A22;">Open gates are written into the contract</div>
+      </div>
+      <div style="margin-top: 24px;"><span class="btn btn--solid">Request a pilot</span></div>
+    </div>
+
+    <div class="tier">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 14px;">OEM &middot; SDK</div>
+      <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 6px;">Annual</div>
+      <div style="font-size: 12.5px; color: #6E6A5E; margin-bottom: 22px;">Per product line or unit band</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #EDEAE3; font-size: 13px; line-height: 1.5; color: #43474F; flex-grow: 1;">
+        <div>Right to embed in a commercial product</div>
+        <div>Offline-verified signed licence file</div>
+        <div>Integration support and stable API policy</div>
+        <div style="color: #6E6A5E;">Not counted per user &mdash; counting users would need telemetry</div>
+      </div>
+      <div style="margin-top: 24px;"><span class="btn btn--muted">After the independent review</span></div>
+    </div>
+
+    <div class="tier">
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .14em; color: #6E6A5E; margin-bottom: 14px;">ENTERPRISE</div>
+      <div style="font-family: 'Source Serif 4', Georgia, serif; font-size: 30px; font-weight: 400; letter-spacing: -.02em; margin-bottom: 6px;">Annual</div>
+      <div style="font-size: 12.5px; color: #6E6A5E; margin-bottom: 22px;">An operated trust service</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #EDEAE3; font-size: 13px; line-height: 1.5; color: #43474F; flex-grow: 1;">
+        <div>Device enrolment authority</div>
+        <div>Signed revocation snapshots</div>
+        <div>Audit export and defined response times</div>
+        <div style="color: #6E6A5E;">Runs on your side if your policy requires it</div>
+      </div>
+      <div style="margin-top: 24px;"><span class="btn btn--muted">After the enrolment service ships</span></div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.45fr 1fr; gap: 26px; align-items: start;">
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 20px 26px; border-bottom: 1px solid #E3DFD6;">
+        <h3 style="margin: 0; font-size: 14px; font-weight: 600;">What it actually replaces</h3>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #6E6A5E; letter-spacing: .08em;">PUBLISHED VENDOR PRICING</span>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <thead>
+          <tr style="text-align: left; color: #6E6A5E;">
+            <th style="padding: 12px 26px; font-weight: 500; font-size: 11px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">TODAY&rsquo;S METHOD</th>
+            <th style="padding: 12px 16px; font-weight: 500; font-size: 11px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">REAL COST</th>
+            <th style="padding: 12px 26px 12px 16px; font-weight: 500; font-size: 11px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">WHAT IT COSTS YOU</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 26px; font-weight: 500;">USB stick</td>
+            <td style="padding: 15px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace;">&mdash;</td>
+            <td style="padding: 15px 26px 15px 16px; color: #43474F;">The most common way an air gap is crossed, and malware&rsquo;s main door. No record of who moved what.</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 26px; font-weight: 500;">Data diode</td>
+            <td style="padding: 15px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace;">$1000s &ndash; $10,000s</td>
+            <td style="padding: 15px 26px 15px 16px; color: #43474F;">Hardware per connection, plus install and a support contract. One-way only.</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 26px; font-weight: 500;">USB scanning kiosk</td>
+            <td style="padding: 15px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace;">$8k&ndash;25k + $15k&ndash;75k/yr</td>
+            <td style="padding: 15px 26px 15px 16px; color: #43474F;">The USB stick is still there &mdash; it is only scanned. A procurement project of its own.</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3; background: #FBFAF7;">
+            <td style="padding: 15px 26px; font-weight: 600;">Kionel</td>
+            <td style="padding: 15px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #2E7D5B;">No hardware</td>
+            <td style="padding: 15px 26px 15px 16px; color: #43474F;">Uses the screens and cameras you already own. The marginal cost of one more link is zero.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding: 15px 26px; border-top: 1px solid #E3DFD6; background: #FBFAF7; font-size: 12px; line-height: 1.55; color: #6E6A5E;">Being cheaper is not a discount. There is no box to build, ship, install or replace, and no server to run per customer.</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div style="padding: 26px 28px; background: #111318;">
+        <h3 style="margin: 0 0 16px; font-size: 13.5px; font-weight: 600; color: #FBFAF7;">Where we do not compete</h3>
+        <div style="display: flex; flex-direction: column; gap: 13px;">
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span><span><strong style="color: #FBFAF7; font-weight: 500;">Throughput.</strong> A diode moves gigabits. We move tens of kilobytes per second. Wrong tool for bulk flows, backups or log shipping.</span>
+          </div>
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span><span><strong style="color: #FBFAF7; font-weight: 500;">Certification.</strong> Diode vendors hold Common Criteria style approvals. We hold none, and will not bid where one is mandatory.</span>
+          </div>
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span><span><strong style="color: #FBFAF7; font-weight: 500;">Round-the-clock operations.</strong> Enterprise buys defined response times, not a staffed security operations centre.</span>
+          </div>
+        </div>
+        <p style="margin: 18px 0 0; font-size: 12.5px; line-height: 1.55; color: #7E8794;">Said at the first meeting rather than the last. It costs far less that way &mdash; for both sides.</p>
+      </div>
+
+      <div style="padding: 24px 28px; border: 1px solid #E3DFD6; background: #F4F2ED;">
+        <h3 style="margin: 0 0 14px; font-size: 13.5px; font-weight: 600;">What can be tailored</h3>
+        <p style="margin: 0 0 12px; font-size: 13px; line-height: 1.6; color: #43474F;"><strong style="font-weight: 500;">Negotiable:</strong> scope, response times, running the enrolment authority on your side, training, payment schedule, term, source escrow.</p>
+        <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #43474F;"><strong style="font-weight: 500;">Not negotiable:</strong> the protocol, the cryptography and the published readiness state. No customer gets a cheaper, weaker build, and no open gate is shown as closed.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

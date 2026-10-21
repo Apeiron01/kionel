@@ -1,0 +1,73 @@
+(* Kionel one-way transfer with a receiver card — fixed PC to device pairing.
+ *
+ * Mirrors issueReceiverCard / sealOneWay / openOneWay in packages/issue/src/oneway.ts.
+ * The receiver's card carries a long-term X25519 key, signed by its identity key.
+ * The card is installed once on the PC. Lines tagged:
+ *   (*TRUSTED*)   — the card reaches the PC over a trusted route (the documented assumption);
+ *   (*UNTRUSTED*) — the card travels over the attacker's channel instead;
+ *   (*LEAK*)      — the receiver's long-term keys leak after the transfers.
+ * The runner keeps one of TRUSTED / UNTRUSTED and optionally drops LEAK, to show
+ * what each assumption buys:
+ *   trusted install            -> secret, sender authenticated
+ *   card over attacker channel -> NOT secret (the attacker substitutes its own card)
+ *   long-term key leaks later  -> NOT secret (no forward secrecy — documented trade-off)
+ *)
+
+free c: channel.
+free install: channel [private].
+
+type skey.
+type pkey.
+fun pk(skey): pkey.
+fun sign(bitstring, skey): bitstring.
+reduc forall m: bitstring, k: skey; checksign(sign(m, k), pk(k), m) = true.
+
+type G.
+type exponent.
+const g: G [data].
+fun exp(G, exponent): G.
+equation forall x: exponent, y: exponent; exp(exp(g, x), y) = exp(exp(g, y), x).
+
+type key.
+fun kdf(G, bitstring): key.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun hash(bitstring): bitstring.
+
+const LABEL: bitstring [data].
+
+event SenderSent(pkey, bitstring).
+event ReceiverGot(pkey, bitstring).
+
+query attacker(new file).
+query x: pkey, f: bitstring; event(ReceiverGot(x, f)) ==> event(SenderSent(x, f)).
+
+let Receiver(skR: skey, a: exponent) =
+  in(c, (eph: G, ct: bitstring));
+  let (disp: bitstring, dsig: bitstring, file: bitstring) = sdec(ct, kdf(exp(eph, a), (eph, exp(g, a)))) in
+  let (pkS: pkey, h: bitstring, ctx: bitstring) = disp in
+  if checksign(dsig, pkS, disp) then
+  if h = hash(file) then
+  event ReceiverGot(pkS, file).
+
+let Sender(skS: skey) =
+  in(install, (body: bitstring, csig: bitstring)); (*TRUSTED*)
+  in(c, (body: bitstring, csig: bitstring)); (*UNTRUSTED*)
+  let (=LABEL, pkR: pkey, xR: G) = body in
+  if checksign(csig, pkR, body) then
+  new e: exponent;
+  new file: bitstring;
+  new ctx: bitstring;
+  let disp = (pk(skS), hash(file), ctx) in
+  event SenderSent(pk(skS), file);
+  out(c, (exp(g, e), senc((disp, sign(disp, skS), file), kdf(exp(xR, e), (exp(g, e), xR))))).
+
+process
+  new skR: skey;
+  new a: exponent;
+  new skS: skey;
+  let card = (LABEL, pk(skR), exp(g, a)) in
+  out(c, pk(skS));
+  ( (!Receiver(skR, a)) | (!Sender(skS)) | (!out(install, (card, sign(card, skR))))
+  | (phase 1; out(c, a); out(c, skR)) (*LEAK*)
+  )

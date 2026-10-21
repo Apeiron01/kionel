@@ -1,0 +1,12 @@
+{
+  "name": "@kionel/attest",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/licensing": "workspace:*",
+    "@kionel/crypto": "workspace:*",
+    "@kionel/issue": "workspace:*",
+    "@kionel/transport-qr": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  }
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #F4F2ED; color: #111318;
+      font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1B3A63; text-decoration: none; } a:hover { color: #0E2440; }
+    td, th { font-variant-numeric: tabular-nums; }
+  </style>
+</helmet>
+
+<div style="padding: 84px 72px 76px; background: #F4F2ED; min-height: 1040px;">
+
+  <div style="max-width: 62ch; margin-bottom: 54px;">
+    <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .2em; color: #6E6A5E; margin-bottom: 22px;">EVIDENCE, NOT ADJECTIVES</div>
+    <h2 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 20px; font-size: 42px; line-height: 1.12; font-weight: 400; letter-spacing: -.012em;">Every number here comes from a test you can run.</h2>
+    <p style="margin: 0; font-size: 16px; line-height: 1.65; color: #43474F; text-wrap: pretty;">The figures below are produced by the repository&rsquo;s own benchmark against a synthetic channel model. They measure the coding layer, not a camera. Real-device qualification is a separate gate and it is listed as open.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 30px; align-items: start;">
+
+    <div style="background: #FFFFFF; border: 1px solid #E3DFD6; border-radius: 4px; overflow: hidden;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 22px 28px; border-bottom: 1px solid #E3DFD6;">
+        <h3 style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .01em;">Channel model &mdash; QR v27, 30 frames/s</h3>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; color: #6E6A5E; letter-spacing: .08em;">1 MB PAYLOAD &middot; 25 TRIALS</span>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
+        <thead>
+          <tr style="text-align: left; color: #6E6A5E;">
+            <th style="padding: 13px 28px; font-weight: 500; font-size: 11.5px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">FRAME LOSS</th>
+            <th style="padding: 13px 16px; font-weight: 500; font-size: 11.5px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">COMPLETION</th>
+            <th style="padding: 13px 16px; font-weight: 500; font-size: 11.5px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace;">REDUNDANCY</th>
+            <th style="padding: 13px 28px 13px 16px; font-weight: 500; font-size: 11.5px; letter-spacing: .1em; font-family: 'IBM Plex Mono', ui-monospace, monospace; text-align: right;">GOODPUT</th>
+          </tr>
+        </thead>
+        <tbody style="font-family: 'IBM Plex Mono', ui-monospace, monospace;">
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 28px;">0%</td><td style="padding: 15px 16px; color: #2E7D5B;">100%</td><td style="padding: 15px 16px;">1.120&times;</td><td style="padding: 15px 28px 15px 16px; text-align: right;">37.4 KB/s</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 28px;">10%</td><td style="padding: 15px 16px; color: #2E7D5B;">100%</td><td style="padding: 15px 16px;">1.111&times;</td><td style="padding: 15px 28px 15px 16px; text-align: right;">33.9 KB/s</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 28px;">20%</td><td style="padding: 15px 16px; color: #2E7D5B;">100%</td><td style="padding: 15px 16px;">1.148&times;</td><td style="padding: 15px 28px 15px 16px; text-align: right;">29.2 KB/s</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3;">
+            <td style="padding: 15px 28px;">30%</td><td style="padding: 15px 16px; color: #2E7D5B;">100%</td><td style="padding: 15px 16px;">1.137&times;</td><td style="padding: 15px 28px 15px 16px; text-align: right;">25.8 KB/s</td>
+          </tr>
+          <tr style="border-top: 1px solid #EDEAE3; background: #FBFAF7;">
+            <td style="padding: 15px 28px;">50%</td><td style="padding: 15px 16px; color: #2E7D5B;">100%</td><td style="padding: 15px 16px;">1.174&times;</td><td style="padding: 15px 28px 15px 16px; text-align: right;">17.9 KB/s</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding: 16px 28px; border-top: 1px solid #E3DFD6; background: #FBFAF7; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11.5px; color: #6E6A5E;">$ pnpm bench --size=1048576 --trials=25</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div style="padding: 28px 30px; background: #111318; border-radius: 4px;">
+        <h3 style="margin: 0 0 16px; font-size: 13.5px; font-weight: 600; color: #FBFAF7; letter-spacing: .01em;">What this does not protect against</h3>
+        <div style="display: flex; flex-direction: column; gap: 13px;">
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span>A compromised endpoint. If the operating system is owned, the data is already readable there.
+          </div>
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span>An operator who skips the code comparison. That step is what stops an interposed key.
+          </div>
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span>Traffic analysis. An observer sees that a transfer happened, and roughly how large.
+          </div>
+          <div style="display: flex; gap: 11px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+            <span style="color: #C4614C; flex-shrink: 0;">&mdash;</span>Identity. A receipt binds two keys, not two people.
+          </div>
+        </div>
+        <a href="#" style="display: inline-block; margin-top: 22px; font-size: 13px; color: #9FC7A8;">Full threat model &rarr;</a>
+      </div>
+
+      <div style="padding: 26px 30px; background: #FFFFFF; border: 1px solid #E3DFD6; border-radius: 4px;">
+        <h3 style="margin: 0 0 18px; font-size: 13.5px; font-weight: 600;">Open gates</h3>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 13px; color: #43474F;">Physical device matrix</span>
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .08em; color: #8A6A22;">NOT RUN</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 13px; color: #43474F;">Independent security review</span>
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .08em; color: #8A6A22;">NOT RUN</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 13px; color: #43474F;">Hardware attestation verifiers</span>
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .08em; color: #2E7D5B;">COMPLETE</span>
+          </div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 13px; color: #43474F;">Signed release provenance</span>
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .08em; color: #2E7D5B;">COMPLETE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

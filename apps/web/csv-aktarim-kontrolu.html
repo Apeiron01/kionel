@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSV'yi aktarmadan önce kontrol edin · Kionel Import Check</title><meta name="description" content="Kayıt kimliklerini, eksik satırları, ondalık biçimini ve birimleri kontrol edin. Sütunları eşleyip hazırlanan CSV'yi indirin. Dosya içeriği sunucuya gönderilmez.">
+<meta name="referrer" content="no-referrer"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kionel.com/csv-aktarim-kontrolu.html"><link rel="alternate" hreflang="en" href="https://kionel.com/import-check.html"><link rel="alternate" hreflang="tr" href="https://kionel.com/csv-aktarim-kontrolu.html">
+<link rel="stylesheet" href="/src/funnel.css"><script type="module" src="/src/import-check-page.ts"></script></head>
+<body class="import-check-page"><a class="skip-link" href="#main">İçeriğe geç</a>
+<header><a class="brand" href="/index.html"><b>Kionel</b></a><nav aria-label="Gezinme"><a href="/transfer.html">Dosya aktarımı</a><a href="/import-check.html">English</a></nav></header>
+<main id="main"><section class="ic-intro"><p class="eyebrow">KIONEL / IMPORT CHECK</p><h1>CSV'yi aktarmadan önce kontrol edin</h1>
+<p class="lead">Sonraki sisteme, belirlediğiniz kurallara uyan bir dosya hazırlayın.</p>
+<p>Kayıt kimliklerini, eksik satırları, ondalık biçimini ve birimleri kontrol edin. Sütunları eşleyip hazırlanan CSV'yi indirin. Dosya içeriği sunucuya gönderilmez.</p><p class="ic-free">Ücretsiz web aracı · kendi CSV'niz · üyelik gerekmez</p>
+<div class="ic-actions"><button type="button" id="ic-example">Doğru örneği dene</button><button type="button" class="secondary" id="ic-broken">Eksik kayıt örneğini gör</button></div>
+</section>
+<p id="ic-status" class="ic-status" role="status" aria-live="polite" hidden></p>
+<section class="ic-panel" aria-labelledby="ic-source-heading"><div class="ic-step">01</div><h2 id="ic-source-heading">Kaynağı seçin</h2>
+
+<div class="ic-source-options"><label>CSV dosyası (UTF-8, en fazla 2 MB)<input id="ic-source-file" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"></label>
+<label>Kaynak ayırıcı<select id="ic-source-separator"><option value="auto">Başlıktan belirle</option><option value=",">Virgül (,)</option><option value=";">Noktalı virgül (;)</option><option value="tab">Sekme</option></select></label></div>
+<details id="ic-paste"><summary>CSV'yi yapıştırın veya inceleyin</summary><label for="ic-source-text">Başlık dahil kaynak CSV</label><textarea id="ic-source-text" rows="5" maxlength="2097152" spellcheck="false" autocomplete="off"></textarea></details>
+<p id="ic-source-info" class="ic-note">CSV ve TSV desteklenir. .xlsx için CSV UTF-8 olarak dışa aktarın.</p>
+<button type="button" class="secondary" id="ic-columns">Bu sütunlardan yeni profil oluştur</button></section>
+<section class="ic-panel" aria-labelledby="ic-profile-heading"><div class="ic-step">02</div><h2 id="ic-profile-heading">Aktarım kurallarını belirleyin</h2>
+<p>Profil; beklenen kaynak başlığını, hedef sütun adlarını ve kontrolleri birlikte saklar. Başka bir dosya seçmek kuralları kendiliğinden değiştirmez.</p>
+<label>Kaydedilmiş profil yükle (JSON)<input id="ic-profile-file" type="file" accept=".json,application/json"></label>
+<div id="ic-profile-editor" hidden><div class="ic-settings"><label>Profil adı<input id="ic-profile-name" maxlength="120" value="My import"></label><label>Sürüm<input id="ic-profile-revision" type="number" min="1" max="999999" value="1"></label>
+<label>Çıktı ayırıcı<select id="ic-output-separator"><option value=",">Virgül</option><option value=";">Noktalı virgül</option><option value="tab">Sekme</option></select></label>
+<label>Çıktı ondalık işareti<select id="ic-output-decimal"><option value=".">. (nokta)</option><option value=",">, (virgül)</option></select></label></div>
+<p class="ic-note">Numune + test gibi bir veya birkaç kimlik sütunu seçin. Kural: kimlik uzunluğu, ondalık işareti (. veya ,) ya da | ile ayrılmış izinli değerler. Eşlenen her değer zorunludur. Yuvarlama, boşluk temizleme ve birim dönüşümü yapılmaz.</p>
+<div class="ic-table-wrap"><table class="ic-mapping"><thead><tr><th>Kaynak</th><th>Hedef adı</th><th>Tür</th><th>Kural</th><th>Kimlik</th></tr></thead><tbody id="ic-mapping"></tbody></table></div>
+<div class="ic-actions"><button type="button" class="secondary" id="ic-save-profile">Profili indir</button><button type="button" class="secondary" id="ic-plan-template">Beklenen liste başlığını indir</button></div></div></section>
+<section class="ic-panel" aria-labelledby="ic-plan-heading"><div class="ic-step">03</div><h2 id="ic-plan-heading">Planınız varsa kapsamı da kontrol edin</h2>
+<p>İsteğe bağlı: beklenen kayıt kimliklerini ekleyin. Başlıkta yalnız hedef kimlik sütunlarının adlarını, profildeki sırayla kullanın. Bu liste olmadan eksik kayıt belirlenemez.</p>
+<label>Beklenen kimlik CSV'si<input id="ic-plan-file" type="file" accept=".csv,.tsv,.txt,text/csv"></label>
+<label for="ic-plan-text">Ya da beklenen kimlikleri yapıştırın</label><textarea id="ic-plan-text" rows="3" maxlength="2097152" spellcheck="false" autocomplete="off"></textarea>
+<button type="button" class="secondary" id="ic-clear-plan">Beklenen listeyi kaldır</button></section>
+<div class="ic-run"><button type="button" id="ic-check">Kontrol et ve CSV'yi hazırla</button><button type="button" class="secondary" id="ic-reset">Tüm veriyi temizle</button><span>En fazla 10.000 satır · 32 sütun</span></div>
+<section id="ic-result" class="ic-panel" aria-live="polite" hidden><h2 id="ic-result-title"></h2><p id="ic-result-summary"></p><p id="ic-coverage" class="ic-note"></p>
+<div class="ic-table-wrap"><table><thead id="ic-result-head"></thead><tbody id="ic-result-body"></tbody></table></div>
+<div class="ic-actions"><button type="button" id="ic-download" disabled>Hazırlanan CSV'yi indir</button><button type="button" class="secondary" id="ic-report" disabled>Kontrol raporunu indir</button></div>
+<p class="ic-note">Bu sonuç, verilen kurallara göre yerel kontroldür; hedef sistemin kabulü, onay imzası veya uygunluk sertifikası değildir. Yalnız açıkça seçilen ondalık işareti dönüştürülür. Çıktıyı elektronik tabloda açarken kimlik sütunlarını metin olarak içe aktarın.</p></section>
+<section class="ic-next"><h2>Bu kuralları gelen her dosyada kullanın</h2><p>Import Automation, kayıtlı profilinizi yerel klasörde uygular; geçen CSV'leri dosya raporlarıyla hazırlar. Ayrı otomasyon lisansını satın almadan önce sentetik örneğini indirip deneyin.</p><a class="button secondary" href="/csv-otomasyonu.html?source=import-check">Klasör otomasyonunu incele</a></section>
+<p class="ic-note">Dosyalar bu sekmede işlenir ve Kionel'e gönderilmez. Kendiliğinden kayıt yapılmaz. Sekmeyi kapatınca çalışma verisi silinir; indirdiğiniz dosyalar cihazınızda kalır.</p>
+</main><footer><a href="/terms.html">Koşullar</a> · <a href="/privacy.html">Gizlilik</a> · <a href="/index.html">Kionel</a></footer></body></html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="PLC, HMI ve hat cihazlarına reçete, metot ve yapılandırma dosyasını OT ağını açmadan ve USB kullanmadan taşıyın. Her aktarım iki uçta imzalanır." />
+    <meta name="theme-color" content="#FBFAF7" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Kionel" />
+    <meta property="og:title" content="OT ve üretim hattı — Kionel" />
+    <meta property="og:description" content="PLC, HMI ve hat cihazlarına reçete, metot ve yapılandırma dosyasını OT ağını açmadan ve USB kullanmadan taşıyın. Her aktarım iki uçta imzalanır." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>OT ve üretim hattı — Kionel</title>
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/ibm-plex-sans-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/source-serif-4-400-latin.woff2" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/products.css" />
+    <link rel="stylesheet" href="/src/segment.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hattaki HMI'nın kamerası yok, nasıl çalışır?","acceptedAnswer":{"@type":"Answer","text":"Alıcı uç kamera ister. Pratikte kurumsal bir tablet veya dizüstü alıcı olur ve dosya oradan hedef cihaza yerel olarak aktarılır. Bu, USB'yi tamamen ortadan kaldırmaz ama denetlenmeyen ortamı denetlenen bir cihazla değiştirir."}},{"@type":"Question","name":"Aktarım ne kadar sürer?","acceptedAnswer":{"@type":"Answer","text":"Kare hızı ve QR sürümüne bağlıdır. Gerçek rakamları cihaz matrisi koşusu belirleyecek; o koşu yapılmadan bir hız taahhüdü vermiyoruz. Tahmin yayımlamak yerine ölçümü bekliyoruz."}},{"@type":"Question","name":"Hattı durdurmak gerekir mi?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Aktarım iki ekran arasında geçer ve hedef cihazın çalışmasını kesmez. Yüklenen yapılandırmanın devreye alınması kurumun kendi değişiklik prosedürüne tabidir."}}]}</script>
+  </head>
+  <body class="sales-page k-field">
+    <a class="skip-link" href="#main-content">İçeriğe geç</a>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+<header class="site-header" data-site-header>
+      <a class="brand" href="/products.html">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span>
+      </a>
+      <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-menu"><span>Menü</span><i aria-hidden="true"></i></button>
+      <nav id="site-menu" class="site-menu" data-site-menu data-open="false" aria-label="Ana menü">
+        <a href="/products.html#products">Ürünler</a><a href="/products.html#technology">Nasıl çalışır?</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#guides">Rehberler</a><a href="/products.html#deployment">Dağıtım</a><a href="/products.html#pilot-scope">Pilot</a><a href="/phases.html">Kanıt &amp; API</a><a href="/policies.html">Politikalar</a>
+      </nav>
+      <a class="header-cta" href="/transfer.html?product=lab">Uygulamayı aç <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main-content">
+      <section class="segment-hero">
+        <div data-reveal><span class="section-index">SEGMENT / OT VE ÜRETİM</span></div>
+        <h1 id="segment-title" data-mask>Hattı durdurmadan,<br /><em>ağı açmadan.</em></h1>
+        <p class="segment-lede" data-reveal>Bir reçete güncellemesi için OT ağına geçici bir delik açmak, o deliğin kapandığını kimsenin doğrulayamadığı bir işlemdir. USB ise Stuxnet'ten bu yana OT'nin en iyi belgelenmiş giriş yoludur.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="site-button primary" data-magnetic="5" href="/products.html#pilot-scope">Pilotu kapsamlandır</a>
+          <a class="site-button ghost" href="/products.html#lab-bridge">Kionel Lab Bridge →</a>
+        </div>
+      </section>
+
+      <section class="section-space" aria-labelledby="pain-title">
+        <span class="section-index">01 / BUGÜNKÜ DURUM</span>
+        <h2 id="pain-title" data-mask>Sorun aktarımda değil, aktarımın kanıtsızlığında.</h2>
+        <div class="segment-grid" data-stagger><article data-reveal><span class="segment-index">01</span><h3>Geçici bağlantı kalıcı olur</h3><p>Bakım için açılan kural, değişiklik kaydında kapanmış görünse de çoğu zaman yerinde kalır. Ağ tarafındaki her istisna, sonradan denetlenmesi gereken bir borçtur.</p></article><article data-reveal><span class="segment-index">02</span><h3>USB, OT'nin bilinen saldırı yüzeyi</h3><p>Taşınabilir ortam yasağı çoğu OT politikasında yazılıdır; buna rağmen dosya bir şekilde taşınır. Yazılı yasak ile sahadaki uygulama arasındaki fark, gerçek risk yüzeyidir.</p></article><article data-reveal><span class="segment-index">03</span><h3>Değişikliği kimin yaptığı kanıtlanamıyor</h3><p>Hat durduğunda ilk soru hangi yapılandırmanın ne zaman yüklendiğidir. Cevap genelde operatörün hatırasına dayanır.</p></article></div>
+        <aside class="segment-alternative" data-reveal>
+          <h3>Yönetilen USB ile optik aktarımın farkı</h3>
+          <p>Yönetilen kiosk çözümleri zararlı içerik taraması, politika ve audit özellikleri sunabilir. Kionel optik aktarımda taşınabilir ortam kullanımını kaldırır ve imzalı sevk/teslim kaydı üretir. İçeriği zararlı yazılımdan temizlemez; bir dosyanın yalnızca bir kez uygulanmasını da tek başına garanti etmez. Seçim kurumun iş akışına ve güvenlik politikasına bağlıdır.</p>
+        </aside>
+      </section>
+
+      <section class="section-space" aria-labelledby="deliver-title">
+        <span class="section-index">02 / KIONEL NE VERİYOR</span>
+        <h2 id="deliver-title" data-mask>Taşınan şey dosya değil, doğrulanmış bir oturum.</h2>
+        <div class="segment-grid deliver-grid" data-stagger><article data-reveal><h3>Yazılabilir ortam hiç oluşmaz</h3><p>Aktarım ekran ile kamera arasında geçer. Ortada takılıp çıkarılabilen, sonradan yazılabilen bir cihaz yoktur.</p></article><article data-reveal><h3>Radyo yok, düşüş yok</h3><p>Bluetooth, Wi-Fi veya NFC'ye geri düşüş bulunmaz. Optik kanal kurulamazsa aktarım başarısız olur; sessizce başka bir yola sapmaz.</p></article><article data-reveal><h3>Yapılandırma sevki kayıt bırakır</h3><p>Hangi dosyanın, hangi iş emriyle, hangi hedef sisteme gittiği imzanın içindedir. Vardiya değişse de kayıt kalır.</p></article><article data-reveal><h3>Cihaz kimliği donanıma bağlanabilir</h3><p>Kurumsal dağıtımda anahtar TPM, StrongBox veya Secure Enclave içinde üretilir ve oradan çıkamaz. Doğrulayıcı tarafı hazırdır.</p></article></div>
+      </section>
+
+      <section class="section-space" aria-labelledby="control-title">
+        <span class="section-index">03 / KONTROL EŞLEMESİ</span>
+        <h2 id="control-title" data-mask>Eşleme sunuyoruz, uyum değil.</h2>
+        <p class="segment-note">Aşağıdaki tablo Kionel'in hangi kontrole ne katkı yaptığını gösterir. Uyum, kurumun kendi sisteminin ve denetiminin sonucudur; hiçbir satır otomatik uyum anlamına gelmez.</p>
+        <div class="table-scroll" data-reveal>
+          <table>
+            <thead><tr><th>Çerçeve</th><th>Kontrol</th><th>Kionel'in katkısı</th></tr></thead>
+            <tbody><tr><td><strong>IEC 62443-3-3</strong></td><td>SR 1.1 / SR 3.1 — Kimlik doğrulama ve iletişim bütünlüğü</td><td>Aktarım uçlarını kriptografik olarak kimliklendirir ve içerik bütünlüğünü doğrular.</td></tr><tr><td><strong>IEC 62443-4-2</strong></td><td>CR 2.3 — Taşınabilir ortam kullanımı</td><td>Taşınabilir ortam ihtiyacını ortadan kaldırarak kontrolün konusunu ortadan kaldırır.</td></tr><tr><td><strong>NIST SP 800-82r3</strong></td><td>OT sistemlerinde çıkarılabilir medya</td><td>Medyasız bir aktarım yolu ve aktarım başına denetlenebilir kayıt sağlar.</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section-space" aria-labelledby="status-title">
+        <span class="section-index">04 / DÜRÜST DURUM</span>
+        <h2 id="status-title" data-mask>Bugün ne kanıtlı, ne değil.</h2>
+        <div class="status-split">
+          <div class="status-card proven" data-reveal>
+            <h3>Kanıtlı</h3>
+            <ul><li>Radyo/ağ düşüşü yok — bu bir yapılandırma değil, mimarinin sonucu</li><li>Windows TPM, Android StrongBox ve Apple App Attest doğrulayıcıları yazıldı ve test edildi</li><li>Kurumsal enrollment ve iptal snapshot'ı çevrimdışı doğrulanıyor</li></ul>
+          </div>
+          <div class="status-card open" data-reveal>
+            <h3>Hâlâ açık</h3>
+            <ul><li>Donanım kimliğinin **üretici** tarafı açık: Windows AIK/EK zinciri, gerçek StrongBox koşusu ve Apple cihaz uygulaması</li><li>Fiziksel cihaz matrisi koşulmadı</li><li>IEC 62443 kontrol eşlemesi bağımsız olarak incelenmedi</li><li>İmzalı, çevrimdışı kurulum paketi hazır değil</li></ul>
+          </div>
+        </div>
+        <p class="segment-note">Bu listeyi kısaltmak için bir sebebimiz yok. Açık kapıları saklayan bir tedarikçi, denetimde sizin sorununuz olur.</p>
+      </section>
+
+      <section class="section-space" aria-labelledby="faq-title">
+        <span class="section-index">05 / SIK SORULANLAR</span>
+        <h2 id="faq-title" data-mask>Önce sorulanlar.</h2>
+        <div class="faq-list" data-stagger><details><summary>Hattaki HMI'nın kamerası yok, nasıl çalışır?<span aria-hidden="true">+</span></summary><p>Alıcı uç kamera ister. Pratikte kurumsal bir tablet veya dizüstü alıcı olur ve dosya oradan hedef cihaza yerel olarak aktarılır. Bu, USB'yi tamamen ortadan kaldırmaz ama denetlenmeyen ortamı denetlenen bir cihazla değiştirir.</p></details><details><summary>Aktarım ne kadar sürer?<span aria-hidden="true">+</span></summary><p>Kare hızı ve QR sürümüne bağlıdır. Gerçek rakamları cihaz matrisi koşusu belirleyecek; o koşu yapılmadan bir hız taahhüdü vermiyoruz. Tahmin yayımlamak yerine ölçümü bekliyoruz.</p></details><details><summary>Hattı durdurmak gerekir mi?<span aria-hidden="true">+</span></summary><p>Hayır. Aktarım iki ekran arasında geçer ve hedef cihazın çalışmasını kesmez. Yüklenen yapılandırmanın devreye alınması kurumun kendi değişiklik prosedürüne tabidir.</p></details></div>
+      </section>
+
+      <section class="closing-section" data-reveal>
+        <span>PİLOT</span>
+        <h2>OT ve üretim hattı için kapsamı birlikte çıkaralım.</h2>
+        <p>Kapsamlandırıcı adınızı, e-postanızı veya dosyanızı istemez. Çıktıyı tarayıcınızda üretir ve yalnızca siz indirirsiniz.</p>
+        <div>
+          <a class="site-button primary" data-magnetic="5" href="/products.html#pilot-scope">Kapsamı oluştur</a>
+          <a class="site-button" href="/policies.html">Politika merkezi</a>
+        </div>
+      </section>
+    </main>
+<footer class="site-footer">
+      <div class="footer-brand"><a class="brand" href="/products.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span></a><p>Ekran ile kamera arasında yerel, şifreli ve doğrulanabilir veri aktarımı.</p></div>
+      <div><strong>Ürün</strong><a href="/products.html#products">Teklifler</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#technology">Teknoloji</a><a href="/products.html#deployment">Dağıtım</a><a href="/transfer.html?product=lab">Uygulama</a></div><div><strong>Güven</strong><a href="/phases.html">Fazlar &amp; API</a><a href="/policies.html#privacy">Gizlilik</a><a href="/policies.html#storage">Çerez &amp; depolama</a><a href="/policies.html#security">Güvenlik bildirimi</a></div><div><strong>Şirket</strong><a href="/policies.html#terms">Kullanım şartları</a><a href="/policies.html#acceptable-use">Kabul edilebilir kullanım</a><a href="/policies.html#accessibility">Erişilebilirlik</a><a href="/policies.html">Politika merkezi</a></div>
+      <div class="footer-bottom"><span>© 2026 Kionel · Pilot öncesi ürün</span><span>Reklam yok · içerik telemetrisi yok · varsayılan izleme yok</span></div>
+    </footer>
+    <script type="module" src="/src/segment-page.ts"></script>
+  </body>
+</html>

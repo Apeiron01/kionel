@@ -1,0 +1,12 @@
+{
+  "name": "@kionel/attestation-apple",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kionel/attestation-core": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  }
+}

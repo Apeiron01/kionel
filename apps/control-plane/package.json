@@ -1,0 +1,6 @@
+{
+  "name": "@kionel/control-plane-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@kionel/control-plane": "workspace:*" }
+}

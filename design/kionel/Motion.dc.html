@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #FBFAF7; color: #111318;
+      font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1B3A63; text-decoration: none; } a:hover { color: #0E2440; }
+
+    @keyframes demoReveal { 0%, 8% { opacity: 0; transform: translateY(18px) }
+      34%, 92% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(18px) } }
+    @keyframes demoMask { 0%, 8% { clip-path: inset(0 0 100% 0) }
+      38%, 92% { clip-path: inset(0 0 0 0) } 100% { clip-path: inset(0 0 100% 0) } }
+    @keyframes demoLift { 0%, 40% { transform: none; box-shadow: none }
+      55%, 80% { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #111318 }
+      88%, 100% { transform: translate(2px,2px); box-shadow: none } }
+    @keyframes demoPin { 0%, 22% { transform: translateY(0) } 45%, 62% { transform: translateY(-96px) }
+      85%, 100% { transform: translateY(-192px) } }
+    @keyframes demoDepth { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-9px) } }
+    .dr { animation: demoReveal 4.2s cubic-bezier(.22,.68,.28,1) infinite both; }
+    .dm { animation: demoMask 4.2s cubic-bezier(.22,.68,.28,1) infinite both; }
+    .dl { animation: demoLift 4.2s cubic-bezier(.22,.68,.28,1) infinite both; }
+    .dp { animation: demoPin 6s cubic-bezier(.22,.68,.28,1) infinite both; }
+    .dd { animation: demoDepth 5s cubic-bezier(.4,0,.6,1) infinite both; }
+    @media (prefers-reduced-motion: reduce) { .dr,.dm,.dl,.dp,.dd { animation: none !important } }
+  </style>
+</helmet>
+
+<div style="padding: 68px 64px 60px; background: #FBFAF7;">
+
+  <div style="max-width: 68ch; margin-bottom: 46px;">
+    <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .22em; color: #6E6A5E; margin-bottom: 20px;">MOTION SYSTEM</div>
+    <h2 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 16px; font-size: 40px; line-height: 1.1; font-weight: 400; letter-spacing: -.016em;">Movement is a system, not decoration.</h2>
+    <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #43474F;">One easing curve, four durations, one travel distance. Everything on the site draws from this table. Motion that cannot name its token does not ship.</p>
+  </div>
+
+  <!-- tokens -->
+  <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; margin-bottom: 46px;">
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="padding: 16px 24px; border-bottom: 1px solid #E3DFD6; font-size: 13px; font-weight: 600;">Tokens</div>
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+        <tbody style="font-family: 'IBM Plex Mono', ui-monospace, monospace;">
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">ease</td><td style="padding: 12px 24px; text-align: right;">cubic-bezier(.22,.68,.28,1)</td></tr>
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">press</td><td style="padding: 12px 24px; text-align: right;">160ms</td></tr>
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">hover</td><td style="padding: 12px 24px; text-align: right;">220ms</td></tr>
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">reveal</td><td style="padding: 12px 24px; text-align: right;">620ms</td></tr>
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">mask</td><td style="padding: 12px 24px; text-align: right;">780ms</td></tr>
+          <tr style="border-bottom: 1px solid #EDEAE3;"><td style="padding: 12px 24px; color: #5B6069;">stagger</td><td style="padding: 12px 24px; text-align: right;">80ms</td></tr>
+          <tr><td style="padding: 12px 24px; color: #5B6069;">travel</td><td style="padding: 12px 24px; text-align: right;">18px in &middot; 2px hover</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding: 26px 28px; background: #111318;">
+      <div style="font-size: 13px; font-weight: 600; color: #FBFAF7; margin-bottom: 18px;">Rules</div>
+      <div style="display: flex; flex-direction: column; gap: 13px; font-size: 13px; line-height: 1.55; color: #B9BCC4;">
+        <div style="display: flex; gap: 10px;"><span style="color: #7E8794;">01</span>Nothing bounces, nothing overshoots. One curve, always decelerating.</div>
+        <div style="display: flex; gap: 10px;"><span style="color: #7E8794;">02</span>An element animates in once. Scrolling back up does not replay it.</div>
+        <div style="display: flex; gap: 10px;"><span style="color: #7E8794;">03</span>Numbers never count up. Financial figures appear at their value.</div>
+        <div style="display: flex; gap: 10px;"><span style="color: #7E8794;">04</span>Nothing moves that the user did not cause &mdash; scroll, pointer or click.</div>
+        <div style="display: flex; gap: 10px;"><span style="color: #7E8794;">05</span><span><code style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #9FC7A8;">prefers-reduced-motion</code> removes every animation, not just the large ones.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- choreography ladder -->
+  <div style="margin-bottom: 22px;">
+    <h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 600;">Scroll choreography</h3>
+    <p style="margin: 0 0 22px; font-size: 13.5px; color: #5B6069;">The order is fixed. A section never skips a rung or runs two at the same moment.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px;">
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #EDEAE3; overflow: hidden;">
+        <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
+          <div class="dd" style="width: 36px; height: 3px; background: #C9C3B6;"></div>
+          <div class="dd" style="width: 36px; height: 3px; background: #C9C3B6; animation-delay: .18s;"></div>
+          <div class="dd" style="width: 36px; height: 3px; background: #C9C3B6; animation-delay: .36s;"></div>
+        </div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">01</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Smooth scroll</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">Momentum damping only. No hijacking &mdash; the page still ends where the user let go.</div>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #EDEAE3; overflow: hidden; padding: 0 14px;">
+        <div class="dm" style="font-family: 'Source Serif 4', Georgia, serif; font-size: 26px; letter-spacing: -.01em;">Headline</div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">02</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Text reveal</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">Line-by-line mask, never letter-by-letter. Headlines stay readable while they arrive.</div>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border-bottom: 1px solid #EDEAE3; overflow: hidden;">
+        <div class="dr" style="width: 66px; height: 9px; background: #E3DFD6;"></div>
+        <div class="dr" style="width: 66px; height: 9px; background: #E3DFD6; animation-delay: .08s;"></div>
+        <div class="dr" style="width: 66px; height: 9px; background: #E3DFD6; animation-delay: .16s;"></div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">03</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Staggered content</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">80&thinsp;ms apart, capped at five items. Longer lists arrive as one block.</div>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #EDEAE3; overflow: hidden; position: relative;">
+        <div style="position: absolute; left: 14px; top: 14px; bottom: 14px; width: 34px; border: 1px solid #DEDAD1; background: #F4F2ED;"></div>
+        <div style="position: absolute; right: 14px; top: 14px; bottom: 14px; left: 58px; overflow: hidden;">
+          <div class="dp" style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="height: 88px; background: #EDEAE3;"></div>
+            <div style="height: 88px; background: #E3DFD6;"></div>
+            <div style="height: 88px; background: #EDEAE3;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">04</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Pinned scrollytelling</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">The transfer diagram pins while the three steps advance beside it. Used once per page.</div>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #EDEAE3; overflow: hidden;">
+        <div class="dl" style="padding: 10px 18px; background: #111318; color: #FBFAF7; font-size: 12px; font-weight: 500; border: 1px solid #111318;">Request a pilot</div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">05</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Interactive hover</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">Lift 1&thinsp;px, drop a hard shadow, sink 2&thinsp;px on press. Tactile, not glowing.</div>
+      </div>
+    </div>
+
+    <div style="border: 1px solid #E3DFD6; background: #FFFFFF;">
+      <div style="height: 118px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #EDEAE3; overflow: hidden; background: #111318;">
+        <div style="display: grid; grid-template-columns: repeat(5, 7px); grid-template-rows: repeat(5, 7px); gap: 3px;">
+          <div class="dd" style="background: #2E7D5B"></div><div class="dd" style="background: #24303C; animation-delay:.1s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.2s"></div><div class="dd" style="background: #24303C; animation-delay:.3s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.4s"></div>
+          <div class="dd" style="background: #24303C; animation-delay:.15s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.25s"></div><div class="dd" style="background: #24303C; animation-delay:.35s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.45s"></div><div class="dd" style="background: #24303C; animation-delay:.05s"></div>
+          <div class="dd" style="background: #2E7D5B; animation-delay:.3s"></div><div class="dd" style="background: #24303C; animation-delay:.4s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.5s"></div><div class="dd" style="background: #24303C; animation-delay:.1s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.2s"></div>
+          <div class="dd" style="background: #24303C; animation-delay:.45s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.05s"></div><div class="dd" style="background: #24303C; animation-delay:.15s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.25s"></div><div class="dd" style="background: #24303C; animation-delay:.35s"></div>
+          <div class="dd" style="background: #2E7D5B; animation-delay:.2s"></div><div class="dd" style="background: #24303C; animation-delay:.3s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.4s"></div><div class="dd" style="background: #24303C; animation-delay:.5s"></div><div class="dd" style="background: #2E7D5B; animation-delay:.1s"></div>
+        </div>
+      </div>
+      <div style="padding: 14px 16px 16px;">
+        <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10px; color: #1B3A63; letter-spacing: .12em; margin-bottom: 7px;">06</div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 5px;">Depth, sparingly</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #5B6069;">A shallow parallax on the module field only. No WebGL scene the page cannot run without.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 12px; margin-top: 26px; padding: 18px 22px; border: 1px solid #E3DFD6; border-left: 2px solid #C08A2E; background: #F4F2ED;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px;">
+      <circle cx="12" cy="12" r="9" stroke="#8A6A22" stroke-width="1.5"></circle>
+      <path d="M12 11v5M12 8h.01" stroke="#8A6A22" stroke-width="1.8" stroke-linecap="round"></path>
+    </svg>
+    <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #43474F;">Heavy GPU work is deliberately out of scope. A security product that needs a shader to feel credible has the wrong argument &mdash; and a scene that stalls on a factory-floor tablet costs more trust than it buys.</p>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: #FBFAF7; color: #111318;
+      font-family: "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #1B3A63; text-decoration: none; } a:hover { color: #0E2440; }
+    .card { transition: border-color .22s cubic-bezier(.22,.68,.28,1), transform .22s cubic-bezier(.22,.68,.28,1), box-shadow .22s cubic-bezier(.22,.68,.28,1); }
+    .card:hover { border-color: #111318; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 #E3DFD6; }
+    @media (prefers-reduced-motion: reduce) { .card:hover { transform: none } }
+  </style>
+</helmet>
+
+<div style="padding: 84px 72px 76px; background: #FBFAF7; min-height: 1020px;">
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: end; margin-bottom: 58px;">
+    <div>
+      <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: .2em; color: #6E6A5E; margin-bottom: 22px;">WHERE IT IS DEPLOYED</div>
+      <h2 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0; font-size: 42px; line-height: 1.12; font-weight: 400; letter-spacing: -.012em;">One protocol.<br>Three deployments.</h2>
+    </div>
+    <p style="margin: 0 0 6px; font-size: 16px; line-height: 1.65; color: #43474F; text-wrap: pretty;">Every deployment runs the same audited core: an authenticated X25519 handshake, AES&#8209;256&#8209;GCM content, and an Ed25519 receipt signed by both parties. What changes is the workflow around it.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+
+    <div class="card" style="display: flex; flex-direction: column; padding: 34px 30px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-bottom: 24px;">
+        <path d="M3 4h7v16H3zM14 4h7v16h-7z" stroke="#111318" stroke-width="1.3"></path>
+        <path d="M10 12h4" stroke="#2E7D5B" stroke-width="1.3" stroke-dasharray="1.5 2"></path>
+      </svg>
+      <h3 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 10px; font-size: 23px; font-weight: 600; letter-spacing: -.008em;">Lab Bridge</h3>
+      <p style="margin: 0 0 22px; font-size: 14.5px; line-height: 1.65; color: #43474F; flex-grow: 1;">Move results, configurations and firmware hashes in and out of isolated instruments without ever attaching removable media.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 20px; border-top: 1px solid #EDEAE3;">
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Signed dispatch and delivery record
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Hash-chained local audit ledger
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 22px;">
+        <span style="width: 6px; height: 6px; background: #C08A2E;"></span>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #8A6A22;">CONTROLLED PILOT</span>
+      </div>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column; padding: 34px 30px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-bottom: 24px;">
+        <path d="M6 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0zM12 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" stroke="#111318" stroke-width="1.3"></path>
+        <path d="M4 19h16" stroke="#2E7D5B" stroke-width="1.3"></path>
+      </svg>
+      <h3 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 10px; font-size: 23px; font-weight: 600; letter-spacing: -.008em;">Chain Proof</h3>
+      <p style="margin: 0 0 22px; font-size: 14.5px; line-height: 1.65; color: #43474F; flex-grow: 1;">Hand over samples, evidence and field reports where no network reaches &mdash; and leave both sides holding the same signed proof.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 20px; border-top: 1px solid #EDEAE3;">
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Case and sample reference in the signature
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Verifiable by a third party, offline
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 22px;">
+        <span style="width: 6px; height: 6px; background: #C08A2E;"></span>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #8A6A22;">DESIGN PARTNERS</span>
+      </div>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column; padding: 34px 30px 30px; background: #FFFFFF; border: 1px solid #E3DFD6;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-bottom: 24px;">
+        <path d="m9 8-5 4 5 4M15 8l5 4-5 4" stroke="#111318" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 style="font-family: 'Source Serif 4', Georgia, serif; margin: 0 0 10px; font-size: 23px; font-weight: 600; letter-spacing: -.008em;">Core SDK</h3>
+      <p style="margin: 0 0 22px; font-size: 14.5px; line-height: 1.65; color: #43474F; flex-grow: 1;">Embed the transport and the receipt layer in your own product. Zero-dependency core, hardware-backed device identity where the platform provides it.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 20px; border-top: 1px solid #EDEAE3;">
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          TPM, StrongBox and Secure Enclave verifiers
+        </div>
+        <div style="display: flex; align-items: center; gap: 9px; font-size: 13px; color: #43474F;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#2E7D5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          Reproducible builds with release provenance
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 22px;">
+        <span style="width: 6px; height: 6px; background: #6E6A5E;"></span>
+        <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: .1em; color: #6E6A5E;">EVALUATION ACCESS</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 40px; padding: 26px 30px; border: 1px solid #E3DFD6; border-left: 2px solid #1B3A63; background: #F4F2ED;">
+    <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #43474F; max-width: 76ch;">Readiness labels above are literal. Nothing is marked available until its evidence gate closes, and the open gates are published rather than hidden.</p>
+    <a href="#" style="flex-shrink: 0; font-size: 13.5px; font-weight: 500; white-space: nowrap;">See the evidence &rarr;</a>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

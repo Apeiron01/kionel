@@ -1,0 +1,11 @@
+{
+  "kind": "kionel-policy",
+  "version": 1,
+  "name": "QC laboratory",
+  "revision": "2026-10",
+  "allowedExtensions": ["csv", "txt", "pdf"],
+  "maxBytes": 10485760,
+  "referencePattern": "WO-\\d{6}",
+  "referenceHint": "WO- followed by six digits, e.g. WO-004213",
+  "classifications": ["confidential", "restricted"]
+}

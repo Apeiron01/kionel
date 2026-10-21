@@ -1,0 +1,23 @@
+{
+  "name": "@kionel/conformance",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/attestation-android": "workspace:*",
+    "@kionel/attestation-apple": "workspace:*",
+    "@kionel/attestation-core": "workspace:*",
+    "@kionel/attestation-windows": "workspace:*",
+    "@kionel/control-plane": "workspace:*",
+    "@kionel/core": "workspace:*",
+    "@kionel/crypto": "workspace:*",
+    "@kionel/enterprise": "workspace:*",
+    "@kionel/issue": "workspace:*",
+    "@kionel/platform-keys-windows": "workspace:*",
+    "@kionel/transport-qr": "workspace:*"
+  },
+  "devDependencies": {
+    "@jazzer.js/core": "4.0.0",
+    "esbuild": "0.25.12",
+    "zxing-wasm": "^2.1.0"
+  }
+}

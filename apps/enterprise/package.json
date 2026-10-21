@@ -1,0 +1,9 @@
+{
+  "name": "@kionel/enterprise-cli",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/crypto": "workspace:*",
+    "@kionel/enterprise": "workspace:*"
+  }
+}

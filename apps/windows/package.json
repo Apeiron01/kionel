@@ -1,0 +1,9 @@
+{
+  "name": "@kionel/windows-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/platform-keys": "workspace:*",
+    "@kionel/platform-keys-windows": "workspace:*"
+  }
+}

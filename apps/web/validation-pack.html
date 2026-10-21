@@ -1,0 +1,257 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>Validation pack: IQ and OQ protocol for Kionel · Kionel</title><meta name="description" content="A printable IQ/OQ protocol for the Kionel offline package: scope and SHA-256, suggested GAMP 5 category, user requirements with traceability, installation and operational test scripts with blanks for results and signatures."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ibm-plex-sans-400-latin.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ibm-plex-sans-600-latin.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ibm-plex-mono-500-latin.woff2"><link rel="stylesheet" href="/src/funnel.css"></head><body data-page="validation-pack"><a class="skip-link" href="#main">Skip to content</a><header><a class="brand" href="/index.html"><svg width="30" height="30" viewBox="0 0 32 32" role="img" aria-label="Kionel"><rect x="1.5" y="5.5" width="5" height="21" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="25.5" y="5.5" width="5" height="21" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="10" y="13" width="3.4" height="3.4" fill="currentColor" opacity=".45"/><rect x="14.3" y="13" width="3.4" height="3.4" fill="currentColor" opacity=".75"/><rect x="18.6" y="13" width="3.4" height="3.4" fill="currentColor"/><rect x="10" y="18.4" width="3.4" height="3.4" fill="currentColor"/><rect x="14.3" y="18.4" width="3.4" height="3.4" fill="currentColor" opacity=".45"/><rect x="18.6" y="18.4" width="3.4" height="3.4" fill="currentColor" opacity=".75"/></svg><span><b>Kionel</b><span>LAB WORKFLOWS</span></span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" aria-label="Main"><a href="/how-it-works.html">How it works</a><a href="/import-check.html">Import Check</a><a href="/security.html">Security</a><a href="/limits.html">Limits</a><a href="/pilot.html">Open source</a><a href="/guides.html">Guides</a><a href="/contact.html">Contact</a><a class="button" href="/transfer.html">Start free</a></nav></header><main id="main"><div class="vp">
+<p class="eyebrow">VALIDATION PACK</p><h1>IQ and OQ protocol for the Kionel offline package 1.0.15</h1>
+<p class="lead">Print this page, or save it as PDF, to get a protocol with space for results and signatures. It supports your validation and does not replace it: the intended use, the risk decisions and the approval remain with your quality unit.</p>
+<h2>1. Scope</h2>
+<div class="table-scroll"><table><tbody>
+<tr><th>Product</th><td>Kionel offline package (sending PC; also receiving computer with a webcam)</td></tr>
+<tr><th>Version</th><td>1.0.15, released 2026-09-30</td></tr>
+<tr><th>File</th><td><code>kionel-offline-1.0.15.html</code></td></tr>
+<tr><th>SHA-256</th><td><code>dbfafdda000ed13edaaa0e9046ae4a29fa5ba7f48811bb0612d29670431a7a85</code></td></tr>
+<tr><th>Built from</th><td>commit <code>78c197c</code></td></tr>
+<tr><th>Browser</th><td>Chrome or Edge 137 or later, Windows 10 or 11</td></tr>
+<tr><th>Receiving phones</th><td>Use kionel.com, which is updated continuously. For a fixed receiver, use the same offline package on a computer with a webcam. Record the build shown at the bottom of the page in every OQ result.</td></tr>
+</tbody></table></div>
+<h2>2. Suggested classification and risk</h2>
+<p>A standard product used as supplied, with options a user switches on or off but no configuration or code of your own. We suggest assessing it as <strong>GAMP 5 Category 3</strong> (non-configured product). Its job is to move a file from an isolated PC and leave signed evidence of what moved, which is where EU GMP Annex 11 (2011) §5 applies: systems exchanging data with other systems should include appropriate built-in checks for the correct and secure entry and processing of data.</p>
+<p>What it does not do is as important for the risk assessment: it does not scan file content for malware, does not identify people (it signs with device keys), and uses device clocks unless trusted timestamps are switched on. The full list is on <a href="/limits.html">kionel.com/limits.html</a>.</p>
+<h2>3. User requirements and traceability</h2>
+<div class="table-scroll"><table><thead><tr><th>ID</th><th>Requirement</th><th>Verified by</th></tr></thead><tbody>
+<tr><td>URS-01</td><td>Runs on the isolated PC from a single file, with no installation, network access or administrator rights.</td><td>IQ</td></tr>
+<tr><td>URS-02</td><td>The installed file can be identified by version and checked against a published SHA-256; it does not change itself.</td><td>IQ</td></tr>
+<tr><td>URS-03</td><td>File content is encrypted before it is shown, so that only the intended receiving device can open it.</td><td>OQ-01</td></tr>
+<tr><td>URS-04</td><td>A transfer cannot be opened with a wrong code.</td><td>OQ-02</td></tr>
+<tr><td>URS-05</td><td>The received file is identical to the sent file; a different or incomplete file is not accepted.</td><td>OQ-01, OQ-03, OQ-06, OQ-13, OQ-22, OQ-19, OQ-18</td></tr>
+<tr><td>URS-06</td><td>The sending device signs a record of the file's SHA-256, size, work order, classification and target system.</td><td>OQ-01, OQ-04</td></tr>
+<tr><td>URS-07</td><td>The receiving device signs a delivery receipt that includes the sender's record.</td><td>OQ-01</td></tr>
+<tr><td>URS-08</td><td>Records can be verified independently of Kionel, and any change to them is detected.</td><td>OQ-05, OQ-06, OQ-16</td></tr>
+<tr><td>URS-09</td><td>A human-readable report of each record can be printed or saved as PDF.</td><td>OQ-04</td></tr>
+<tr><td>URS-10</td><td>All functions are available in the open-source edition without a licence file; records stay verifiable regardless of edition.</td><td>OQ-07</td></tr>
+<tr><td>URS-11</td><td>Every user action ends with a visible success or failure message.</td><td>OQ-01, OQ-02, OQ-07, OQ-11, OQ-15, OQ-22, OQ-21, OQ-20, OQ-19, OQ-18</td></tr>
+<tr><td>URS-12</td><td>An unsupported browser is reported clearly before any transfer is attempted.</td><td>OQ-12</td></tr>
+<tr><td>URS-13</td><td>Optionally, received files and receipts are written to a chosen folder without overwriting existing files.</td><td>OQ-09, OQ-20, OQ-17</td></tr>
+<tr><td>URS-14</td><td>Optionally, receipts carry an independent trusted timestamp; its failure never blocks a delivery.</td><td>OQ-10</td></tr>
+<tr><td>URS-15</td><td>A signed record can be made for a file without transferring it (seal).</td><td>OQ-08, OQ-22</td></tr>
+<tr><td>URS-16</td><td>Loaded files can be removed, and codes shown on screen can be hidden.</td><td>OQ-11</td></tr>
+<tr><td>URS-17</td><td>Users are warned about flashing images before the first transfer.</td><td>OQ-12</td></tr>
+<tr><td>URS-18</td><td>Several files can be sent as one transfer, with a signed list of each file's SHA-256.</td><td>OQ-13</td></tr>
+<tr><td>URS-19</td><td>Every file a device sends, receives or seals is kept in a transfer log with its signed record, exportable for periodic audit-trail review.</td><td>OQ-14</td></tr>
+<tr><td>URS-20</td><td>Files and work orders that do not match the site's policy are refused before sending, and the active policy is recorded for each transfer.</td><td>OQ-15</td></tr>
+<tr><td>URS-21</td><td>The operator's name or ID, as declared at the sending PC, is signed into the dispatch record and shown in the transfer log; a site policy can make it mandatory.</td><td>OQ-16</td></tr>
+<tr><td>URS-24</td><td>A file can be printed as pages of encrypted codes and rebuilt from the pages in any order, with some codes unreadable, by camera, photo or scan.</td><td>OQ-19</td></tr>
+<tr><td>URS-27</td><td>A file that travelled outside Kionel (for example on a USB stick) can be checked on the receiving device against the sending device's sealed record; if it matches, the receiving device signs a delivery receipt, and if it differs, nothing is signed.</td><td>OQ-22</td></tr>
+<tr><td>URS-26</td><td>The receiving device can be set to accept files only from pinned sender keys; a file signed by any other key is refused and not saved, and a repeated transfer on a serial link is not delivered twice.</td><td>OQ-21</td></tr>
+<tr><td>URS-25</td><td>A sending PC can watch a folder and send each new or changed file over a one-way serial cable, unattended; the receiver keeps listening and saves each file with its receipt.</td><td>OQ-20</td></tr>
+<tr><td>URS-23</td><td>A file can be sent over a serial cable, one way, with the same encryption and signed records as the optical route; corrupted or lost data on the line is detected and recovered.</td><td>OQ-18</td></tr>
+<tr><td>URS-22</td><td>Files saved to a folder can be named from the signed record (work order, date, operator) so an importer can match them without renaming.</td><td>OQ-17</td></tr>
+</tbody></table></div>
+<h2>4. Installation qualification (IQ)</h2>
+<div class="table-scroll"><table><thead><tr><th>#</th><th>Action</th><th>Expected</th><th>Result</th><th>Initials, date</th></tr></thead><tbody>
+<tr><td>IQ-01</td><td>Download the package from kionel.com/offline-package.html on a PC with internet access.</td><td>File name matches the version in scope (section 1).</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-02</td><td>Compute its SHA-256 (for example <code>certutil -hashfile &lt;file&gt; SHA256</code>).</td><td>Value equals the SHA-256 in section 1.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-03</td><td>Copy the file to each target PC through the site's approved route.</td><td>Route and change reference recorded.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-04</td><td>Place it in a folder users cannot write to.</td><td>Path and permissions recorded.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-05</td><td>Check the browser version (<code>edge://version</code> or <code>chrome://version</code>).</td><td>Chrome or Edge 137 or later.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-06</td><td>Open the file. Read the line at the bottom of the page.</td><td>Shows <em>Kionel offline package</em> with the version and build in section 1.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-07</td><td>On a computer that will receive, open Receive with its webcam.</td><td>The camera picture appears; no error message.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-08</td><td>Read the status line under the device identity.</td><td>It says <em>Open source edition (AGPL-3.0)</em> and no licence file is asked for.</td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>IQ-09</td><td>On the PC, disconnect or confirm the absence of any network, then reload the file.</td><td>The page works unchanged.</td><td class="blank"></td><td class="blank"></td></tr>
+</tbody></table></div>
+<h2>5. Operational qualification (OQ)</h2>
+<p>Use a non-production file for each test. Record the build shown at the bottom of each device's page, attach screenshots or printed reports as evidence, and mark each test Pass or Fail.</p>
+<section class="vp-test">
+<h3>OQ-01 · Send a result file with a typed code</h3>
+<p class="note">Requirements: URS-03, URS-05, URS-06, URS-07, URS-11</p>
+<ol><li>On the receiver choose <em>Receive → Show a code</em>.</li><li>On the PC choose a small CSV result file, enter work order <code>OQ-01</code>, type the code, press <em>Send with this code</em>.</li><li>Point the receiver's camera at the PC screen until the file arrives.</li><li>Compute the SHA-256 of the source file on the PC and of the received file.</li></ol>
+<p><strong>Expected:</strong> The receiver shows “received and verified”. Both SHA-256 values are identical. The receipt names OQ-01.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-02 · A wrong code is refused</h3>
+<p class="note">Requirements: URS-04, URS-11</p>
+<ol><li>Repeat OQ-01, but change one character of the code typed on the PC.</li></ol>
+<p><strong>Expected:</strong> The receiver does not open the transfer and says the code does not open it. No file is offered.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-03 · Larger file by recording the screen</h3>
+<p class="note">Requirements: URS-05</p>
+<ol><li>On the PC choose <em>Fast</em> and a file of about 500 KB; send with a code.</li><li>On the receiver choose <em>Record the screen now</em> and film for the time the PC shows.</li><li>Let Kionel read the recording.</li></ol>
+<p><strong>Expected:</strong> The file arrives and is verified. If the recording was too short, the receiver says how many seconds more to film.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-04 · Transaction details in the signed records</h3>
+<p class="note">Requirements: URS-06, URS-09</p>
+<ol><li>After OQ-01, print the transfer report on the receiver (<em>Print transfer report</em>).</li></ol>
+<p><strong>Expected:</strong> The report shows the work order, classification, target system, file size and SHA-256, and both signatures as valid.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-05 · Independent verification</h3>
+<p class="note">Requirements: URS-08</p>
+<ol><li>Open kionel.com/verify.html (or the saved verify page) on any computer.</li><li>Add the receipt from OQ-01 and the original file.</li></ol>
+<p><strong>Expected:</strong> All checks pass: delivery signature, dispatch signature and file content.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-06 · Tampering is detected</h3>
+<p class="note">Requirements: URS-08, URS-05</p>
+<ol><li>Edit one character of the receipt JSON (for example the size) and verify it again.</li><li>Verify the unmodified receipt with a different file.</li></ol>
+<p><strong>Expected:</strong> The edited receipt is reported <em>Not valid</em>. With a different file, the signatures pass and the file content check fails.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-07 · Every function is available without a licence</h3>
+<p class="note">Requirements: URS-10, URS-11</p>
+<ol><li>Open the transfer page in a browser that has never loaded a licence.</li><li>Try the seal, the recording mode and printing more than 5 pages.</li></ol>
+<p><strong>Expected:</strong> Each function works and no licence is requested. Records made earlier still verify (OQ-05).</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-08 · Seal a file without transferring it</h3>
+<p class="note">Requirements: URS-15</p>
+<ol><li>On the PC choose a file, enter a work order and press <em>Seal without transferring</em>.</li><li>Scan the seal code with the receiver's live camera.</li></ol>
+<p><strong>Expected:</strong> The receiver reports the sealed record received and its signature verified; the file itself is not transferred.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-09 · Save to a folder without overwriting</h3>
+<p class="note">Requirements: URS-13</p>
+<ol><li>On a receiving computer press <em>Save received files to a folder…</em> and choose an empty test folder.</li><li>Receive the same file twice.</li></ol>
+<p><strong>Expected:</strong> The folder holds <code>name</code>, <code>name.makbuz.json</code>, <code>name (2)</code> and <code>name (2).makbuz.json</code>; nothing is overwritten.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-10 · Trusted timestamp (website version only)</h3>
+<p class="note">Requirements: URS-14</p>
+<ol><li>On a receiver using kionel.com, switch on <em>Add a trusted timestamp</em> and receive a file.</li><li>Verify the receipt on the verify page.</li><li>Disconnect the receiver from the internet and receive again.</li></ol>
+<p><strong>Expected:</strong> The first message shows a trusted time from DigiCert, and the verify page passes the trusted-time check. Offline, the delivery completes with a warning that no timestamp was added.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-11 · Remove a file and hide codes</h3>
+<p class="note">Requirements: URS-16, URS-11</p>
+<ol><li>Choose a file and start sending, then press <em>Remove file</em>.</li><li>Show the pairing code, then press the same button again.</li></ol>
+<p><strong>Expected:</strong> Sending stops and the codes disappear with a confirmation. The pairing code is hidden with a confirmation.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-12 · Warnings before risk</h3>
+<p class="note">Requirements: URS-17, URS-12</p>
+<ol><li>In a fresh browser profile, start the first transfer.</li><li>Open the package in a browser older than version 137, if one is available.</li></ol>
+<p><strong>Expected:</strong> A flashing-images warning appears first; cancelling it sends nothing. The old browser shows a message naming the required versions.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-13 · Several files in one transfer</h3>
+<p class="note">Requirements: URS-18, URS-05</p>
+<ol><li>On the PC select two result files together and send them with a code.</li><li>On the receiver, download the ZIP and unpack it.</li><li>Check each file against MANIFEST-SHA256.txt (for example <code>sha256sum -c MANIFEST-SHA256.txt</code>) and against the SHA-256 of the source files.</li></ol>
+<p><strong>Expected:</strong> One ZIP arrives and is verified. It holds both files and MANIFEST-SHA256.txt; every SHA-256 matches the source files.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-14 · Transfer log for periodic review</h3>
+<p class="note">Requirements: URS-19</p>
+<ol><li>After OQ-01 and OQ-08, open <em>Transfer log and periodic review</em> on each device and choose today's date as the period.</li><li>Press <em>Export CSV</em>, <em>Print review report</em> and <em>Download signed records (JSON)</em>.</li><li>Verify one record from the JSON on the verify page.</li></ol>
+<p><strong>Expected:</strong> The counts match the transfers made (sent, received, sealed). The CSV opens in Excel with correct characters, the report lists every entry with fields for the reviewer's signature, and the record verifies.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-15 · Site policy refuses what it should</h3>
+<p class="note">Requirements: URS-20, URS-11</p>
+<ol><li>Load your site policy (see kionel.com/site-policy.html) with <em>Load site policy</em>.</li><li>Choose a file with an extension the policy does not allow; then one above its size limit.</li><li>Choose an allowed file and enter a work order in the wrong format, then in the right one.</li><li>After sending, export the transfer log as CSV.</li></ol>
+<p><strong>Expected:</strong> Disallowed files and the wrong work order are refused with a message naming the rule; the correct one is sent. The CSV names the policy in the site_policy column.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-16 · Operator in the signed record</h3>
+<p class="note">Requirements: URS-21, URS-08</p>
+<ol><li>With a site policy that sets <code>"requireOperator": true</code>, send a file with the operator field empty.</li><li>Enter the operator's name or ID and send it again.</li><li>On the receiver, open the receipt on the verify page; then change one letter of the operator in the receipt JSON and verify it again.</li><li>Export the transfer log as CSV on both devices.</li></ol>
+<p><strong>Expected:</strong> The empty field is refused with a message naming the policy. The receipt shows <em>Operator (declared)</em> with the name and verifies; the edited receipt is reported <em>Not valid</em>. The CSV has the name in the operator column.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-17 · File names from the signed record</h3>
+<p class="note">Requirements: URS-22, URS-13</p>
+<ol><li>After OQ-09, enter <code>{workorder}_{name}</code> under <em>File names in the folder</em>.</li><li>Receive a file sent with work order <code>OQ-17</code>.</li><li>Enter <code>{wo}</code> in the same field.</li></ol>
+<p><strong>Expected:</strong> The folder holds <code>OQ-17_name</code> and <code>OQ-17_name.makbuz.json</code>, with the same SHA-256 as the source. The unknown field is refused with a message and the previous pattern stays in use.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-18 · One-way serial cable</h3>
+<p class="note">Requirements: URS-23, URS-05, URS-11</p>
+<ol><li>Connect the PC's transmit line to the receiving computer's receive line and ground only (see kionel.com/serial-data-diode.html).</li><li>On the receiving computer choose <em>Receive → Sender has no camera — show a code → Serial cable</em>, set 115,200 baud and listen.</li><li>On the PC type the code, open <em>Send over a serial cable</em>, set 115,200 baud and send a file with work order <code>OQ-18</code>.</li><li>Repeat with the receiver set to a different speed.</li><li>Compare the SHA-256 of the source and received files.</li></ol>
+<p><strong>Expected:</strong> The file arrives and is verified; both SHA-256 values match and the receipt names OQ-18. With mismatched speeds the receiver reports data without Kionel frames and delivers nothing.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-19 · Print a file and read it back</h3>
+<p class="note">Requirements: URS-24, URS-05, URS-11</p>
+<ol><li>On the PC choose a CSV of about 20 KB and press <em>Print the file as codes</em> (standard density). Note the code shown.</li><li>Cross out one code on one page with a marker.</li><li>On the receiving device choose <em>Receive → Printed pages</em>, enter the code and scan the pages in reverse order.</li><li>Compare the SHA-256 of the source and received files.</li></ol>
+<p><strong>Expected:</strong> The file is delivered and verified despite the crossed-out code; both SHA-256 values match. Before the last page, the receiver reports the share collected.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-20 · Unattended folder over a serial cable</h3>
+<p class="note">Requirements: URS-25, URS-13, URS-11</p>
+<ol><li>On the receiving computer create a receiver card, choose a folder for received files, choose <em>Receive → Fixed PC — receiver card → Serial cable</em>, tick <em>Keep listening after each file</em> and listen.</li><li>On the PC load the card, enter a change ticket, open <em>Unattended: watch a folder</em>, choose an empty test folder and start.</li><li>Copy two small files into the watched folder, one minute apart; then change one of them.</li><li>Stop watching on the PC and stop listening on the receiver.</li></ol>
+<p><strong>Expected:</strong> The receiving folder holds both files, the changed file as a second copy, and a receipt for each; their SHA-256 values match the sources. Both stop messages give the number of files: three.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-21 · Receiver accepts only pinned senders</h3>
+<p class="note">Requirements: URS-26, URS-11</p>
+<ol><li>Receive one file over the serial cable from the intended sending PC and press <em>Accept only this sender from now on</em>.</li><li>Send a file from a second PC, or from another browser profile on the same PC, with the same receiver card or code.</li><li>On the receiver press <em>Accept any sender again</em>.</li></ol>
+<p><strong>Expected:</strong> After pinning, the receiver names the pinned key. The second sender's file is refused with that sender's key in the message and is neither offered for download nor written to the folder. After the last step the receiver states that any sender is accepted again.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<section class="vp-test">
+<h3>OQ-22 · File carried on a USB stick, with a sealed record</h3>
+<p class="note">Requirements: URS-27, URS-15, URS-05, URS-11</p>
+<ol><li>On the sending PC seal a test file and download the sealed record.</li><li>Copy the file and the sealed record to a USB stick; make a second copy of the file and change one character in it.</li><li>On the receiving device open <em>Receive</em>, add the sealed record, then add the changed copy.</li><li>Add the unchanged file.</li><li>Add the sealed record and the unchanged file once more.</li></ol>
+<p><strong>Expected:</strong> The changed copy is refused with the reason and no receipt is offered. The unchanged file is delivered with a delivery receipt whose SHA-256 matches the source, and the result states that the file travelled outside Kionel. The repeat is not signed again and the date of the first delivery is shown.</p>
+<div class="table-scroll"><table><tbody><tr><th>Actual result</th><td class="blank"></td></tr><tr><th>Pass / Fail</th><td class="blank"></td></tr><tr><th>Build on each device</th><td class="blank"></td></tr><tr><th>Tester, date</th><td class="blank"></td></tr></tbody></table></div>
+</section>
+<h2>6. Vendor testing of this version</h2>
+<p>Before a version is published, its code passes automated tests: 429 unit tests, and end-to-end tests that drive the real application in a browser, including the offline package opened from disk. The end-to-end scripts are kept in the source repository under <code>tools/e2e/</code> and can be shown under a confidentiality agreement.</p>
+<div class="table-scroll"><table><thead><tr><th>End-to-end suite</th><th>What it checks</th><th>Checks</th></tr></thead><tbody>
+<tr><td>Free edition</td><td>Sending, receiving and every message of the free edition</td><td>21</td></tr>
+<tr><td>Licence</td><td>Loading, moving and removing the licence</td><td>10</td></tr>
+<tr><td>Seal, paper seal and carried file</td><td>Sealing, scanning and printing a seal; a file that arrived by USB checked against its sealed record and signed for; a wrong file refused; a repeated delivery not signed twice</td><td>19</td></tr>
+<tr><td>Film now, read later</td><td>A recording read later on another device; a wrong code refused while what was read is kept, then opened with the right code</td><td>9</td></tr>
+<tr><td>Open and close</td><td>Removing files and licences, hiding codes</td><td>22</td></tr>
+<tr><td>Start over</td><td>Restarting a transfer for a receiver who missed the start</td><td>7</td></tr>
+<tr><td>Folder saving</td><td>Saving files and receipts without overwriting, and naming them from the signed record</td><td>19</td></tr>
+<tr><td>Trusted timestamp</td><td>A real DigiCert timestamp, its verification, and failure without blocking</td><td>11</td></tr>
+<tr><td>Offline package</td><td>The package opened from disk: licence, sending, no outside connection even if a script is injected</td><td>7</td></tr>
+<tr><td>Package acceptance</td><td>A real browser download from kionel.com checked by SHA-256, then used as sender and as two receivers (recording and live camera); receipt checked by the offline verifier</td><td>12</td></tr>
+<tr><td>Old browser</td><td>The message on browsers without the required cryptography</td><td>4</td></tr>
+<tr><td>Several files</td><td>Two files sent as one ZIP; contents and manifest checked with an independent ZIP reader</td><td>8</td></tr>
+<tr><td>Phone-like recording</td><td>A 4K recording with the code in part of the picture, read to delivery</td><td>5</td></tr>
+<tr><td>Shrunk video</td><td>A video at the size a messaging app leaves (478×850): the reason and the fix are shown, the stopwatch stops</td><td>5</td></tr>
+<tr><td>Background tab</td><td>Reading pauses while the page is in the background and completes on return; a missing transfer code is named</td><td>6</td></tr>
+<tr><td>Transfer log</td><td>Log entries on both devices with the operator, CSV export with formula-safe cells, review report, signed records that verify independently</td><td>10</td></tr>
+<tr><td>Paper</td><td>A file printed as pages, photographed, one code removed, pages opened out of order; dense pages; identical file; images ready before printing; one sheet per page on A4 and Letter; step guide; a wrong code keeps what was read; code entered after scanning</td><td>20</td></tr>
+<tr><td>Unattended folder link</td><td>A watched folder sent over a simulated serial line to a receiver that keeps listening: new and changed files arrive with receipts, existing files are left, contents identical, counts on stop</td><td>12</td></tr>
+<tr><td>Pairing and receipt by sound</td><td>The receiving page's pairing sound fed to the sending page's microphone: reply code, the same comparison code on both screens, file delivered and identical; then the signed delivery receipt played back as sound, heard and verified on the sending page; a sound that is not a receipt is refused; messages for no file, stop and success</td><td>21</td></tr>
+<tr><td>Serial cable</td><td>Two browsers on a simulated serial line with corrupted bytes: delivery, identical file, signed context, wrong speed, no port chosen, stop, licence; a pinned sender, a second device refused and then accepted, and a replayed transfer not delivered twice</td><td>22</td></tr>
+<tr><td>Excel damage check</td><td>Traces found in one file, every changed cell against the original, identical files, removal, download, Turkish page, nothing sent from the page</td><td>15</td></tr>
+<tr><td>Site policy</td><td>Refusing file types, sizes, work orders and a missing operator, with the rule named; the policy and operator in the log; removal</td><td>13</td></tr>
+<tr><td>Colour code in the package</td><td>The package opened from disk sends by colour code; its recording is read back and the file matches</td><td>5</td></tr>
+</tbody></table></div>
+<p>Cryptographic protocols are also checked formally with ProVerif; the models are published at <a href="/formal/README.md">kionel.com/formal</a>.</p>
+<h2>7. Change control</h2>
+<p>A published version is never changed. A new version is a new file with its own name and SHA-256, listed on the <a href="/offline-package.html">download page</a> with the commit it was built from; earlier versions stay downloadable so a validated installation can be re-checked or restored. What changed is in the <a href="/changelog.html">changelog</a>. Assess each new version under your own change control before replacing a validated one.</p>
+<h2>8. Approval</h2>
+<div class="table-scroll"><table><thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead><tbody>
+<tr><td>Prepared by</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>Reviewed by</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+<tr><td>Approved by (QA)</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+</tbody></table></div>
+</div></main><footer><div class="footer-grid">
+<div><a class="brand" href="/index.html"><svg width="26" height="26" viewBox="0 0 32 32" role="img" aria-label="Kionel"><rect x="1.5" y="5.5" width="5" height="21" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="25.5" y="5.5" width="5" height="21" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="10" y="13" width="3.4" height="3.4" fill="currentColor" opacity=".45"/><rect x="14.3" y="13" width="3.4" height="3.4" fill="currentColor" opacity=".75"/><rect x="18.6" y="13" width="3.4" height="3.4" fill="currentColor"/><rect x="10" y="18.4" width="3.4" height="3.4" fill="currentColor"/><rect x="14.3" y="18.4" width="3.4" height="3.4" fill="currentColor" opacity=".45"/><rect x="18.6" y="18.4" width="3.4" height="3.4" fill="currentColor" opacity=".75"/></svg><span><b>Kionel</b></span></a>
+<p class="note">Verifiable file handover for isolated laboratory systems.</p></div>
+<div><h2>Product</h2><a href="/how-it-works.html">How it works</a><a href="/transfer.html">Open Kionel</a><a href="/sample-reconciliation.html">Sample reconciliation</a><a href="/excel-damage-check.html">Excel damage check</a><a href="/what-is-in-a-qr-code.html">What is in a QR code</a><a href="/verify.html">Verify a receipt</a><a href="/pilot.html">Open source</a></div>
+<div><h2>Technical</h2><a href="/offline-package.html">Offline package</a><a href="/validation-pack.html">Validation pack (IQ/OQ)</a><a href="/security.html">Security</a><a href="/limits.html">Limits</a><a href="/research.html">Research (preprint)</a><a href="/get-started.html">Getting started</a><a href="/changelog.html">Changelog</a></div><div><h2>Industries</h2><a href="/index.html">Laboratories</a><a href="/ot-air-gapped-file-transfer.html">OT and manufacturing</a><a href="/iec-62443-file-transfer.html">IEC 62443 and file transfer</a></div><div><h2>Guides</h2><a href="/air-gapped-instrument-data-transfer.html">Moving data off an instrument PC</a><a href="/file-transfer-audit-trail.html">Audit trail for transfers</a><a href="/second-person-review-offline.html">Second-person review offline</a><a href="/offline-pc-to-phone-file-transfer.html">Offline PC to phone</a><a href="/data-diode-vs-usb-lab.html">Data diode vs USB</a><a href="/21-cfr-part-11-file-transfer.html">Part 11 and file transfers</a><a href="/alcoa-plus-file-transfer.html">ALCOA+ in transfers</a><a href="/open-source-qr-file-transfer-vs-kionel.html">Free QR tools vs Kionel</a><a href="/sha256-file-checksum.html">Check a SHA-256</a><a href="/qr-code-capacity-file-transfer.html">QR code capacity</a><a href="/transfer-speed-calculator.html">Speed calculator</a><a href="/excel-csv-changes-lab-data.html">Excel and CSV results</a><a href="/instrument-results-to-lims-offline.html">Offline PC to LIMS</a><a href="/screen-recording-qr-codes-not-scanning.html">Recording will not scan</a><a href="/cdn-changed-download-sha256.html">When a host changes a download</a></div>
+<div><h2>Legal</h2><a href="/impressum.html">Impressum</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="/.well-known/security.txt">Security disclosure</a><a href="/contact.html">Contact</a></div>
+</div><div class="footer-base"><p>© 2026 Kionel · Taha Bayar</p><a class="lumina" href="https://luminadigitale.com" rel="noopener noreferrer" target="_blank" title="Lumina Digitale"><svg width="17" height="22" viewBox="169 81 472 633" aria-hidden="true" focusable="false"><path d="M 354.835938 660.777344 C 289.34375 660.777344 249.777344 588.34375 285.164062 533.238281 L 515.683594 174.285156 C 521.925781 164.5625 525.242188 153.253906 525.242188 141.703125 C 525.242188 108.402344 498.25 81.40625 464.949219 81.40625 L 248.09375 81.40625 C 204.429688 81.40625 169.035156 116.804688 169.035156 160.46875 L 169.035156 635.011719 C 169.035156 678.675781 204.429688 714.074219 248.09375 714.074219 L 561.679688 714.074219 C 605.324219 714.074219 640.710938 678.710938 640.742188 635.070312 L 640.839844 494.191406 C 640.878906 441.875 572.644531 421.824219 544.371094 465.84375 L 453.925781 606.652344 C 432.261719 640.382812 394.925781 660.777344 354.835938 660.777344 Z" fill="currentColor"/></svg>Lumina Digitale</a></div></footer><script type="module" src="/src/site.ts"></script><script type="module" src="/src/funnel.ts"></script></body></html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check and map a CSV before import · Kionel Import Check</title><meta name="description" content="Check record keys, missing rows, decimal formats and units; map columns and download the prepared CSV. Files stay in your browser. No account required.">
+<meta name="referrer" content="no-referrer"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kionel.com/import-check.html"><link rel="alternate" hreflang="en" href="https://kionel.com/import-check.html"><link rel="alternate" hreflang="tr" href="https://kionel.com/csv-aktarim-kontrolu.html">
+<link rel="stylesheet" href="/src/funnel.css"><script type="module" src="/src/import-check-page.ts"></script></head>
+<body class="import-check-page"><a class="skip-link" href="#main">Skip to content</a>
+<header><a class="brand" href="/index.html"><b>Kionel</b></a><nav aria-label="Navigation"><a href="/transfer.html">File transfer</a><a href="/csv-aktarim-kontrolu.html">Türkçe</a></nav></header>
+<main id="main"><section class="ic-intro"><p class="eyebrow">KIONEL / IMPORT CHECK</p><h1>Check and map a CSV before import</h1>
+<p class="lead">Give the next system a file that matches your rules.</p>
+<p>Check record keys, missing rows, decimal formats and units; map columns and download the prepared CSV. Files stay in your browser. No account required.</p><p class="ic-free">Free hosted tool · your own CSV · no sign-up</p>
+<div class="ic-actions"><button type="button" id="ic-example">Try a valid example</button><button type="button" class="secondary" id="ic-broken">See a missing-record example</button></div>
+</section>
+<p id="ic-status" class="ic-status" role="status" aria-live="polite" hidden></p>
+<section class="ic-panel" aria-labelledby="ic-source-heading"><div class="ic-step">01</div><h2 id="ic-source-heading">Choose the source</h2>
+
+<div class="ic-source-options"><label>CSV file (UTF-8, up to 2 MB)<input id="ic-source-file" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values"></label>
+<label>Source separator<select id="ic-source-separator"><option value="auto">Detect from header</option><option value=",">Comma (,)</option><option value=";">Semicolon (;)</option><option value="tab">Tab</option></select></label></div>
+<details id="ic-paste"><summary>Or paste / inspect the CSV</summary><label for="ic-source-text">Source CSV, including header</label><textarea id="ic-source-text" rows="5" maxlength="2097152" spellcheck="false" autocomplete="off"></textarea></details>
+<p id="ic-source-info" class="ic-note">CSV and TSV are supported. For .xlsx use CSV UTF-8 export, or the Excel add-in candidate.</p>
+<button type="button" class="secondary" id="ic-columns">Create a profile from these columns</button></section>
+<section class="ic-panel" aria-labelledby="ic-profile-heading"><div class="ic-step">02</div><h2 id="ic-profile-heading">Set the import rules</h2>
+<p>A saved profile keeps the expected source header, target names and checks together. Loading another file never silently replaces its rules.</p>
+<label>Load a saved profile (JSON)<input id="ic-profile-file" type="file" accept=".json,application/json"></label>
+<div id="ic-profile-editor" hidden><div class="ic-settings"><label>Profile name<input id="ic-profile-name" maxlength="120" value="My import"></label><label>Revision<input id="ic-profile-revision" type="number" min="1" max="999999" value="1"></label>
+<label>Output separator<select id="ic-output-separator"><option value=",">Comma</option><option value=";">Semicolon</option><option value="tab">Tab</option></select></label>
+<label>Output decimal<select id="ic-output-decimal"><option value=".">. (dot)</option><option value=",">, (comma)</option></select></label></div>
+<p class="ic-note">Use one or several key columns, such as sample + test. Rule: ID width, decimal separator (. or ,), or allowed choices separated by |. Every mapped value is required. No rounding, trimming or unit conversion is performed.</p>
+<div class="ic-table-wrap"><table class="ic-mapping"><thead><tr><th>Source</th><th>Target name</th><th>Type</th><th>Rule</th><th>Key</th></tr></thead><tbody id="ic-mapping"></tbody></table></div>
+<div class="ic-actions"><button type="button" class="secondary" id="ic-save-profile">Download profile</button><button type="button" class="secondary" id="ic-plan-template">Download expected-list header</button></div></div></section>
+<section class="ic-panel" aria-labelledby="ic-plan-heading"><div class="ic-step">03</div><h2 id="ic-plan-heading">Check completeness, if you have a plan</h2>
+<p>Optional: provide the expected keys. Use only the target key column names, in profile order. Without this list, missing records cannot be determined.</p>
+<label>Expected-key CSV<input id="ic-plan-file" type="file" accept=".csv,.tsv,.txt,text/csv"></label>
+<label for="ic-plan-text">Or paste expected keys</label><textarea id="ic-plan-text" rows="3" maxlength="2097152" spellcheck="false" autocomplete="off"></textarea>
+<button type="button" class="secondary" id="ic-clear-plan">Remove expected list</button></section>
+<div class="ic-run"><button type="button" id="ic-check">Check and prepare CSV</button><button type="button" class="secondary" id="ic-reset">Clear all data</button><span>Up to 10,000 rows · 32 columns</span></div>
+<section id="ic-result" class="ic-panel" aria-live="polite" hidden><h2 id="ic-result-title"></h2><p id="ic-result-summary"></p><p id="ic-coverage" class="ic-note"></p>
+<div class="ic-table-wrap"><table><thead id="ic-result-head"></thead><tbody id="ic-result-body"></tbody></table></div>
+<div class="ic-actions"><button type="button" id="ic-download" disabled>Download prepared CSV</button><button type="button" class="secondary" id="ic-report" disabled>Download check report</button></div>
+<p class="ic-note">This is a local check against the supplied rules, not destination acceptance, an approval signature or a compliance certificate. Only an explicitly selected decimal separator is converted. Import identifier columns as text if you open the output in a spreadsheet.</p></section>
+<section class="ic-next"><h2>Use these rules on every incoming file</h2><p>Import Automation runs your saved profile against a local folder and prepares passing CSVs with per-file reports. Download its synthetic demonstration before purchasing a separate automation licence.</p><a class="button secondary" href="/import-automation.html?source=import-check">See folder automation</a></section>
+<p class="ic-note">Your files are processed in this tab and are not sent to Kionel. Nothing is saved automatically. In the Excel add-in, Microsoft supplies the Office runtime. Closing this tab clears the working data; downloaded files remain on your device.</p>
+</main><footer><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/index.html">Kionel</a></footer></body></html>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Kionel">
+  <!-- Aynı işaret başlıkta da var: iki yüzey ve aralarından geçen optik kareler.
+       Kalkan/asma kilit yok; o işaret her güvenlik şirketinin ve ürünü anlatmıyor. -->
+  <rect width="32" height="32" fill="#071316"/>
+  <rect x="2.5" y="6.5" width="4.5" height="19" rx="1.4" fill="none" stroke="#6de3c2" stroke-width="2"/>
+  <rect x="25" y="6.5" width="4.5" height="19" rx="1.4" fill="none" stroke="#6de3c2" stroke-width="2"/>
+  <rect x="10.2" y="13" width="3.4" height="3.4" fill="#6de3c2" opacity=".45"/>
+  <rect x="14.5" y="13" width="3.4" height="3.4" fill="#6de3c2" opacity=".75"/>
+  <rect x="18.8" y="13" width="3.4" height="3.4" fill="#6de3c2"/>
+  <rect x="10.2" y="18.4" width="3.4" height="3.4" fill="#6de3c2"/>
+  <rect x="14.5" y="18.4" width="3.4" height="3.4" fill="#6de3c2" opacity=".45"/>
+  <rect x="18.8" y="18.4" width="3.4" height="3.4" fill="#6de3c2" opacity=".75"/>
+</svg>

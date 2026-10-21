@@ -1,0 +1,9 @@
+{
+  "name": "@kionel/audit",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/crypto": "workspace:*"
+  },
+  "license": "Apache-2.0"
+}

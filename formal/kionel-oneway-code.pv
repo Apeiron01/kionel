@@ -1,0 +1,63 @@
+(* Kionel one-way transfer with a typed code — PC without a camera.
+ *
+ * Mirrors sealWithCode / openWithCode in packages/issue/src/oneway.ts.
+ * The receiving phone shows a one-time code; the operator types it on the PC.
+ * The keyboard is modelled as a private channel from the receiver's screen to
+ * the PC. The PC derives the key from the code (PBKDF2-SHA256, random salt)
+ * and shows the sealed dispatch record and file on screen (channel `c`,
+ * controlled by the attacker).
+ *
+ * `weaksecret code` asks whether an attacker who records the screen can test
+ * guesses for the code offline. The expected answer is YES: that is the price
+ * of a code a person can type. It is bounded outside the symbolic model —
+ * 60 random bits, and 600,000 PBKDF2 rounds per guess.
+ *)
+
+free c: channel.
+free keyboard: channel [private].
+free code: bitstring [private].
+
+type skey.
+type pkey.
+fun pk(skey): pkey.
+fun sign(bitstring, skey): bitstring.
+reduc forall m: bitstring, k: skey; checksign(sign(m, k), pk(k), m) = true.
+
+type key.
+fun pbkdf(bitstring, bitstring): key.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun hash(bitstring): bitstring.
+
+event SenderSent(pkey, bitstring).
+event ReceiverGot(pkey, bitstring).
+
+(* 1. The file stays secret from anyone who did not see the code. *)
+query attacker(new file).
+(* 2. Offline guessing of the code is possible (expected: false). *)
+weaksecret code.
+(* 3. A file the receiver accepts was sent by the device the dispatch record names. *)
+query x: pkey, f: bitstring; event(ReceiverGot(x, f)) ==> event(SenderSent(x, f)).
+
+let Receiver =
+  out(keyboard, code);
+  in(c, (salt: bitstring, ct: bitstring));
+  let (disp: bitstring, dsig: bitstring, file: bitstring) = sdec(ct, pbkdf(code, salt)) in
+  let (pkS: pkey, h: bitstring, ctx: bitstring) = disp in
+  if checksign(dsig, pkS, disp) then
+  if h = hash(file) then
+  event ReceiverGot(pkS, file).
+
+let Sender(skS: skey) =
+  in(keyboard, typed: bitstring);
+  new salt: bitstring;
+  new file: bitstring;
+  new ctx: bitstring;
+  let disp = (pk(skS), hash(file), ctx) in
+  event SenderSent(pk(skS), file);
+  out(c, (salt, senc((disp, sign(disp, skS), file), pbkdf(typed, salt)))).
+
+process
+  new skS: skey;
+  out(c, pk(skS));
+  ( (!Receiver) | (!Sender(skS)) )

@@ -1,0 +1,28 @@
+{
+  "name": "@kionel/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "@kionel/control-plane": "workspace:*",
+    "@kionel/core": "workspace:*",
+    "@kionel/crypto": "workspace:*",
+    "@kionel/issue": "workspace:*",
+    "@kionel/lab-workflows": "workspace:*",
+    "@kionel/licensing": "workspace:*",
+    "@kionel/platform-keys": "workspace:*",
+    "@kionel/qualification": "workspace:*",
+    "@kionel/timestamp": "workspace:*",
+    "@kionel/transport-qr": "workspace:*",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "vite": "^6.0.7",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "@types/qrcode": "^1.5.5"
+  }
+}

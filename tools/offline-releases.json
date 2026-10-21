@@ -1,0 +1,130 @@
+[
+  {
+    "version": "1.0.15",
+    "file": "kionel-offline-1.0.15.html",
+    "bytes": 5364526,
+    "sha256": "dbfafdda000ed13edaaa0e9046ae4a29fa5ba7f48811bb0612d29670431a7a85",
+    "commit": "78c197c",
+    "date": "2026-09-30"
+  },
+  {
+    "version": "1.0.14",
+    "file": "kionel-offline-1.0.14.html",
+    "bytes": 5357888,
+    "sha256": "b62be7ba25090c0a7abce7655a34b7a2d4880b41e279b2782e68d68dd8b037b2",
+    "commit": "cc4e21e",
+    "date": "2026-09-30"
+  },
+  {
+    "version": "1.0.13",
+    "file": "kionel-offline-1.0.13.html",
+    "bytes": 5356786,
+    "sha256": "2f3490e29b0c02125813c41c187bb9dc469a4bd05b46de2f57649a48080aa551",
+    "commit": "19a46b9",
+    "date": "2026-09-30"
+  },
+  {
+    "version": "1.0.12",
+    "file": "kionel-offline-1.0.12.html",
+    "bytes": 5345599,
+    "sha256": "35bd444a72e52bfe2f32dc3fd5b9bc6af99fc47a543e0568c651fc51b37ed545",
+    "commit": "a43a17e",
+    "date": "2026-09-30"
+  },
+  {
+    "version": "1.0.11",
+    "file": "kionel-offline-1.0.11.html",
+    "bytes": 5336860,
+    "sha256": "19540fc6a5fb9d811a30d8c250173ddc6b094b8c89adc79a448664532f939fb1",
+    "commit": "82e08b0",
+    "date": "2026-09-29"
+  },
+  {
+    "version": "1.0.10",
+    "file": "kionel-offline-1.0.10.html",
+    "bytes": 5328117,
+    "sha256": "e5d220e45ec7bcd42008bb92eb07a63577d51b49969456927d1dfb7c8d5f00a4",
+    "commit": "38cd155",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.9",
+    "file": "kionel-offline-1.0.9.html",
+    "bytes": 5318757,
+    "sha256": "92ffa1da975e89d8debe8369d55304e1ccf50b1ea23aa6ceb8b245432a14429d",
+    "commit": "4c9f202",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.8",
+    "file": "kionel-offline-1.0.8.html",
+    "bytes": 5310921,
+    "sha256": "9dd6768fcba2fc937f940d19c9b96fc75756c07d6b4f7c1ae6a34a3668c75d44",
+    "commit": "90b4f22",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.7",
+    "file": "kionel-offline-1.0.7.html",
+    "bytes": 4208061,
+    "sha256": "f5bca2610b778fd19ebc53d1b58eb585064f6b6dd66fd48700f42852b7d58143",
+    "commit": "39f8e2b",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.6",
+    "file": "kionel-offline-1.0.6.html",
+    "bytes": 1521964,
+    "sha256": "d28133ab5ab6ee3a91351420aa99cd90acd1c7d3a54689d09f9b32c79ce98d91",
+    "commit": "dfb69b5",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.5",
+    "file": "kionel-offline-1.0.5.html",
+    "bytes": 1521255,
+    "sha256": "96c062b2826a05d67b6872d65e969b020724c7749114bf137898dd277aeb0a3f",
+    "commit": "425da41",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.4",
+    "file": "kionel-offline-1.0.4.html",
+    "bytes": 1519745,
+    "sha256": "8105241ed08cbd6371403ab65374059a804725190a52ffd794cd847ed4b02416",
+    "commit": "a5bc502",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.3",
+    "file": "kionel-offline-1.0.3.html",
+    "bytes": 1519449,
+    "sha256": "8bbd5e7d782879b1541a6a69e740e92dff0101ea8a5e35325c9872993fc9aa62",
+    "commit": "e2fdeaa",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.2",
+    "file": "kionel-offline-1.0.2.html",
+    "bytes": 1516756,
+    "sha256": "083a261c0abdc6479be3addf1f4ec98fa4ed0ffcb07eb1647ec17da1a24b58a3",
+    "commit": "246665d",
+    "date": "2026-09-25"
+  },
+  {
+    "version": "1.0.1",
+    "file": "kionel-offline-1.0.1.html",
+    "bytes": 1490650,
+    "sha256": "7bfe8e9098ddef2156599dbc803015ce6364e67f69f042618d9d0eeee1d7e46a",
+    "commit": "1c13072",
+    "date": "2026-09-24"
+  },
+  {
+    "version": "1.0.0",
+    "file": "kionel-offline-1.0.0.html",
+    "bytes": 1490101,
+    "sha256": "b8e42e58735422ccfb1368ec8f4f2219b5bef3cfbbea6706827d5aa44232ecbc",
+    "commit": "ff8ca40",
+    "date": "2026-09-24"
+  }
+]

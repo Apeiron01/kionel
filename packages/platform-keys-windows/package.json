@@ -1,0 +1,7 @@
+{
+  "name": "@kionel/platform-keys-windows",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": { "@kionel/platform-keys": "workspace:*" }
+}

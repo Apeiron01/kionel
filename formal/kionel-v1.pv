@@ -1,0 +1,120 @@
+(* Kionel v1 — two-way handshake, encrypted transfer, dispatch and delivery records.
+ *
+ * Mirrors packages/issue/src/session-v1.ts and packages/issue/src/evidence.ts.
+ * Symbolic (Dolev-Yao) model: the attacker controls the optical channel `c` —
+ * it can read every frame, drop, replay, and show its own codes to either camera.
+ *
+ * The only authentic channel is the operator comparing the two screens (the
+ * six digits and five symbols, "SAS"). It is modelled as two private channels
+ * between honest devices. Lines tagged (*SAS*) are that comparison; the runner
+ * removes them to show that without it the attack is found.
+ *
+ * Lines tagged (*LEAK*) hand both long-term identity keys to the attacker after
+ * the session (phase 1): secrecy that still holds is forward secrecy.
+ *
+ * Not modelled: SAS length (20 + 25 bits, a symbolic model cannot count bits),
+ * the record timestamp window, QR framing and the fountain code.
+ *)
+
+free c: channel.
+free oobRS: channel [private].  (* receiver's screen, read by the operator *)
+free oobSR: channel [private].  (* sender's screen, read by the operator *)
+
+(* Ed25519 identities *)
+type skey.
+type pkey.
+fun pk(skey): pkey.
+fun sign(bitstring, skey): bitstring.
+reduc forall m: bitstring, k: skey; checksign(sign(m, k), pk(k), m) = true.
+
+(* X25519 *)
+type G.
+type exponent.
+const g: G [data].
+fun exp(G, exponent): G.
+equation forall x: exponent, y: exponent; exp(exp(g, x), y) = exp(exp(g, y), x).
+
+(* HKDF-SHA256 with distinct labels; AES-256-GCM as authenticated encryption *)
+type key.
+fun kdf(G, bitstring, bitstring): key.
+fun kdfb(G, bitstring, bitstring): bitstring.
+fun senc(bitstring, key): bitstring.
+reduc forall m: bitstring, k: key; sdec(senc(m, k), k) = m.
+fun hash(bitstring): bitstring.
+
+const OFFER, REPLY, L_CONFIRM, L_CONTENT, L_SAS: bitstring [data].
+
+event SenderSent(pkey, pkey, bitstring).     (* sender, receiver as the sender saw it, file *)
+event ReceiverGot(pkey, pkey, bitstring).    (* sender as the receiver saw it, receiver, file *)
+event ReceiptVerified(pkey, pkey, bitstring).(* sender, receiver, content hash *)
+
+(* 1. The transferred file stays secret — even after both identity keys leak. *)
+query attacker(new file).
+(* 2. A file accepted by the receiver was sent, once, by that sender to that receiver. *)
+query x: pkey, y: pkey, f: bitstring; inj-event(ReceiverGot(x, y, f)) ==> inj-event(SenderSent(x, y, f)).
+(* 3. An auditor who verifies a receipt learns something true: that receiver got that file from that sender. *)
+query x: pkey, y: pkey, f: bitstring; event(ReceiptVerified(x, y, hash(f))) ==> event(ReceiverGot(x, y, f)).
+
+let Receiver(skR: skey) =
+  new a: exponent;
+  new nR: bitstring;
+  let offer = (OFFER, pk(skR), exp(g, a), nR) in
+  let osig = sign(offer, skR) in
+  out(c, (offer, osig));
+  in(c, (reply: bitstring, rsig: bitstring));
+  let (=REPLY, pkS: pkey, xS: G, =nR, conf: bitstring) = reply in
+  if checksign(rsig, pkS, reply) then
+  let shared = exp(xS, a) in
+  if conf = kdfb(shared, (offer, (REPLY, pkS, xS, nR)), L_CONFIRM) then
+  let salt = (offer, osig, reply, rsig) in
+  let k = kdf(shared, salt, L_CONTENT) in
+  let sas = kdfb(shared, salt, L_SAS) in
+  out(oobRS, sas); (*SAS*)
+  in(oobSR, =sas); (*SAS*)
+  in(c, (disp: bitstring, dsig: bitstring, ct: bitstring));
+  let file = sdec(ct, k) in
+  let (=pkS, h: bitstring, ctx: bitstring) = disp in
+  if checksign(dsig, pkS, disp) then
+  if h = hash(file) then
+  event ReceiverGot(pkS, pk(skR), file);
+  let rbody = (disp, dsig, pk(skR)) in
+  out(c, (rbody, sign(rbody, skR))).
+
+let Sender(skS: skey) =
+  in(c, (offer: bitstring, osig: bitstring));
+  let (=OFFER, pkR: pkey, xR: G, nR: bitstring) = offer in
+  if checksign(osig, pkR, offer) then
+  new b: exponent;
+  let shared = exp(xR, b) in
+  let conf = kdfb(shared, (offer, (REPLY, pk(skS), exp(g, b), nR)), L_CONFIRM) in
+  let reply = (REPLY, pk(skS), exp(g, b), nR, conf) in
+  let rsig = sign(reply, skS) in
+  out(c, (reply, rsig));
+  let salt = (offer, osig, reply, rsig) in
+  let k = kdf(shared, salt, L_CONTENT) in
+  let sas = kdfb(shared, salt, L_SAS) in
+  in(oobRS, =sas); (*SAS*)
+  out(oobSR, sas); (*SAS*)
+  new file: bitstring;
+  new ctx: bitstring;
+  let disp = (pk(skS), hash(file), ctx) in
+  event SenderSent(pk(skS), pkR, file);
+  out(c, (disp, sign(disp, skS), senc(file, k))).
+
+(* The auditor checks a receipt against the two device keys it was told about. *)
+let Auditor(pkS: pkey, pkR: pkey) =
+  in(c, (rbody: bitstring, rs: bitstring));
+  if checksign(rs, pkR, rbody) then
+  let (disp: bitstring, dsig: bitstring, =pkR) = rbody in
+  let (=pkS, h: bitstring, ctx: bitstring) = disp in
+  if checksign(dsig, pkS, disp) then
+  event ReceiptVerified(pkS, pkR, h).
+
+process
+  new skR: skey;
+  new skS: skey;
+  out(c, pk(skR));
+  out(c, pk(skS));
+  ( (!Receiver(skR)) | (!Sender(skS)) | (!Auditor(pk(skS), pk(skR)))
+  | (phase 1; out(c, skR); out(c, skS)) (*LEAK*)
+  )

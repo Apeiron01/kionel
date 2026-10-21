@@ -1,0 +1,11 @@
+{
+  "name": "@kionel/transport-color-grid",
+  "version": "0.1.0-experimental",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kionel/core": "workspace:*"
+  }
+}

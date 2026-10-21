@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Beklenen ve gelen numune listesini karşılaştırırken baştaki sıfırları koruyun, tekrarları ayrı inceleyin ve liste farkını fiziksel teslimle karıştırmayın." />
+    <meta name="theme-color" content="#FBFAF7" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Kionel" />
+    <meta property="og:title" content="Excel numune listesi kontrolü: eksik ve mükerrer numune kimlikleri" />
+    <meta property="og:description" content="Beklenen ve gelen numune listesini karşılaştırırken baştaki sıfırları koruyun, tekrarları ayrı inceleyin ve liste farkını fiziksel teslimle karıştırmayın." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Excel numune listesi kontrolü: eksik ve mükerrer numune kimlikleri</title>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/ibm-plex-sans-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/source-serif-4-400-latin.woff2" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/products.css" />
+    <link rel="stylesheet" href="/src/guide.css" />
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Excel numune listesinde eksik ve mükerrer kayıt nasıl bulunur?","description":"Beklenen ve gelen numune listesini karşılaştırırken baştaki sıfırları koruyun, tekrarları ayrı inceleyin ve liste farkını fiziksel teslimle karıştırmayın.","inLanguage":"tr","dateModified":"2026-09-09","articleSection":["Üç satır eşittir üç numune demek değildir","Kimlikleri düzeltmeden önce farkı görün","Bu iş zaten LIMS'te çözülmüş olabilir","Listeden teslim kaydına"],"url":"https://kionel.com/excel-numune-listesi-kontrolu.html","citation":["https://www.alsglobal.com/-/media/ALSGlobal/Resources-Grid/eSubmission-tech-note.pdf"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Bu işlem analiz sonucunu doğrular mı?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Yalnız sağlanan numune kimliklerini karşılaştırır. Analitik doğruluk ve fiziksel numune bütünlüğü kapsam dışıdır."}},{"@type":"Question","name":"Dosyayı yüklemek gerekir mi?","acceptedAnswer":{"@type":"Answer","text":"Kionel karşılaştırma aracında iki kimlik sütununu tarayıcıya yapıştırabilirsiniz. Liste içeriği sunucuya gönderilmez."}}]}]</script>
+  </head>
+  <body class="sales-page k-field">
+    <a class="skip-link" href="#main-content">İçeriğe geç</a>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+<header class="site-header" data-site-header>
+      <a class="brand" href="/products.html">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span>
+      </a>
+      <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-menu"><span>Menü</span><i aria-hidden="true"></i></button>
+      <nav id="site-menu" class="site-menu" data-site-menu data-open="false" aria-label="Ana menü">
+        <a href="/products.html#products">Ürünler</a><a href="/products.html#technology">Nasıl çalışır?</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#guides">Rehberler</a><a href="/products.html#deployment">Dağıtım</a><a href="/products.html#pilot-scope">Pilot</a><a href="/phases.html">Kanıt &amp; API</a><a href="/policies.html">Politikalar</a>
+      </nav>
+      <a class="header-cta" href="/transfer.html?product=lab">Uygulamayı aç <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main-content" class="guide">
+      <article>
+        <header class="guide-hero">
+          <span class="section-index">REHBER · 2026-09-09</span>
+          <h1 data-mask>Excel numune listesinde eksik ve mükerrer kayıt nasıl bulunur?</h1>
+          <p class="guide-answer" data-reveal>İki numune listesini karşılaştırmadan önce kimlikleri metin olarak koruyun. Her iki listede tekrarları ayrı bulun; ardından beklenip gelmeyen ve beklenmeden gelen kimlikleri ayırın. Yalnız satır sayılarının eşit olması, numunelerin eşleştiğini göstermez.</p>
+        </header>
+
+        <nav class="guide-toc" aria-label="Bu sayfada">
+          <span>BU SAYFADA</span>
+          <a href="#b1">Üç satır eşittir üç numune demek değildir</a><a href="#b2">Kimlikleri düzeltmeden önce farkı görün</a><a href="#b3">Bu iş zaten LIMS'te çözülmüş olabilir</a><a href="#b4">Listeden teslim kaydına</a>
+        </nav>
+
+        <div class="guide-body"><h2 id="b1" data-mask>Üç satır eşittir üç numune demek değildir</h2><p data-reveal>Bu örnekte iki liste de üç satırdır. LAB-002 eksiktir, LAB-003 teslim listesinde yinelenmiştir. Basit bir adet kontrolü iki sorunu da kaçırır.</p><div class="table-scroll" data-reveal><table><thead><tr><th>Beklenen</th><th>Teslim alınan</th></tr></thead><tbody><tr><td>LAB-001</td><td>LAB-001</td></tr><tr><td>LAB-002</td><td>LAB-003</td></tr><tr><td>LAB-003</td><td>LAB-003</td></tr></tbody></table></div><h2 id="b2" data-mask>Kimlikleri düzeltmeden önce farkı görün</h2><ul class="guide-list" data-stagger><li>00123 ile 123 aynı kimlik kabul edilmemeli; Excel içe aktarımında sütunu metin olarak seçin.</li><li>Büyük/küçük harf, baş/son boşluk ve benzer Unicode karakterlerini sessizce birleştirmeyin.</li><li>Bir kimliğin tekrar etmesi bölünmüş numune veya alt numune anlamına gelebilir; kurumun adlandırma kuralını kontrol edin.</li><li>Beklenen ve alınan listelerin sürümünü, kaynağını ve kontrol zamanını saklayın.</li></ul><p class="guide-note" data-reveal>Bir hata işareti otomatik ret kararı değildir. İşlem, laboratuvarın numune kabul prosedürüne göre sonuçlandırılır.</p><h2 id="b3" data-mask>Bu iş zaten LIMS'te çözülmüş olabilir</h2><p data-reveal>ALS'nin e-Submit hizmeti numune bildirimini doğrudan LIMS'e aktarır. Mevcut sisteminiz bu adımı yönetiyorsa bağımsız bir liste aracı eklemek gerekmeyebilir. Listeler farklı kurumlar veya çevrimdışı adımlar arasında kaldığında basit bir ön kontrol yararlı olabilir.</p><h2 id="b4" data-mask>Listeden teslim kaydına</h2><p data-reveal>Kionel'in karşılaştırma aracı yalnız metin farkını bulur. Dosya özetini imzalamak farklı bir adımdır; imza fiziksel şişenin, poşetin veya numunenin içeriğini doğrulamaz. Teslim sürecinde kurum kimliği, rol, saklama ve istisna yönetimi ayrıca gerekir.</p></div>
+
+        <section class="guide-faq" aria-labelledby="faq-title">
+          <h2 id="faq-title" data-mask>Sık sorulanlar</h2>
+          <div class="faq-list" data-stagger><details><summary>Bu işlem analiz sonucunu doğrular mı?<span aria-hidden="true">+</span></summary><p>Hayır. Yalnız sağlanan numune kimliklerini karşılaştırır. Analitik doğruluk ve fiziksel numune bütünlüğü kapsam dışıdır.</p></details><details><summary>Dosyayı yüklemek gerekir mi?<span aria-hidden="true">+</span></summary><p>Kionel karşılaştırma aracında iki kimlik sütununu tarayıcıya yapıştırabilirsiniz. Liste içeriği sunucuya gönderilmez.</p></details></div>
+        </section>
+
+        <section class="guide-sources" aria-labelledby="sources-title">
+          <h2 id="sources-title" data-mask>Kaynaklar</h2>
+          <ul class="source-list"><li><a href="https://www.alsglobal.com/-/media/ALSGlobal/Resources-Grid/eSubmission-tech-note.pdf" rel="noopener noreferrer" target="_blank">ALS — e-Submit numune bildirimi <span>↗</span></a></li></ul>
+          <p class="guide-note">Bu sayfa bilgi amaçlıdır ve hukuki ya da mevzuat uyum danışmanlığı yerine geçmez. Standart maddeleri yön göstermek için verilmiştir; bir denetimde neyin yeterli sayılacağına kurumun kendi sistemi, prosedürleri ve denetçisi karar verir.</p>
+        </section>
+
+        <section class="guide-related" aria-labelledby="related-title">
+          <h2 id="related-title" data-mask>İlgili rehberler</h2>
+          <div class="guide-cards" data-stagger><a class="guide-card" href="/laboratuvar-veri-butunlugu.html"><strong>Laboratuvar veri aktarımında izlenebilirlik: denetim ne ister?</strong><span>Rehberi aç →</span></a><a class="guide-card" href="/ikinci-goz-incelemesi.html"><strong>İzole cihazda ikinci göz incelemesi nasıl kayda geçer?</strong><span>Rehberi aç →</span></a></div>
+        </section>
+
+        <aside class="guide-cta" data-reveal>
+          <p>Bu sayfa Kionel tarafından yazıldı. Aktarım adımını kayda alan bir araç
+             geliştiriyoruz; mevcut sisteminiz bu işi zaten çözüyorsa bunu da bilmek
+             bizim için değerli.</p>
+          <a class="site-button" href="/index.html">Laboratuvar iş akışını seç</a>
+          <a class="site-button" href="/numune-karsilastirma.html">Numune karşılaştırma demosunu dene</a>
+        </aside>
+      </article>
+    </main>
+<footer class="site-footer">
+      <div class="footer-brand"><a class="brand" href="/products.html"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-copy"><strong>KIONEL</strong><small>OPTICAL TRUST PLATFORM</small></span></a><p>Ekran ile kamera arasında yerel, şifreli ve doğrulanabilir veri aktarımı.</p></div>
+      <div><strong>Ürün</strong><a href="/products.html#products">Teklifler</a><a href="/products.html#segments">Sektörler</a><a href="/products.html#technology">Teknoloji</a><a href="/products.html#deployment">Dağıtım</a><a href="/transfer.html?product=lab">Uygulama</a></div><div><strong>Güven</strong><a href="/phases.html">Fazlar &amp; API</a><a href="/policies.html#privacy">Gizlilik</a><a href="/policies.html#storage">Çerez &amp; depolama</a><a href="/policies.html#security">Güvenlik bildirimi</a></div><div><strong>Şirket</strong><a href="/policies.html#terms">Kullanım şartları</a><a href="/policies.html#acceptable-use">Kabul edilebilir kullanım</a><a href="/policies.html#accessibility">Erişilebilirlik</a><a href="/policies.html">Politika merkezi</a></div>
+      <div class="footer-bottom"><span>© 2026 Kionel · Pilot öncesi ürün</span><span>Reklam yok · içerik telemetrisi yok · varsayılan izleme yok</span></div>
+    </footer>
+    <script type="module" src="/src/segment-page.ts"></script>
+  </body>
+</html>

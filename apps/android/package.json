@@ -1,0 +1,8 @@
+{
+  "name": "@kionel/android-operations",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/attestation-android": "workspace:*"
+  }
+}

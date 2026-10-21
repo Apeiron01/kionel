@@ -1,0 +1,10 @@
+{
+  "name": "@kionel/verify",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@kionel/crypto": "workspace:*",
+    "@kionel/timestamp": "workspace:*"
+  },
+  "license": "Apache-2.0"
+}

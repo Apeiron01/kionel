@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kionel Enrollment</string>
+    <string name="title">StrongBox cihaz kaydı</string>
+    <string name="instructions">Enrollment servisinin tek kullanımlık base64url challenge değerini girin. StrongBox yoksa işlem güvenli biçimde durur.</string>
+    <string name="challenge_hint">Enrollment challenge (base64url)</string>
+    <string name="enroll">StrongBox anahtarı ve kanıt üret</string>
+    <string name="save">Kanıtı JSON olarak kaydet</string>
+    <string name="working">StrongBox anahtarı üretiliyor…</string>
+    <string name="enrollment_failed">Kayıt başarısız: %1$s</string>
+    <string name="enrollment_ready">Kayıt hazır. Kanıtı kaydedin.\n\n%1$s</string>
+    <string name="evidence_saved">Kanıt kaydedildi:\n%1$s</string>
+    <string name="evidence_save_failed">Kanıt kaydedilemedi: %1$s</string>
+</resources>

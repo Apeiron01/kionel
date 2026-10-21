@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.wasm binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.gz binary
+pnpm-lock.yaml text eol=lf

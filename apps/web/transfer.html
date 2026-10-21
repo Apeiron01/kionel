@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kionel" />
+    <meta property="og:title" content="Kionel — secure data transfer by light" />
+    <meta property="og:description" content="Encrypted screen-to-camera transfer without a network, removable media or a content server. Every transfer leaves a signed record on both devices." />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kionel — the air gap stays closed." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Kionel — secure data transfer by light</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/ibm-plex-sans-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/source-serif-4-400-latin.woff2" />
+    <link rel="stylesheet" href="/src/style.css" />
+  <!-- launch-meta --><meta name="robots" content="noindex,nofollow"><!-- /launch-meta --></head>
+  <body>
+    <dialog id="flash-warning" class="flash-warning" aria-labelledby="flash-title">
+      <h2 id="flash-title">Flashing images</h2>
+      <p>Sending shows codes that change up to 60 times a second. This can trigger seizures in people with
+      photosensitive epilepsy.</p>
+      <ul>
+        <li>If you or anyone who can see this screen has photosensitive epilepsy, do not start the transfer.</li>
+        <li>Look away from the sending screen while it runs; only the receiving camera needs to see it.</li>
+        <li>If you feel dizzy or unwell, stop at once and look away.</li>
+      </ul>
+      <form method="dialog" class="flash-actions">
+        <button value="cancel" class="secondary">Cancel</button>
+        <button value="accept" class="primary">I understand — start</button>
+      </form>
+    </dialog>
+    <div id="notice" class="notice" role="alert" hidden>
+      <p id="notice-text"></p>
+      <button id="notice-close" type="button" aria-label="Close message">×</button>
+    </div>
+    <header>
+      <div class="header-line">
+        <div class="eyebrow">OPTICAL TRUST PLATFORM</div>
+        <nav class="header-nav" aria-label="Main menu">
+          <a class="header-link" href="/index.html">Home</a>
+          <a class="header-link" href="/pilot.html">Open source</a>
+          <a class="header-link" href="/terms.html">Terms</a>
+          <a class="header-link" href="/privacy.html">Privacy</a>
+        </nav>
+      </div>
+      <h1>Kionel <span id="product-name">Lab Bridge</span></h1>
+      <p id="product-promise">Verifiable data transfer for isolated laboratory systems.</p>
+    </header>
+
+    <section class="product-picker" aria-label="Product">
+      <button class="product active" data-product="lab">
+        <strong>Lab Bridge</strong><span>B2B · Air-gapped systems</span>
+      </button>
+      <button class="product" data-product="custody">
+        <strong>Chain Proof</strong><span>B2B · Samples and handover</span>
+      </button>
+    </section>
+
+    <aside id="whats-new" class="whats-new" hidden>
+      <strong>New in Kionel</strong>
+      <ul>
+        <li><b>PC without a camera:</b> the receiving device shows a one-time code; type it on the PC.</li>
+        <li><b>Record the screen:</b> film the sender with the receiving device's camera app; the sending screen counts down how long.</li>
+        <li><b>Colour code:</b> denser images that almost always read — best from a recording.</li>
+        <li><b>Report for the auditor:</b> print any record or save it as PDF.</li>
+        <li><b>Film now, read later:</b> film the sending screen with the camera app; open the video hours later on any device and type the code.</li>
+        <li><b>Verify anywhere:</b> <a href="/verify.html">kionel.com/verify.html</a>, nothing uploaded.</li>
+      </ul>
+      <button id="whats-new-close" type="button" class="secondary">Got it</button>
+    </aside>
+    <div id="product-trust" class="trust-strip">Offline · Two signatures · Audit record · 64 MiB</div>
+    <p id="workflow-hint" class="workflow-hint">The dispatch record is signed together with the work order, classification and target system.</p>
+    <div id="identity-trust" class="identity-trust">Checking device identity…</div>
+    <div id="license-status" class="identity-trust" role="status">Checking licence…</div>
+    <div id="offline-state" class="identity-trust" role="status" hidden></div>
+    <div class="licence-ui" hidden>
+    <label class="file">
+      <input type="file" id="license-file" accept=".json,application/json" />
+      <span>Load licence file</span>
+    </label>
+    <button id="licence-forget" type="button" class="secondary" hidden>Remove licence from this browser</button>
+    </div>
+    <div class="site-policy">
+      <label class="file"><input type="file" id="policy-file" accept=".json,application/json" /><span>Load site policy</span></label>
+      <button id="policy-forget" type="button" class="secondary" hidden>Remove site policy</button>
+      <p id="policy-status" class="hint-note">No site policy: files are checked only against the edition's limits.
+        <a href="/site-policy.html">What a site policy does</a></p>
+    </div>
+    <div class="licence-ui" hidden>
+    <details class="licence-move">
+      <summary>Put this licence on another device</summary>
+      <p>Two ways to put the same licence on another device. You only do this once per device.</p>
+      <h3 class="licence-way">Way 1 · With the other device's camera</h3>
+      <p>On this device (the one that already has the licence) press <strong>Show licence as a code</strong>.
+      On the other device open <strong>Receive</strong>, choose the live camera and point it at the code.</p>
+      <div data-story="licence"></div>
+      <button id="licence-show" type="button" class="secondary">Show licence as a code</button>
+      <canvas id="licence-qr" class="stage seal-qr" width="700" height="700" hidden></canvas>
+      <h3 class="licence-way">Way 2 · Without a camera: copy and paste</h3>
+      <p>Do this on the device that needs the licence. Open <code>kionel-license.json</code> with a text editor
+      (Notepad on Windows, TextEdit on Mac, or any notes app), select all of it, copy, and paste it into the box below.
+      It is plain text that starts with <code>{"schema"</code> — copy all of it, from the first <code>{</code> to the last <code>}</code>.</p>
+      <label class="licence-paste-label" for="licence-paste">Licence text</label>
+      <textarea id="licence-paste" rows="4" spellcheck="false" placeholder="Paste the whole contents of kionel-license.json here"></textarea>
+      <button id="licence-paste-load" type="button" class="secondary">Load pasted licence</button>
+    </details>
+
+    <p class="hint-note license-keep">Loaded once per browser. Keep <code>kionel-license.json</code> on a shared drive:
+    you load it again after the browser's data is cleared, in a private window, or on another browser or computer.</p>
+    </div>
+
+    <details id="qualification-panel" class="qualification" hidden open>
+      <summary>Physical device qualification</summary>
+      <p>Test-lab mode only. The receiving device signs real transfer results with its own identity.</p>
+      <div class="context-grid">
+        <label>Sender device label
+          <input id="qualification-sender" maxlength="120" placeholder="e.g. pixel-9-a" />
+        </label>
+        <label>This receiver's label
+          <input id="qualification-receiver" maxlength="120" placeholder="e.g. lab-ipad-b" />
+        </label>
+      </div>
+      <div id="qualification-stats" class="stats">No measurements yet.</div>
+      <div class="qualification-actions">
+        <button id="qualification-payload">Generate matrix payload (sender)</button>
+        <button id="qualification-run" hidden>Start matrix run (1000)</button>
+        <button id="qualification-fail">Close open attempt as failed</button>
+        <button id="qualification-next">Next attempt</button>
+        <button id="qualification-export" class="primary">Download signed device matrix</button>
+      </div>
+      <div id="qualification-result"></div>
+    </details>
+
+    <nav>
+      <button id="tab-send" class="active">Send</button>
+      <button id="tab-recv">Receive</button>
+    </nav>
+
+    <section id="send">
+      <p class="role-banner" aria-live="polite">↑ This device is SENDING</p>
+      <div class="flow-steps">
+        <p class="mode-q">How will the file leave this PC?</p>
+        <div class="mode-row" role="group" aria-label="Route">
+          <button type="button" class="mode" data-route="screen" aria-pressed="true">Screen to camera</button>
+          <button type="button" class="mode" data-route="paper" aria-pressed="false">Print on paper</button>
+          <button type="button" class="mode" data-route="serial" aria-pressed="false">Serial cable</button>
+        </div>
+        <ol id="send-steps" class="flow-list" aria-live="polite"></ol>
+      </div>
+      <label class="file">
+        <input type="file" id="file" multiple />
+        <span>Choose file</span>
+      </label>
+      <button id="demo-file" type="button">Try with the sample file</button>
+      <button id="file-clear" type="button" class="secondary" hidden>Remove file</button>
+      <p class="hint-note">Several files? Select them together: they travel as one ZIP, with a list of each file's
+        SHA-256 inside it that the signed records cover too.</p>
+      <div id="product-context" class="context-card">
+        <div class="context-heading">
+          <strong id="context-title">Laboratory transaction</strong>
+          <span>Added to the signed dispatch record</span>
+        </div>
+        <label><span id="reference-label">Work order / instrument reference</span>
+          <input id="context-reference" maxlength="120" placeholder="e.g. LIMS-2026-0042" />
+        </label>
+        <div class="context-grid">
+          <label>Classification
+            <select id="context-classification">
+              <option value="internal">Internal</option>
+              <option value="confidential">Confidential</option>
+              <option value="restricted">Restricted</option>
+              <option value="public">Public</option>
+            </select>
+          </label>
+          <label><span id="note-label">Target system</span>
+            <input id="context-note" maxlength="240" placeholder="e.g. LC-MS workstation" />
+          </label>
+        </div>
+        <label>Operator (name or ID)
+          <input id="context-operator" maxlength="80" autocomplete="off" placeholder="e.g. T. Bayar or QC-017" />
+        </label>
+        <p class="hint-note">Signed into the record as declared by the person at this PC. It is not a login:
+        the record proves what was written and when, not who typed it.</p>
+      </div>
+      <div class="seal-choice">
+        <p class="mode-q">Only need proof, not the file?</p>
+        <p class="hint-note">Seal the file here: the file stays on this device, and a signed record of its
+        SHA-256, size, time and work order is made with this device's key. The record is shown as one code —
+        scan it with the receiving device (Receive → Live camera) to carry the proof out. If the file itself
+        travels on a USB stick, put the downloaded record next to it: the receiving device checks the file
+        against the record and signs the delivery receipt.</p>
+        <div data-story="seal"></div>
+        <button id="seal-only" type="button" class="secondary">Seal without transferring</button>
+        <canvas id="seal-qr" class="stage seal-qr" width="700" height="700" hidden></canvas>
+      </div>
+      <div class="speed-choice">
+        <p class="mode-q">How will the receiver read this screen?</p>
+        <div class="speed-presets" role="group" aria-label="How the receiver reads">
+          <button type="button" id="preset-live" class="mode" aria-pressed="true">Standard — the receiver reads live</button>
+          <button type="button" id="preset-record" class="mode" aria-pressed="false">Fast — the receiver records the screen</button>
+          <button type="button" id="preset-colour" class="mode" aria-pressed="false">Robust — colour code, the receiver records</button>
+        </div>
+        <p id="record-plan" class="record-plan" hidden></p>
+        <div class="flow-guide" id="send-flow" aria-live="polite">
+          <div class="fg-diagram" aria-hidden="true">
+            <div class="fg-screen"><span class="fg-code"></span><small>sender screen</small></div>
+            <div class="fg-path"><i></i><i></i><i></i></div>
+            <div class="fg-phone"><span class="fg-lens"></span><small class="fg-phone-label">receiving device</small></div>
+          </div>
+          <ul class="fg-compat"></ul>
+        </div>
+        <div id="send-story"></div>
+        <details class="method-hints">
+          <summary>Which one should I choose?</summary>
+          <div class="method-cards">
+            <div class="method-card">
+              <strong>Standard <span>— live</span></strong>
+              <p><b>Best for</b> small files: results, CSV, method files up to a few hundred KB.</p>
+              <p><b>Tip</b> hold the camera steady; nothing to record or open.</p>
+            </div>
+            <div class="method-card">
+              <strong>Fast <span>— recording</span></strong>
+              <p><b>Best for</b> up to a few MB; PDFs and images.</p>
+              <p><b>Tip</b> film until the countdown on this screen says Enough.</p>
+            </div>
+            <div class="method-card">
+              <strong>Robust <span>— colour code</span></strong>
+              <p><b>Best for</b> phone videos that are a little blurred or compressed: far more of its images are read.</p>
+              <p><b>Tip</b> full screen, camera 30–50 cm away, no glare; best read from a recording.</p>
+            </div>
+          </div>
+          <p class="hint-note">Text, CSV, XML, JSON and instrument logs shrink 4–10× before sending. PDF, JPEG, ZIP and
+          Office files are already compressed and are sent as they are, so the original file — and its SHA-256 — stays exact.</p>
+        </details>
+        <details class="advanced">
+          <summary>Advanced settings</summary>
+      <div class="controls">
+        <label>Code density
+          <select id="version">
+            <option value="15">Sparse — camera far away or poor</option>
+            <option value="27" selected>Normal</option>
+            <option value="40">Dense — camera close and sharp</option>
+          </select>
+        </label>
+        <label>Codes on screen
+          <select id="tiles">
+            <option value="1" selected>One code</option>
+            <option value="4">Four codes — large monitor (experimental)</option>
+            <option value="9">Nine codes — very large monitor (experimental)</option>
+          </select>
+        </label>
+        <label>Speed
+          <select id="hold">
+            <option value="1">Fastest — 60 codes a second</option>
+            <option value="2" selected>Normal — 30 codes a second</option>
+            <option value="3">Slower — 20 codes a second</option>
+            <option value="4">Slowest — 15 codes a second</option>
+          </select>
+        </label>
+      </div>
+        </details>
+      </div>
+      <div id="send-hint" class="stage-hint">
+        <strong>Two devices are needed.</strong>
+        <p>This device sends. On the <em>other</em> device — a laptop, tablet or phone with a camera —
+        open the same page and press <strong>Receive</strong>. Then point this device's camera at the
+        code shown there.</p>
+        <button id="pair-qr" type="button" class="secondary">Show link for the other device</button>
+        <canvas id="pair-canvas" class="pair-code" width="600" height="600" hidden></canvas>
+        <p id="pair-note" class="hint-note" hidden>Scan this with the other device's camera app to open the page.</p>
+        <div class="oneway">
+          <strong>This PC has no camera?</strong>
+          <p>On the device that receives, press <strong>Receive → Show a code</strong>. Type the
+          12-character code here and press Send. This PC then only shows codes and the receiving device only reads them.</p>
+          <label class="code-entry">Code shown on the receiver
+            <input id="typed-code" autocomplete="off" autocapitalize="characters" spellcheck="false"
+              maxlength="20" placeholder="XXXX-XXXX-XXXX" />
+          </label>
+          <button id="code-send" type="button" class="primary">Send with this code</button>
+          <p class="hint-note"><strong>This PC has a microphone?</strong> Then nothing needs typing. Press Listen here, and on
+          the receiving device press <strong>Pair by sound</strong>. The sound carries nothing secret: you still compare the
+          codes on both screens before anything is sent. The microphone is only used on this page and nothing is recorded.</p>
+          <button id="sound-listen" type="button" class="secondary">Listen for the receiver</button>
+          <button id="sound-unlisten" type="button" class="secondary" hidden>Stop listening</button>
+          <p id="sound-status" class="hint-note" role="status" hidden></p>
+          <details id="paper-box" class="card-setup">
+            <summary>No camera and no cable? Print the file as pages of codes</summary>
+            <p>For a PC with a printer. The file is printed as encrypted codes; the receiving device scans the pages with its
+            camera, in any order, now or years later. A few smudged or torn codes do not matter.
+            <a href="/print-file-as-qr-codes.html">How it works</a></p>
+            <label>Density <select id="paper-density">
+              <option value="standard" selected>Standard — 6 codes a page, about 5 KB</option>
+              <option value="dense">Dense — 12 codes a page, about 15 KB (laser printer)</option>
+            </select></label>
+            <label class="check-line"><input type="checkbox" id="paper-code-on-pages" />
+              <span><strong>Also print the code on each page.</strong> Convenient for a backup you keep locked away; but then
+              anyone holding the pages can read the file. Leave it off for anything confidential.</span></label>
+            <button id="paper-print" type="button" class="primary">Print the file as codes</button>
+            <p id="paper-code" class="typed-code" hidden></p>
+            <p id="paper-note" class="hint-note" role="status"></p>
+            <button id="paper-code-hide" type="button" class="secondary" hidden>Hide the code</button>
+          </details>
+          <details id="serial-send-box" class="card-setup">
+            <summary>No camera on either side? Send over a serial cable</summary>
+            <p>Connect this PC's serial port to the receiving computer's. With a cable that carries only this PC's transmit
+            line, nothing can travel back: a low-cost one-way link. On the receiver choose <strong>Receive → Serial cable</strong>,
+            type its code above (or load its receiver card), and use the same speed on both sides.
+            <a href="/serial-data-diode.html">Wiring and speeds</a></p>
+            <label>Speed <select id="serial-baud"><option value="115200" selected>115,200 baud (~11 KB/s)</option><option value="230400">230,400 baud (~22 KB/s)</option><option value="460800">460,800 baud (~45 KB/s)</option><option value="921600">921,600 baud (~90 KB/s)</option><option value="1500000">1,500,000 baud (experimental)</option><option value="3000000">3,000,000 baud (experimental)</option></select></label>
+            <button id="serial-send" type="button" class="primary">Choose the serial port and send</button>
+            <button id="serial-more" type="button" class="secondary" hidden>Send more of the same transfer</button>
+            <button id="serial-stop" type="button" class="secondary" hidden>Stop sending</button>
+            <details id="watch-box" class="card-setup">
+              <summary>Unattended: watch a folder and send every new file</summary>
+              <p>For logs, reports or recipes that appear in a folder on this PC. Each new or changed file is encrypted
+              to the receiving computer's card, signed and sent over the cable; the receiver keeps listening and writes each
+              file with its receipt into its own folder. Needs the receiver card (below) and Chrome or Edge.</p>
+              <label class="check-line"><input type="checkbox" id="watch-existing" />
+                <span>Also send the files that are already in the folder</span></label>
+              <button id="watch-folder" type="button" class="secondary">Choose the folder to watch</button>
+              <button id="watch-start" type="button" class="primary" hidden>Choose the serial port and start</button>
+              <button id="watch-stop" type="button" class="secondary" hidden>Stop watching</button>
+              <p id="watch-status" class="hint-note" role="status"></p>
+            </details>
+          </details>
+          <details id="card-setup" class="card-setup">
+            <summary>Same receiver every time? Use a receiver card instead of a code</summary>
+            <p>Create the card once on the receiver (<strong>Receive → Receiver card</strong>) and load it here. To change receivers, remove the card or load a different one.</p>
+            <label class="file"><input type="file" id="card-file" accept=".json,application/json" /><span>Load receiver card</span></label>
+            <p id="card-status" class="hint-note" role="status"></p>
+            <button id="oneway-send" type="button" class="primary" hidden>Send without camera</button>
+            <button id="card-forget" type="button" class="secondary" hidden>Remove receiver card</button>
+          </details>
+        </div>
+      </div>
+      <p class="flash-note" role="note">⚠ Sending shows rapidly flashing images. If you or anyone nearby has
+      photosensitive epilepsy, do not look at the screen while it sends.</p>
+      <div class="split" id="send-stage">
+        <p id="film-countdown" class="film-countdown" role="status" hidden></p>
+        <canvas id="qr" class="stage" width="900" height="900" hidden></canvas>
+        <video id="send-video" class="stage" playsinline muted hidden></video>
+      </div>
+      <div id="send-sas" class="sas" hidden></div>
+      <button id="send-confirm" class="primary" hidden>Codes match — start transfer</button>
+      <div class="send-controls">
+        <button id="send-fullscreen" type="button" class="secondary" hidden>Full screen — easier to read</button>
+        <button id="send-restart" type="button" class="secondary" hidden>Start over — missed the start of filming</button>
+        <button id="send-stop" type="button" class="secondary" hidden>Stop sending</button>
+        <button id="send-again" type="button" class="secondary" hidden>Send again — same code, no retyping</button>
+      </div>
+      <p id="send-timer" class="op-timer" hidden></p>
+      <div id="send-stats" class="stats">Choose a file to begin.</div>
+      <button id="receipt-scan" hidden>Scan the delivery receipt when the receiver finishes</button>
+      <button id="receipt-listen" type="button" hidden>Listen for the delivery receipt</button>
+      <button id="receipt-unlisten" type="button" class="secondary" hidden>Stop listening</button>
+      <p id="receipt-listen-status" class="hint-note" role="status" hidden></p>
+      <div id="dispatch-result"></div>
+    </section>
+
+    <section id="recv" hidden>
+      <p class="role-banner" aria-live="polite">↓ This device is RECEIVING</p>
+      <div class="flow-steps">
+        <p class="mode-q">What to do, step by step</p>
+        <ol id="recv-steps" class="flow-list" aria-live="polite"></ol>
+      </div>
+      <div class="mode-picker">
+        <p class="mode-q">1 · How are the two devices connected?</p>
+        <div class="mode-row" role="group" aria-label="Connection">
+          <button type="button" class="mode" data-pair="camera" aria-pressed="true">Sender has a camera — scan both ways</button>
+          <button type="button" class="mode" data-pair="code" aria-pressed="false">Sender has no camera — show a code</button>
+          <button type="button" class="mode" data-pair="card" aria-pressed="false">Fixed PC — receiver card</button>
+          <button type="button" class="mode" data-pair="paper" aria-pressed="false">Printed pages</button>
+        </div>
+      <div id="pair-code-panel" class="mode-body" hidden>
+        <p>Type this one-time code on the sending PC, under "This PC has no camera?".</p>
+        <button id="code-show" type="button">Show a code</button>
+        <p id="code-display" class="typed-code" hidden></p>
+        <p class="hint-note">The sending PC has a microphone? Skip the typing: press <strong>Listen for the receiver</strong> there, then:</p>
+        <button id="sound-play" type="button" class="secondary">Pair by sound</button>
+        <button id="sound-stop" type="button" class="secondary" hidden>Stop the sound</button>
+        <p id="sound-note" class="hint-note" role="status" hidden></p>
+      </div>
+      <div id="pair-paper-panel" class="mode-body" hidden>
+        <p>For pages printed with Kionel. Enter the code that was shown when they were printed (or that is printed on them),
+        then point this camera at the pages, one at a time, in any order.</p>
+        <label>Code <input id="code-enter" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="XXXX-XXXX-XXXX" /></label>
+        <button id="code-use" type="button" class="primary">Use this code</button>
+      </div>
+      <div id="card-panel" class="mode-body" hidden>
+        <p>A one-time setup for instrument PCs without a camera. The card holds this device's public keys; load it
+        on the sender once, through a route your lab trusts. After that the sender shows codes and this device
+        reads them — no reply, and no code comparison.</p>
+        <p>What you give up: the card's key is long-lived, so the forward secrecy of the two-way transfer does not
+        apply, and the protection rests on the card having been installed on the right sender.</p>
+        <label>Name of this receiving device
+          <input id="card-label" maxlength="120" placeholder="e.g. QC lab tablet" />
+        </label>
+        <button id="card-create" type="button">Create and download receiver card</button>
+        <button id="card-retire" type="button" class="secondary">Retire this device's card key</button>
+        <p class="hint-note">Retire the key if a sending PC is lost or should no longer send here: every card made
+        so far stops working. Then create a new card and load it on the PCs that should keep sending.</p>
+        <p id="card-note" class="hint-note" role="status"></p>
+      </div>
+        <p class="mode-q" id="read-question">2 · How will this device read the sender's screen?</p>
+        <div class="mode-row" role="group" aria-label="Reading method">
+          <button type="button" class="mode" data-read="live" aria-pressed="true">Live camera</button>
+          <button type="button" class="mode" data-read="record" aria-pressed="false">Record the screen now</button>
+          <button type="button" class="mode" data-read="file" aria-pressed="false">Open a recording</button>
+          <button type="button" class="mode" data-read="serial" aria-pressed="false">Serial cable</button>
+        </div>
+      <div id="read-record-panel" class="mode-body" hidden>
+        <p>Film the sending screen with this device's camera app, then Kionel reads the video. You do not have to hold still, and if the video ends too early, record again — what was collected is kept.</p>
+        <p id="record-need" class="record-plan" hidden></p>
+        <label class="file"><input type="file" id="record-capture" accept="video/*" capture="environment" /><span>Record the screen now</span></label>
+        <p class="hint-note">Film at 1080p and 30 fps. Keep the whole sending screen in the picture, in focus, without glare.
+          To read the video on another device, copy the original by cable or Quick Share, or send it as a document:
+          messaging apps compress videos and the codes become unreadable.</p>
+      </div>
+      <div id="read-file-panel" class="mode-body" hidden>
+        <p>Already filmed the sending screen? Open the video here — now or later, on this device. If it was filmed on a phone, copy the original by cable or Quick Share (or send it as a document): messaging apps shrink videos until the codes cannot be read.</p>
+        <label>Code used for this recording or these pages <small>(only if this page was reloaded since)</small>
+          <input id="recording-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="XXXX-XXXX-XXXX" />
+        </label>
+        <label class="file"><input type="file" id="record-open" accept="video/*" /><span>Open a recording</span></label>
+        <label class="file"><input type="file" id="pages-open" accept="image/*" multiple /><span>Open photos or scans of printed pages</span></label>
+      </div>
+      <div id="read-serial-panel" class="mode-body" hidden>
+        <p>For a sending PC connected to this computer by a serial cable (RS-232 or a USB serial adapter). The data arrives
+        without a camera or a screen, and a one-way cable lets nothing go back. <a href="/serial-data-diode.html">Wiring and speeds</a></p>
+        <label>Speed, the same as on the sender <select id="recv-serial-baud"><option value="115200" selected>115,200 baud (~11 KB/s)</option><option value="230400">230,400 baud (~22 KB/s)</option><option value="460800">460,800 baud (~45 KB/s)</option><option value="921600">921,600 baud (~90 KB/s)</option><option value="1500000">1,500,000 baud (experimental)</option><option value="3000000">3,000,000 baud (experimental)</option></select></label>
+        <label class="check-line"><input type="checkbox" id="serial-keep" />
+          <span><strong>Keep listening after each file.</strong> For a sender that watches a folder: every file is received,
+          checked and, with a folder chosen below, saved with its receipt, unattended.</span></label>
+        <button id="serial-listen" type="button" class="primary">Choose the serial port and listen</button>
+        <button id="serial-unlisten" type="button" class="secondary" hidden>Stop listening</button>
+      </div>
+      <video id="rec-video" class="stage" playsinline muted hidden></video>
+      <p id="rec-progress" class="stats" hidden></p>
+        <div class="flow-guide" id="recv-flow" aria-live="polite">
+          <div class="fg-diagram" aria-hidden="true">
+            <div class="fg-screen"><span class="fg-code"></span><small>sender screen</small></div>
+            <div class="fg-path"><i></i><i></i><i></i></div>
+            <div class="fg-phone"><span class="fg-lens"></span><small class="fg-phone-label">receiving device</small></div>
+          </div>
+          <ul class="fg-compat"></ul>
+        </div>
+        <div id="recv-story"></div>
+        <p id="mode-summary" class="mode-summary"></p>
+      </div>
+      <div id="carried" class="save-folder">
+        <p class="mode-q">The file came on a USB stick or by another route?</p>
+        <p id="carried-note" class="hint-note">Add the sealed record that was made on the sending PC (<code>.seal.json</code>), or scan its seal code with this
+          camera. Then add the file itself: this device checks it against the record and signs the delivery receipt.</p>
+        <label class="file"><input type="file" id="carried-seal" accept=".json,application/json" /><span>1 · Add the sealed record</span></label>
+        <label class="file" id="carried-file-row" hidden><input type="file" id="carried-file" /><span>2 · Add the file that arrived</span></label>
+      </div>
+      <div id="trusted-senders" class="save-folder">
+        <p id="senders-status" class="hint-note">This device accepts files from any sender and records which key signed each one. After a delivery you can choose to accept only that sender.</p>
+        <button id="senders-clear" type="button" class="secondary" hidden>Accept any sender again</button>
+      </div>
+      <div id="save-folder" class="save-folder">
+        <button id="folder-choose" type="button" class="secondary">Save received files to a folder…</button>
+        <button id="folder-clear" type="button" class="secondary" hidden>Stop saving to this folder</button>
+        <p id="folder-status" class="hint-note">Each received file and its signed receipt are written straight into a
+          folder you choose, for example one your LIMS or data system already watches.</p>
+        <div id="folder-naming">
+          <label>File names in the folder
+            <input id="folder-template" maxlength="120" spellcheck="false" autocomplete="off" placeholder="{name}" />
+          </label>
+          <p id="folder-template-note" class="hint-note">Leave empty to keep the sender's file name. Fields:
+            <code>{name}</code> <code>{workorder}</code> <code>{class}</code> <code>{operator}</code> <code>{date}</code> <code>{time}</code>,
+            taken from the signed record. The extension is kept, a field that is empty is left out, and the receipt is named after the file.</p>
+        </div>
+        <label class="check-line"><input type="checkbox" id="tsa-enabled" /> Add a trusted timestamp to each receipt (DigiCert)</label>
+        <p id="tsa-note" class="hint-note">An independent authority confirms when the receipt existed. Only the receipt's fingerprint
+          (SHA-256) is sent, through kionel.com, to DigiCert's timestamp service; the file never leaves this device.
+          Needs internet on this device.</p>
+      </div>
+      <div class="split">
+        <canvas id="offer-qr" class="stage" width="900" height="900"></canvas>
+        <video id="recv-video" class="stage" playsinline muted></video>
+      </div>
+      <div id="recv-sas" class="sas" hidden></div>
+      <button id="recv-confirm" class="primary" hidden>Codes match — accept data</button>
+      <button id="receipt-play" type="button" hidden>Play the delivery receipt as sound</button>
+      <button id="receipt-stop" type="button" class="secondary" hidden>Stop the sound</button>
+      <p id="receipt-note" class="hint-note" role="status" hidden></p>
+      <div class="progress"><div id="bar"></div></div>
+      <label class="camera-pick"><span>Camera</span><select id="recv-camera" hidden aria-label="Receiver camera"></select></label>
+      <button id="recv-pause" hidden>Turn camera off</button>
+      <p id="recv-timer" class="op-timer" hidden></p>
+      <div id="recv-stats" class="stats">Preparing receiver…</div>
+      <div id="result"></div>
+    </section>
+
+    <details id="transfer-log" class="transfer-log">
+      <summary>Transfer log and periodic review</summary>
+      <p class="hint-note">Every file this device sent, received or sealed, kept in this browser with its signed
+        record. Export it for your audit-trail review, or print a review report for your quality unit.</p>
+      <div class="log-range">
+        <label>From <input type="date" id="log-from" /></label>
+        <label>To <input type="date" id="log-to" /></label>
+      </div>
+      <p id="log-summary" class="hint-note"></p>
+      <button id="log-csv" type="button" class="secondary">Export CSV</button>
+      <button id="log-report" type="button" class="secondary">Print review report</button>
+      <button id="log-json" type="button" class="secondary">Download signed records (JSON)</button>
+    </details>
+    <p id="build-id" class="build-id"></p>
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>

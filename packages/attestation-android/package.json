@@ -1,0 +1,13 @@
+{
+  "name": "@kionel/attestation-android",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./trust-material": "./src/trust-material.ts"
+  },
+  "dependencies": {
+    "@kionel/attestation-core": "workspace:*",
+    "@kionel/platform-keys": "workspace:*"
+  }
+}
