@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Güvenlik (16 Kasım 2026): iletişim ve zaman damgası gövdelerine akış sırasında
+  bayt sınırı, iletişim formuna ayrıştırma öncesi hız kontrolü ve atomik D1 kotası
+  eklendi. Eşzamanlı istekler artık mesaj kotasını aşamıyor.
+- Vite 6.4.6, Vitest 4.1.12 ve undici 7.30.2'ye güncellendi; kaldırılmış ödeme
+  bağımlılıkları lockfile'dan temizlendi. CI/release Node sürümü 22.23.5 oldu.
+- Android CI için Ubuntu 24.04 ve açık SDK yolu seçildi; Java kurulum action'ı
+  güncellendi. Git geçmişinde sır sızıntısını denetleyen, checksum ile sabitlenmiş
+  Gitleaks kontrolü eklendi; yalnız incelenmiş tarihsel test verileri istisna.
+
 - Ticari modele sürdürülebilirlik bölümü eklendi: tek seferlik satışın gelir tavanı,
   güven malzemesinin gerçekten süreli olması (kök rotasyonu, iptal listesi tazeliği,
   cihaz matrisi tazelemesi) ve aboneliğin bitmesi hâlinde yazılımın çalışmaya devam

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseContact, saveContact } from "./contact.ts";
-import type { CommerceEnv } from "./worker.ts";
+import type { SiteEnv } from "./worker.ts";
 
 /** Sadece bu testin ihtiyaç duyduğu kadar D1. */
 function fakeDb(rows: { count: number } = { count: 0 }) {
@@ -12,14 +12,18 @@ function fakeDb(rows: { count: number } = { count: 0 }) {
         return {
           bind(...args: unknown[]) {
             return {
-              first: async () => (sql.startsWith("SELECT") ? rows : null),
-              run: async () => { inserted.push(args); return { success: true }; },
+              run: async () => {
+                if (rows.count >= 3) return { success: true, meta: { changes: 0 } };
+                inserted.push(args);
+                rows.count++;
+                return { success: true, meta: { changes: 1 } };
+              },
             };
           },
         };
       },
     },
-  } as unknown as CommerceEnv;
+  } as unknown as SiteEnv;
   return { env, inserted };
 }
 
@@ -52,7 +56,7 @@ describe("iletişim formu", () => {
 
   it("bot tuzağı dolduğunda sessizce yutar", async () => {
     const { env, inserted } = fakeDb();
-    const trapped = { ...(parseContact(VALID) as never), website: "http://spam.example" };
+    const trapped = { ...VALID, website: "http://spam.example" };
     expect(await saveContact(env, trapped, "203.0.113.9")).toEqual({ ok: true });
     // Bota "yakalandın" demek onu daha iyi denemeye iter; başarılı görünüp
     // hiçbir şey yazmamak daha ucuz.

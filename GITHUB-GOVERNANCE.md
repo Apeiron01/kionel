@@ -8,7 +8,7 @@ Uzak depo oluşturulduktan ve ilk CI koşuları göründükten sonra `main` içi
 - Pull request zorunlu; en az 1 bağımsız onay ve eski onayları yeni commit'te düşürme.
 - Konuşmalar çözülmeden merge yok; lineer geçmiş zorunlu.
 - İmzalı commit zorunlu. Bot/Dependabot imzalarının GitHub tarafından `Verified` görülmesi gerekir.
-- Zorunlu kontroller: `verify`, `codeql`, `fuzz-smoke`.
+- Zorunlu kontroller: `verify`, `codeql`, `fuzz-smoke`, `secret-scan`.
 - Branch güncel olmadan merge yok; yönetici bypass yalnız belgelenmiş acil durum prosedürüyle.
 - `v*` tag'leri silinemez/değiştirilemez ve yalnız release sorumlusu oluşturabilir.
 

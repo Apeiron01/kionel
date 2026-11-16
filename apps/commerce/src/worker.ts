@@ -8,6 +8,7 @@
  */
 import type { Response as WorkerResponse } from "@cloudflare/workers-types";
 import { parseContact, saveContact } from "./contact.ts";
+import { BodyTooLargeError, readBoundedBody } from "./body.ts";
 
 export type SiteEnv = Env;
 // Worker'ın kendi ürettiği yanıtlar _headers'tan geçmez; HSTS burada da olmalı
@@ -32,7 +33,7 @@ async function timestamp(request: Request, env: SiteEnv): Promise<Response> {
     return json({ error: "Too many timestamp requests. Try again in a minute." }, 429);
   }
   if (request.headers.get("Content-Type") !== "application/timestamp-query") return json({ error: "Expected a timestamp query" }, 415);
-  const body = new Uint8Array(await request.arrayBuffer());
+  const body = await readBoundedBody(request, 256);
   // TimeStampReq: SEQUENCE, SHA-256 OID'i taşır, küçük. Başka her şey reddedilir.
   const sha256Oid = [0x06, 0x09, 0x60, 0x86, 0x48, 0x01, 0x65, 0x03, 0x04, 0x02, 0x01];
   const hasOid = body.some((_, i) => sha256Oid.every((byte, j) => body[i + j] === byte));
@@ -41,9 +42,17 @@ async function timestamp(request: Request, env: SiteEnv): Promise<Response> {
     method: "POST", headers: { "Content-Type": "application/timestamp-query" }, body, signal: AbortSignal.timeout(10_000),
   });
   if (!reply.ok || reply.headers.get("Content-Type") !== "application/timestamp-reply") {
+    await reply.body?.cancel();
     return json({ error: "The timestamp authority did not answer. Try again later." }, 502);
   }
-  return new Response(await reply.arrayBuffer(), {
+  let token: Uint8Array<ArrayBuffer>;
+  try {
+    token = await readBoundedBody(reply, 64 * 1024);
+  } catch (error) {
+    if (error instanceof BodyTooLargeError) return json({ error: "The timestamp authority returned an oversized reply." }, 502);
+    throw error;
+  }
+  return new Response(token, {
     headers: { "Content-Type": "application/timestamp-reply", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Strict-Transport-Security": HSTS },
   });
 }
@@ -71,11 +80,20 @@ export default {
       if (path === "/") return new Response(null, { status: 302, headers: { Location: "/index.html", "Cache-Control": "no-store", "Strict-Transport-Security": HSTS } });
       if (path === "/api/timestamp" && request.method === "POST") return await timestamp(request, env);
       if (path === "/api/contact" && request.method === "POST") {
-        const parsed = parseContact(await request.json().catch(() => null));
-        if ("error" in parsed) return json({ error: parsed.error }, 400);
         // Cloudflare gerçek istemci IP'sini bu başlıkta verir; yoksa hız sınırı
         // tek bir kovaya düşer ve formu herkes için sıkılaştırır — açık kalmasından iyidir.
         const ip = request.headers.get("CF-Connecting-IP") ?? "unknown";
+        if (!(await env.RATE_LIMITER.limit({ key: `contact:${ip}` })).success) {
+          return json({ error: "Too many requests. Please try again later." }, 429);
+        }
+        if (request.headers.get("Content-Type")?.split(";")[0]?.trim().toLowerCase() !== "application/json") {
+          return json({ error: "Expected JSON" }, 415);
+        }
+        const body = await readBoundedBody(request, 32 * 1024);
+        let input: unknown;
+        try { input = JSON.parse(new TextDecoder().decode(body)); } catch { return json({ error: "Invalid JSON" }, 400); }
+        const parsed = parseContact(input);
+        if ("error" in parsed) return json({ error: parsed.error }, 400);
         const saved = await saveContact(env, parsed, ip);
         if (!saved.ok) return json({ error: saved.error }, saved.status);
         return json({ ok: true });
@@ -84,6 +102,7 @@ export default {
       if (!["GET", "HEAD"].includes(request.method)) return json({ error: "Method not allowed" }, 405);
       return await env.ASSETS.fetch(request.url, { method: request.method, headers: Object.fromEntries(request.headers) });
     } catch (error) {
+      if (error instanceof BodyTooLargeError) return json({ error: "Request body too large" }, 413);
       // Type only: enough to tell failures apart without writing anything a support transcript should not contain.
       console.error(JSON.stringify({ event: "site_request_failed", path, requestId: crypto.randomUUID(),
         kind: error instanceof Error ? error.name : typeof error }));
