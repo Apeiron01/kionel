@@ -18,8 +18,8 @@ importers:
         specifier: ^5.20260908.1
         version: 5.20260908.1
       '@types/node':
-        specifier: ^22.10.2
-        version: 22.20.1
+        specifier: ^26.6.6
+        version: 26.6.6
       esbuild:
         specifier: 0.25.12
         version: 0.25.12
@@ -28,10 +28,10 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.1.12
-        version: 4.1.12(@types/node@22.20.1)(vite@6.4.6(@types/node@22.20.1))
+        version: 4.1.12(@types/node@26.6.6)(vite@6.4.6(@types/node@26.6.6))
       wrangler:
         specifier: ^4.130.0
-        version: 4.130.0(@cloudflare/workers-types@5.20260908.1)(@types/node@22.20.1)
+        version: 4.130.0(@cloudflare/workers-types@5.20260908.1)(@types/node@26.6.6)
 
   apps/android:
     dependencies:
@@ -167,10 +167,10 @@ importers:
         version: 1.5.6
       '@vitejs/plugin-basic-ssl':
         specifier: ^1.2.0
-        version: 1.2.0(vite@6.4.6(@types/node@22.20.1))
+        version: 1.2.0(vite@6.4.6(@types/node@26.6.6))
       vite:
         specifier: ^6.4.6
-        version: 6.4.6(@types/node@22.20.1)
+        version: 6.4.6(@types/node@26.6.6)
 
   apps/windows:
     dependencies:
@@ -1171,6 +1171,9 @@ packages:
   '@types/node@22.20.1':
     resolution: {integrity: sha512-EANqOCF9QFyra+4pfxUcX9STKJpCLjMbObVzljIJomAWSnuSIEAvyzEU53GaajbXJEgdh0iEcPL+DGvpUd4k1Q==}
 
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
+
   '@types/qrcode@1.5.6':
     resolution: {integrity: sha512-te7NQcV2BOvdj2b1hCAHzAoMNuj65kNBMz0KBaxM6c3VGBOhU0dURQKOtH8CFNI/dsKkwlv32p26qYQTWoB5bw==}
 
@@ -1666,6 +1669,9 @@ packages:
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   undici@7.30.2:
     resolution: {integrity: sha512-mLyPQnHwUxaM/rideoK/+KL8DaAJLRl4aBCfmX444aCSLnIaomqPLtNRe2jdCYcsk5wZzXrDIQC8ZeYNRAYyIA==}
@@ -2440,13 +2446,17 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@26.6.6':
+    dependencies:
+      undici-types: 8.9.0
+
   '@types/qrcode@1.5.6':
     dependencies:
       '@types/node': 22.20.1
 
-  '@vitejs/plugin-basic-ssl@1.2.0(vite@6.4.6(@types/node@22.20.1))':
+  '@vitejs/plugin-basic-ssl@1.2.0(vite@6.4.6(@types/node@26.6.6))':
     dependencies:
-      vite: 6.4.6(@types/node@22.20.1)
+      vite: 6.4.6(@types/node@26.6.6)
 
   '@vitest/expect@4.1.12':
     dependencies:
@@ -2457,13 +2467,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.12(vite@6.4.6(@types/node@22.20.1))':
+  '@vitest/mocker@4.1.12(vite@6.4.6(@types/node@26.6.6))':
     dependencies:
       '@vitest/spy': 4.1.12
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 6.4.6(@types/node@22.20.1)
+      vite: 6.4.6(@types/node@26.6.6)
 
   '@vitest/pretty-format@4.1.12':
     dependencies:
@@ -2746,10 +2756,10 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
-  miniflare@5.20260908.0-alpha(@types/node@22.20.1):
+  miniflare@5.20260908.0-alpha(@types/node@26.6.6):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
-      sharp: 0.35.5(@types/node@22.20.1)
+      sharp: 0.35.5(@types/node@26.6.6)
       undici: 7.30.2
       workerd: 1.20260908.1
       ws: 8.21.0
@@ -2870,7 +2880,7 @@ snapshots:
 
   set-blocking@2.0.0: {}
 
-  sharp@0.35.5(@types/node@22.20.1):
+  sharp@0.35.5(@types/node@26.6.6):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -2901,7 +2911,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.5
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
-      '@types/node': 22.20.1
+      '@types/node': 26.6.6
 
   siginfo@2.0.0: {}
 
@@ -2974,6 +2984,8 @@ snapshots:
 
   undici-types@6.21.0: {}
 
+  undici-types@8.9.0: {}
+
   undici@7.30.2: {}
 
   unenv@2.0.0-rc.24:
@@ -2990,7 +3002,7 @@ snapshots:
 
   url-join@4.0.1: {}
 
-  vite@6.4.6(@types/node@22.20.1):
+  vite@6.4.6(@types/node@26.6.6):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.5)
@@ -2999,13 +3011,13 @@ snapshots:
       rollup: 4.62.4
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.6.6
       fsevents: 2.3.3
 
-  vitest@4.1.12(@types/node@22.20.1)(vite@6.4.6(@types/node@22.20.1)):
+  vitest@4.1.12(@types/node@26.6.6)(vite@6.4.6(@types/node@26.6.6)):
     dependencies:
       '@vitest/expect': 4.1.12
-      '@vitest/mocker': 4.1.12(vite@6.4.6(@types/node@22.20.1))
+      '@vitest/mocker': 4.1.12(vite@6.4.6(@types/node@26.6.6))
       '@vitest/pretty-format': 4.1.12
       '@vitest/runner': 4.1.12
       '@vitest/snapshot': 4.1.12
@@ -3022,10 +3034,10 @@ snapshots:
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 6.4.6(@types/node@22.20.1)
+      vite: 6.4.6(@types/node@26.6.6)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.20.1
+      '@types/node': 26.6.6
     transitivePeerDependencies:
       - msw
 
@@ -3048,13 +3060,13 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260908.1
       '@cloudflare/workerd-windows-64': 1.20260908.1
 
-  wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)(@types/node@22.20.1):
+  wrangler@4.130.0(@cloudflare/workers-types@5.20260908.1)(@types/node@26.6.6):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.5.0
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260908.1)
       blake3-wasm: 2.1.5
       esbuild: 0.28.1
-      miniflare: 5.20260908.0-alpha(@types/node@22.20.1)
+      miniflare: 5.20260908.0-alpha(@types/node@26.6.6)
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.24
       workerd: 1.20260908.1
