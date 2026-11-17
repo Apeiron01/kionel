@@ -11,7 +11,9 @@ node tools/e2e/<script>.mjs <scratch-dir> https://localhost:4173 <path/to/licens
 ```
 
 - `<scratch-dir>`: a Windows path (`pwd -W`) for temporary files and Chrome profiles.
-- `e2e-free.mjs` needs no licence. `e2e-offline.mjs` and `e2e-filecam.mjs` take the
+- `e2e-free.mjs` checks the open-source edition without a licence: protocol size
+  limits, recording/card modes, signed dispatch and starting/stopping transmission.
+  `e2e-offline.mjs` and `e2e-filecam.mjs` take the
   offline package's `file:///…/kionel-offline-<version>.html` instead of the URL.
 - `e2e-tsa.mjs` forwards the app's timestamp request to timestamp.digicert.com
   (only a SHA-256 fingerprint leaves the machine).

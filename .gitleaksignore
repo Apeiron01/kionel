@@ -1,0 +1,20 @@
+# Reviewed on 2026-11-16: 13 synthetic fixture private keys, 3 example tokens,
+# and one localStorage key name from the initial public commit.
+# Exact historical fingerprints only; new findings are NOT excluded by path.
+6012ac6c89f991051db6fddf0e772a2907db190d:apps/web/src/qr-inspect.test.ts:generic-api-key:18
+6012ac6c89f991051db6fddf0e772a2907db190d:apps/web/src/qr-inspect.test.ts:generic-api-key:20
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-apple/test-fixtures/rogue-root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-apple/test-fixtures/root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-windows/test-fixtures/aik.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-android/test-fixtures/leaf.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-android/test-fixtures/root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-android/test-fixtures/rogue-root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-apple/test-fixtures/leaf.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-windows/test-fixtures/rogue-aik.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-windows/test-fixtures/rogue-root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/attestation-windows/test-fixtures/root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:apps/web/src/app.ts:generic-api-key:547
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/timestamp/test-fixtures/tsa.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/timestamp/test-fixtures/root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:packages/timestamp/test-fixtures/rogue-root.key:private-key:1
+6012ac6c89f991051db6fddf0e772a2907db190d:tools/e2e/e2e-qrcheck.mjs:generic-api-key:16

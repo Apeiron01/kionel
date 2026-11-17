@@ -91,16 +91,12 @@ export async function saveContact(
   const sourceHash = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
 
   const since = new Date(now.getTime() - WINDOW_MINUTES * 60_000).toISOString();
-  const recent = await env.DB.prepare(
-    "SELECT COUNT(*) AS count FROM contact_messages WHERE source_hash = ? AND created_at > ?",
-  ).bind(sourceHash, since).first<{ count: number }>();
-
-  if ((recent?.count ?? 0) >= MAX_PER_WINDOW) {
-    return { ok: false, status: 429, error: "Too many messages sent. Please try again later." };
-  }
-
-  await env.DB.prepare(
-    "INSERT INTO contact_messages (id, name, email, organisation, message, source_hash, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+  // D1 serializes writes. Check the quota and insert in ONE statement so
+  // concurrent requests cannot all observe the same old count and pass.
+  const result = await env.DB.prepare(
+    `INSERT INTO contact_messages (id, name, email, organisation, message, source_hash, created_at)
+     SELECT ?, ?, ?, ?, ?, ?, ?
+     WHERE (SELECT COUNT(*) FROM contact_messages WHERE source_hash = ? AND created_at > ?) < ?`,
   ).bind(
     crypto.randomUUID(),
     input.name,
@@ -109,7 +105,14 @@ export async function saveContact(
     input.message,
     sourceHash,
     now.toISOString(),
+    sourceHash,
+    since,
+    MAX_PER_WINDOW,
   ).run();
-
+  if (!result.success) throw new Error("Contact write failed");
+  if (result.meta.changes === 0) {
+    return { ok: false, status: 429, error: "Too many messages sent. Please try again later." };
+  }
+  if (result.meta.changes !== 1) throw new Error("Unexpected contact write result");
   return { ok: true };
 }

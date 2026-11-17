@@ -19,15 +19,12 @@
  *   pnpm verify receipt.json <dosya>              # herkes: çevrimdışı doğrula
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { join, resolve } from "node:path";
 import {
   ENDORSEMENT_ROLES,
   ROLE_LABELS,
-  createIdentity,
-  exportIdentity,
-  importIdentity,
   verifyDispatch,
   verifyEndorsements,
   verifyReceipt,
@@ -40,6 +37,7 @@ import {
 import { endorse, issueDispatch, issueReceipt } from "@kionel/issue";
 import { drawFrameToPng } from "./qr-png.ts";
 import { requireProductionLicense } from "./license-access.ts";
+import { loadOrCreateIdentity } from "./identity.ts";
 
 const DEFAULT_IDENTITY = join(homedir(), ".kionel", "identity.json");
 
@@ -65,12 +63,11 @@ function die(message: string): never {
  * donanım kasası kullanmalı, bu araç operasyonel kanıt içindir.
  */
 async function loadIdentity(path: string): Promise<Identity> {
-  if (existsSync(path)) return importIdentity(JSON.parse(readFileSync(path, "utf8")) as JsonWebKey);
-  const identity = await createIdentity();
-  mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, JSON.stringify(await exportIdentity(identity), null, 2), { mode: 0o600 });
-  console.log(`Yeni kimlik oluşturuldu: ${path}`);
-  console.log("  Bu dosya özel anahtar taşır. Okuyabilen herkes sizin adınıza imza atabilir.");
+  const { identity, created } = await loadOrCreateIdentity(path);
+  if (created) {
+    console.log(`Yeni kimlik oluşturuldu: ${path}`);
+    console.log("  Bu dosya özel anahtar taşır. Okuyabilen herkes sizin adınıza imza atabilir.");
+  }
   return identity;
 }
 
