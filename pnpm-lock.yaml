@@ -257,8 +257,8 @@ importers:
         specifier: 0.25.12
         version: 0.25.12
       zxing-wasm:
-        specifier: ^2.1.0
-        version: 2.2.4(@types/emscripten@1.41.5)
+        specifier: ^3.1.6
+        version: 3.1.6(@types/emscripten@1.41.5)
 
   packages/control-plane: {}
 
@@ -371,8 +371,8 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       zxing-wasm:
-        specifier: ^2.1.0
-        version: 2.2.4(@types/emscripten@1.41.5)
+        specifier: ^3.1.6
+        version: 3.1.6(@types/emscripten@1.41.5)
     devDependencies:
       '@types/qrcode':
         specifier: ^1.5.5
@@ -1655,8 +1655,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  type-fest@5.8.0:
-    resolution: {integrity: sha512-YGYEVz3Fm5iy/AybuA0oyNFq7H4CgQNfRp/qfe8nurE1kuCeNm3/vfm9X4Mtl+qLyaKJUh5xrFZwogr41SMjYA==}
+  type-fest@5.10.0:
+    resolution: {integrity: sha512-NoSdpq/WEiAg5sjmBkmV/hfxv6HJH4NqPNrqjtSO5CwRmpsDfaf4begxW34KdJykH/l1yHtwBWQkCRdoXO8mPA==}
     engines: {node: '>=20'}
 
   typescript@5.9.3:
@@ -1852,8 +1852,8 @@ packages:
   youch@4.1.0-beta.10:
     resolution: {integrity: sha512-rLfVLB4FgQneDr0dv1oddCVZmKjcJ6yX6mS4pU82Mq/Dt9a3cLZQ62pDBL4AUO+uVrCvtWz3ZFUL2HFAFJ/BXQ==}
 
-  zxing-wasm@2.2.4:
-    resolution: {integrity: sha512-1gq5zs4wuNTs5umWLypzNNeuJoluFvwmvjiiT3L9z/TMlVveeJRWy7h90xyUqCe+Qq0zL0w7o5zkdDMWDr9aZA==}
+  zxing-wasm@3.1.6:
+    resolution: {integrity: sha512-mU7UNuvl+hOT+nlSOQTMHZ2tM8lRMsbjDIp5IO/+HmBl/FOq77q0OSZPJ3cm42A9c1MKU6Uve67FiGdkhsrT9g==}
     peerDependencies:
       '@types/emscripten': '>=1.39.6'
 
@@ -2966,7 +2966,7 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
-  type-fest@5.8.0:
+  type-fest@5.10.0:
     dependencies:
       tagged-tag: 1.0.0
 
@@ -3132,7 +3132,7 @@ snapshots:
       cookie: 1.1.1
       youch-core: 0.3.3
 
-  zxing-wasm@2.2.4(@types/emscripten@1.41.5):
+  zxing-wasm@3.1.6(@types/emscripten@1.41.5):
     dependencies:
       '@types/emscripten': 1.41.5
-      type-fest: 5.8.0
+      type-fest: 5.10.0
