@@ -5,7 +5,10 @@ Uzak depo oluşturulduktan ve ilk CI koşuları göründükten sonra `main` içi
 ## Zorunlu main kuralları
 
 - Doğrudan push ve force-push kapalı; silme ve branch yeniden adlandırma kapalı.
-- Pull request zorunlu; en az 1 bağımsız onay ve eski onayları yeni commit'te düşürme.
+- Pull request zorunlu. Tek bakımcılı depoda ikinci bir yetkili inceleyen bulunana
+  kadar bağımsız onay sayısı 0; aşağıdaki başarılı kontroller yönetici dahil zorunlu.
+  İkinci yetkili inceleyen eklendiğinde en az 1 bağımsız onay şartı etkinleştirilir.
+  Verilmiş onaylar yeni commit'te düşürülür.
 - Konuşmalar çözülmeden merge yok; lineer geçmiş zorunlu.
 - İmzalı commit zorunlu. Bot/Dependabot imzalarının GitHub tarafından `Verified` görülmesi gerekir.
 - Zorunlu kontroller: `verify`, `codeql`, `fuzz-smoke`, `secret-scan`.
